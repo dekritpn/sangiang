@@ -504,90 +504,70 @@ PANDUAN PENERJEMAHAN INDONESIA -> SANGIHE:
 
 export const VERIFIED_CONVERSATIONAL_SANGIHE_BANK = `
 ===========================================================================
-KAMUS INTI & KALIMAT PERCAKAPAN SANGIHE TERVERIFIKASI (100% ASLI KAMUS)
+KAMUS INTI & PANDUAN PERCAKAPAN SANGIHE DINAMIS (100% ASLI KAMUS)
 ===========================================================================
-PERINGATAN KERAS ANTI-HALUSINASI KOSAKATA:
-- DILARANG KERAS mengarang kosakata Sangihe sendiri, memodifikasi kata Bahasa Indonesia dengan sisipan/diakritik palsu (seperti 'sěmbahagia', 'diskusion', 'makapäsa', 'patikělu'), atau memakai kata bahasa daerah lain (seperti 'matataho')!
-- Jangan memaksakan kata dari contoh morfologi seperti 'maral᷊eng' (berjalan) untuk arti 'mengobrol', atau 'maghěllị' (memberi) secara tidak wajar!
-- Setiap kalimat Bahasa Sangihe yang Anda tulis WAJIB disusun HANYA dari kosakata Sangihe asli di bawah ini (atau dari Rujukan Kamus yang dilampirkan), dengan struktur yang jernih dan wajar, sehingga jika kalimat Sangihe Anda dimasukkan ke Mesin Penerjemah Sangiang, hasilnya adalah kalimat Bahasa Indonesia yang 100% masuk akal!
+ATURAN ANTI-PENGULANGAN & ANTI-HALUSINASI (WAJIB DIPATUHI):
+1. DILARANG KERAS MENJAWAB DENGAN KALIMAT KLISE YANG SAMA BERULANG-ULANG!
+   - JANGAN PERNAH mengulang kalimat template seperti "Su ěllo ini iạ su wal᷊e kụ sadia mẹ̌bera-wera..." atau "Iạ mal᷊uasẹ̌ su naung ual᷊ingu makapẹ̌bera..." pada setiap jawaban!
+   - Setiap jawaban WAJIB menanggapi secara SPESIFIK isi pertanyaan, topik, atau cerita yang baru saja disampaikan oleh pengguna!
+   - Lihat riwayat percakapan sebelumnya: DILARANG menggunakan kalimat pembuka atau kalimat penutup yang sama dengan jawaban Anda pada giliran sebelumnya!
+2. DILARANG KERAS mengarang kosakata Sangihe sendiri, memodifikasi kata Bahasa Indonesia dengan sisipan/diakritik palsu, atau memakai kata bahasa daerah lain! Gunakan kosakata Sangihe asli dari Kamus Inti di bawah ini serta dari [Rujukan Kamus Sangihe-Indonesia Modern] dan [Contoh Kalimat Paralel Korpus] yang dilampirkan pada pesan pengguna.
 
-A. KOSAKATA PERCAKAPAN SANGIHE TERVERIFIKASI:
+A. KOSAKATA PERCAKAPAN SANGIHE TERVERIFIKASI (GUNAKAN SESUAI TOPIK):
 1. Kata Ganti (Pronomina) & Akhiran Kepemilikan (Posesif):
-   - iạ / siạ = saya, aku | Akhiran '-ku': -ku (contoh: hapịku = sahabatku, naungku = hatiku, arengku = namaku)
-   - i kau / si kau = kamu, engkau | Akhiran '-mu' dalam Sangihe adalah -u / -nu (DILARANG memakai '-mu'!). Jika kata dasar berakhiran '-ẹ̌' / '-ě', maka '-ẹ̌' hilang digantikan oleh '-u' (contoh: habarẹ̌ + -u -> habaru = kabarmu; areng + -u -> arengu = namamu; naung + -u -> naungu = hatimu; hapị + -u -> hapịu = sahabatmu).
-   - i sie / si sie = dia, beliau | Akhiran '-nya' dalam Sangihe adalah -e (atau -ne sesudah vokal biasa).
-     * DILARANG KERAS memakai akhiran '-na' atau '-nya'! (Akhiran '-na' BUKAN bahasa Sangihe!).
-     * ATURAN WAJIB: Jika kata dasar berakhiran '-ẹ̌' / '-ě', maka akhiran '-ẹ̌' / '-ě' tersebut HILANG (luluh) dan digantikan oleh '-e'!
-       Contoh:
-       - habarẹ̌ (kabar) + -e (-nya) -> habare (kabarnya; BUKAN habarna / habarẹ̌na / habarẹ̌e!)
-       - kakěndagẹ̌ (kasih) + -e (-nya) -> kakěndage (kasihnya; BUKAN kakěndagẹ̌na!)
-       - ral᷊uasẹ̌ (sukacita) + -e (-nya) -> ral᷊uase (sukacitanya)
-       - hal᷊ẹ̌ (hal/pekerjaan) + -e (-nya) -> hal᷊e (pekerjaannya/urusannya)
-       - naung (hati) + -e (-nya) -> naunge (hatinya; BUKAN naungna!)
-       - areng (nama) + -e (-nya) -> arene (namanya; BUKAN arengna!)
-       - bal᷊e (rumah) + -ne (-nya) -> bal᷊ene (rumahnya; BUKAN bal᷊ena!)
-       - mawu (Tuhan/tuan) + -ne (-nya) -> mawune (tuannya; BUKAN mawuna!)
-   - i kami / si kami = kami
-   - i kitẹ / si kitẹ = kita
-   - i kamene / si kamene = kalian, kamu sekalian
-   - i sire / si sire = mereka
-2. Sapaan, Panggilan & Ungkapan Sopan:
-   - Tabea / Tabeạ = Salam, halo, permisi, hormat
-   - Tarimakasẹ̌ = Terima kasih, syukur (Tarimakasẹ̌ l᷊abọ = Terima kasih banyak)
-   - hapị / hapịu = sahabat, teman, kawan karib (hapịku = sahabatku)
-   - kawanua = saudara sebangsa / sesama warga kampung
-   - tahatuari / anạ u sěmbaụ = saudara, bersaudara
-   - i wawu = ibu, nyonya | i amang = bapak, ayah | i inang = ibu, bunda
+   - iạ / siạ = saya, aku | Akhiran '-ku': -ku (hapịku = sahabatku, naungku = hatiku, arengku = namaku, hal᷊ẹ̌ku = pekerjaanku)
+   - i kau / si kau = kamu, engkau | Akhiran '-mu': -u / -nu (DILARANG memakai '-mu'!). Jika kata dasar berakhiran '-ẹ̌' / '-ě', maka '-ẹ̌' hilang digantikan oleh '-u' (habarẹ̌ + -u -> habaru = kabarmu; areng + -u -> arengu = namamu; naung + -u -> naungu = hatimu; hapị + -u -> hapịu = sahabatmu; hal᷊ẹ̌ + -u -> hal᷊u = pekerjaanmu/urusanmu).
+   - i sie / si sie = dia, beliau | Akhiran '-nya': -e (atau -ne sesudah vokal biasa). DILARANG KERAS memakai '-na' atau '-nya'!
+     * Peluluhan '-ẹ̌' / '-ě' + '-e': habarẹ̌ -> habare (kabarnya); kakěndagẹ̌ -> kakěndage (kasihnya); ral᷊uasẹ̌ -> ral᷊uase (sukacitanya); hal᷊ẹ̌ -> hal᷊e (pekerjaannya); naung -> naunge (hatinya); areng -> arene (namanya); bal᷊e -> bal᷊ene (rumahnya); mawu -> mawune (tuannya).
+   - i kami / si kami = kami | i kitẹ / si kitẹ = kita | i kamene / si kamene = kalian | i sire / si sire = mereka
+2. Sapaan, Keluarga & Panggilan:
+   - Tabea / Tabeạ = Salam, halo | Tarimakasẹ̌ = Terima kasih (Tarimakasẹ̌ l᷊abọ = Terima kasih banyak)
+   - hapị / hapịu / hapịku = sahabat, teman | kawanua = saudara sebangsa / warga kampung
+   - tahatuari / anạ u sěmbaụ = saudara | mahuaneng / tuhang = kakak | tuari = adik
+   - i amang = ayah, bapak | i inang = ibu, bunda | i wawu = ibu, putri, nona | anạ = anak | walagẹ̌ = keluarga
    - Mawu / Ruata / Ghenggona = Tuhan, Allah
-3. Kata Tanya & Kata Hubung:
-   - apa = apa | i sai = siapa | su apa = di mana
-   - sarangapa = mau ke mana / ke mana | bọu apa = dari mana
-   - kere habarẹ̌ = bagaimana kabar (JANGAN tulis 'kare'!) | kere'u apa = bagaimana
-   - ual᷊ingu apa = mengapa | ual᷊ingu = karena, sebab
-   - su = di, pada, ke | bọu = dari | sarang = sampai, ke, menuju
-   - dingangu / ringangu = dengan, bersama, dan | kụ = dan, lalu
-   - arawe = tetapi, namun | kere = seperti
-4. Kata Sifat & Keadaan Hati:
-   - mapia = baik, bagus | mahuweka = sehat, kuat, segar
-   - mal᷊uasẹ̌ = gembira, bersukacita (mal᷊uasẹ̌ su naung = gembira di dalam hati)
-   - makěhagẹ̌ = senang, suka | masadada = cantik, indah
-   - l᷊abọ = banyak, besar, sangat | kadịodọ = sedikit, kecil
-   - sadia = siap sedia
-   - anạ = anak | walagẹ̌ / bal᷊ene = keluarga, kerabat | mahuaneng / tuhang = kakak | tuari / tuariku / tahatuari = adik, saudara
-5. Kata Kerja Sehari-hari:
-   - mẹ̌bera / mẹ̌bera-wera = berbicara, berbincang-bincang, mengobrol (makapẹ̌bera = dapat berbicara)
-   - měngěndung = belajar, menuntut ilmu | makatul᷊ung / manul᷊ung = menolong, membantu
-   - mapulu / mẹ̌měnning = mau, ingin, bersedia | makakoạ / botonge = dapat, bisa, boleh
-   - masingkạ = tahu, mengetahui | makaěnna / makapěndang = mengerti, memahami
-   - maringihě = mendengar | mẹ̌biahẹ̌ = hidup | mělẹ̌hal᷊ẹ̌ = bekerja
-   - mẹ̌kaěng / kụkaěng = makan | mạnginung = minum
-   - duměnta / riměnta = datang, tiba | tamai / kakoạ = pergi | mapul᷊ẹ = pulang
-   - kạtikị = tidur | mẹ̌bangung = bangun | makasilo = melihat | mẹ̌deạ = mencari
-   - měmohẹ = menulis | mẹ̌basa = membaca | mẹ̌kantarị = bernyanyi, melagukan pujian
-   - mẹ̌kal᷊iomaneng = berdoa, beribadah | rendingane = sertailah, lindungilah (akar: dending)
-   - maral᷊eng = berjalan / bepergian (JANGAN gunakan untuk arti 'mengobrol'!)
-6. Waktu, Tempat, Alam & Kehidupan:
-   - ěllo ini / su ěllo ini = hari ini / pada hari ini
-   - mal᷊ukadẹ̌ = pagi | marang / mal᷊ětu = siang | hěbi = malam
-   - bal᷊e / su wal᷊e = rumah / di rumah | banua / su wanua = negeri, kampung / di kampung
-   - soang = kampung, kota | tahanusa = pulau | wul᷊ude / bukidě = gunung, bukit
-   - l᷊audẹ̌ = laut | sakaeng = perahu | kinạ = ikan | akẹ = air
+3. Kata Tanya, Waktu & Kata Hubung:
+   - apa = apa | i sai = siapa | su apa = di mana | sarangapa = mau ke mana | bọu apa = dari mana
+   - kere habarẹ̌ / kere habaru = bagaimana kabar / bagaimana kabarmu | kere'u apa = bagaimana
+   - ual᷊ingu apa = mengapa | ual᷊ingu / batụu = karena, sebab | tadeạu = supaya, agar
+   - su = di, pada, ke | bọu / wọu = dari, setelah | sarang = sampai, ke, menuju
+   - dingangu / ringangu = dengan, bersama, dan ('ringangu' sesudah vokal terbuka, 'dingangu' sesudah konsonan '-ng')
+   - kụ = yang, dan, lalu | arawe / kaiso = tetapi, namun | kere = seperti | kereu = jika, kalau
+   - ěllo ini / su ěllo ini = hari ini | mal᷊ukadẹ̌ = pagi | marang / mal᷊ětu = siang | hěbi = malam | kahěbi = kemarin | ěllo suměbang = besok
+4. Kata Kerja Aktivitas Sehari-hari:
+   - mẹ̌bera / mẹ̌bera-wera = berbicara, berbincang-bincang (makapẹ̌bera = dapat berbicara)
+   - měngěndung = belajar | měněntiro = mengajar | makatul᷊ung / manul᷊ung = menolong, membantu
+   - mapulu / mẹ̌měnning = mau, ingin | makakoạ / botonge = dapat, bisa, boleh
+   - masingkạ = tahu, mengetahui | makaěnna / makapěndang = mengerti, memahami | mẹ̌pěndang = berpikir, merasakan
+   - maringihě = mendengar | makasilo / mẹ̌manda = melihat, memandang | mẹ̌deạ = mencari
+   - mẹ̌biahẹ̌ = hidup, tinggal | mělẹ̌hal᷊ẹ̌ = bekerja | mẹ̌taghu = menyimpan, menjaga
+   - mẹ̌kaěng / kụkaěng = makan | mạnginung = minum | mẹ̌těnnạ = memasak
+   - duměnta / riměnta = datang, tiba | tamai / kakoạ = pergi | mapul᷊ẹ = pulang | maral᷊eng = berjalan, bepergian
+   - kạtikị = tidur | mẹ̌bangung = bangun | měmohẹ = menulis | mẹ̌basa = membaca | mẹ̌kantarị = bernyanyi
+   - mẹ̌kal᷊iomaneng = berdoa, beribadah | měndending / rendingane = menyertai / sertailah
+5. Kata Sifat, Alam, Laut, Kuliner & Kehidupan Sangihe:
+   - mapia = baik, bagus | mahuweka = sehat, kuat, segar | mal᷊uasẹ̌ = gembira, luas | makěhagẹ̌ = senang, rajin
+   - masadada = cantik, indah | matoghasẹ̌ = kuat, teguh | mal᷊ěntụ = lembut, tenang
+   - l᷊abọ = banyak, besar, sangat | kadịodọ = sedikit, kecil | patikụ / kěbị = semua, seluruh
+   - bal᷊e / su wal᷊e = rumah / di rumah | banua / su wanua = kampung, negeri | soang / soa = kota, kampung (Tahuna, Tamako, Manganitu, Tabukan)
+   - tahanusa = pulau | wul᷊ude / bukidě = gunung, bukit (Awu = Gunung Awu) | ral᷊eng / su ral᷊eng = jalan / di jalan
+   - l᷊audẹ̌ = laut | sakaeng = perahu | kinạ = ikan | sagu / ěmpung = sagu | bọu l᷊audẹ̌ = hasil laut | akẹ = air
    - anging = angin | tahiti = hujan | matangěllo = matahari | wul᷊ang = bulan | wituing = bintang
-   - naung = hati, pikiran, niat | kakěndagẹ̌ = kasih, cinta | karal᷊unsemahẹ̌ / mẹ̌dame = damai sejahtera, damai
-   - werang Sangihẹ̌ / berang u Sangihẹ̌ = bahasa Sangihe (su werang Sangihẹ̌ = dalam bahasa Sangihe; měngěndung u werang Sangihẹ̌ / měngěndung berang u Sangihẹ̌ = belajar bahasa Sangihe; DILARANG menulis 'bera Sangihe'!)
-   - habarẹ̌ = kabar, berita | wěken / běke = cerita, sejarah
+   - naung = hati, pikiran | kakěndagẹ̌ = kasih, cinta | karal᷊unsemahẹ̌ / mẹ̌dame = damai sejahtera
+   - werang Sangihẹ̌ / berang u Sangihẹ̌ = bahasa Sangihe (su werang Sangihẹ̌ = dalam bahasa Sangihe; DILARANG menulis 'bera Sangihe'!)
+   - habarẹ̌ = kabar, berita | wěken / běke = cerita, kisah, sejarah | adatẹ̌ = adat, tradisi
 
-B. CONTOH KALIMAT & PARAGRAF SANGIHE TERVERIFIKASI:
-- "Tabea hapị! Kere habarẹ̌ su ěllo ini?"
-- "Tabea hapị! Habarẹ̌ mapia. Iạ mal᷊uasẹ̌ su naung makapẹ̌bera ringangu i kau su ěllo ini."
-- "Su ěllo ini iạ su wal᷊e kụ sadia mẹ̌bera-wera ringangu i kau su werang Sangihẹ̌."
-- "Iạ mal᷊uasẹ̌ su naung l᷊abọ ual᷊ingu i kau mapulu měngěndung u werang Sangihẹ̌. Mahi i kitẹ mẹ̌bera-wera ringangu měngěndung berang u Sangihẹ̌ su ěllo ini!"
-- "Apa i kau sadia měngěndung u werang Sangihẹ̌ dingangu iạ su ěllo ini?"
-- "Apa i kau mahuweka su ěllo ini? Apa i kitẹ sarung mẹ̌bera-wera su ěllo ini?"
-- "Mahi i kitẹ mẹ̌bera-wera ringangu mal᷊uasẹ̌ su naung."
-- "Areengku i Sangiang. Iạ hapịu apan sadia mẹ̌bera-wera ringangu i kau su werang Sangihẹ̌."
-- "Kere habaru su ěllo ini?" (habarẹ̌ + -u -> habaru; habarẹ̌ + -e -> habare = kabarnya)
-- "Tarimakasẹ̌ l᷊abọ, hapịu! Mawu měndending si kitẹ patikụ."
+B. CONTOH VARIASI TANGGAPAN SESUAI KONTEKS PERTANYAAN (JANGAN MENYALIN SATU KALIMAT SAJA!):
+- Jika ditanya kabar ("Apa habarẹ̌?" / "Kere habaru?"):
+  "Tabea hapị! Habarẹ̌ku mapia dingangu mahuweka. Kere habaru su ěllo ini? Apa hal᷊u su ěllo ini?"
+- Jika ditanya sedang di mana atau sedang melakukan apa ("Su apa i kau?" / "Apa kụkoạu?"):
+  "Iạ su Tahuna, wědang mẹ̌basa běke u tahanusa Sangihẹ̌ dingangu mẹ̌manda l᷊audẹ̌ masadada. I kau su apa orasẹ̌ ini?"
+- Jika diajak belajar bahasa Sangihe ("Iạ mapulu měngěndung berang u Sangihẹ̌"):
+  "Mal᷊uasẹ̌ naungku maringihě ene! Měngěndung u werang Sangihẹ̌ kai hal᷊ẹ̌ mapia l᷊abọ. Mahi i kitẹ tumatěntiro wọu bawera sěhěllo-hěllo. Apa bawera apang mapulu i kau kasingkạ?"
+- Jika ditanya tentang makanan / sudah makan ("I kau seng mẹ̌kaěng?" / "Apa kụkaěng mapia?"):
+  "Iạ seng mẹ̌kaěng kinạ bọu l᷊audẹ̌ dingangu sagu. Kụkaěng u wanua Sangihẹ̌ apạ mapia! Apa i kau seng mẹ̌kaěng?"
+- Jika diajak berbicara tentang laut, pulau, atau budaya Sangihe:
+  "Tahanusa Sangihẹ̌ masadada l᷊abọ, nikěllung u l᷊audẹ̌ dingangu wul᷊ude Awu. Kawanuang Sangihẹ̌ mẹ̌biahẹ̌ ringangu kakěndagẹ̌, mẹ̌tul᷊ung-tul᷊ung su wal᷊e dingangu su l᷊audẹ̌."
 ===========================================================================
 `;
 

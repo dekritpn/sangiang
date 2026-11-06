@@ -70,13 +70,13 @@ DEFAULT_MODEL = (
 
 VERIFIED_CONVERSATIONAL_SANGIHE_BANK = """
 ===========================================================================
-KAMUS INTI & KALIMAT PERCAKAPAN SANGIHE TERVERIFIKASI (100% ASLI KAMUS)
+KAMUS INTI & PANDUAN RESPON DINAMIS SANGIHE TERVERIFIKASI (100% ASLI KAMUS)
 ===========================================================================
-PERINGATAN KERAS ANTI-HALUSINASI KOSAKATA:
-- DILARANG KERAS mengarang kosakata Sangihe sendiri, memodifikasi kata Bahasa Indonesia dengan sisipan/diakritik palsu (seperti 'sěmbahagia', 'diskusion', 'makapäsa', 'patikělu'), atau memakai kata bahasa daerah lain (seperti 'matataho')!
-- Jangan memaksakan kata dari contoh morfologi seperti 'maral᷊eng' (berjalan) untuk arti 'mengobrol', atau 'maghěllị' (memberi) secara tidak wajar!
-- Setiap kalimat Bahasa Sangihe yang Anda tulis WAJIB disusun HANYA dari kosakata Sangihe asli di bawah ini (atau dari Rujukan Kamus yang dilampirkan), dengan struktur yang jernih dan wajar, sehingga jika kalimat Sangihe Anda dimasukkan ke Mesin Penerjemah Sangiang, hasilnya adalah kalimat Bahasa Indonesia yang 100% masuk akal!
-- Untuk kalimat diskusi panjang atau konsep yang kata Sangihe-nya tidak ada di daftar ini, GUNAKAN BAHASA INDONESIA yang hangat dan alami — JANGAN PERNAH menebak atau mengarang kata Sangihe!
+PERINGATAN KERAS ANTI-PENGULANGAN & ANTI-TEMPLATE (WAJIB DIPATUHI 100%):
+- DILARANG KERAS menjawab setiap pertanyaan pengguna dengan kalimat klise/template yang sama berulang-ulang (seperti "Su ěllo ini iạ su wal᷊e kụ sadia mẹ̌bera-wera dingangu i kau. Iạ mal᷊uasẹ̌ su naung ual᷊ingu makapẹ̌bera ringangu i kau..."!).
+- Anda WAJIB membaca dengan teliti APA YANG DITANYAKAN ATAU DICERITAKAN PENGGUNA pada giliran terakhir, lalu memberikan jawaban yang SPESIFIK, RELEVAN, dan BERBEDA sesuai isi pertanyaan/topik pengguna!
+- Jangan mengulang kalimat yang sudah Anda ucapkan pada balasan sebelumnya di dalam percakapan yang sama!
+- DILARANG KERAS mengarang kosakata Sangihe palsu atau memodifikasi kata Bahasa Indonesia dengan diakritik palsu. Gunakan kosakata dari Rujukan Kamus Sangihe-Indonesia Modern yang dilampirkan di bawah pesan pengguna serta kosakata terverifikasi berikut.
 
 A. KOSAKATA PERCAKAPAN SANGIHE TERVERIFIKASI:
 1. Kata Ganti (Pronomina) & Akhiran Kepemilikan (Posesif):
@@ -85,86 +85,68 @@ A. KOSAKATA PERCAKAPAN SANGIHE TERVERIFIKASI:
    - i sie / si sie = dia, beliau | Akhiran '-nya' dalam Sangihe adalah -e (atau -ne sesudah vokal biasa).
      * DILARANG KERAS memakai akhiran '-na' atau '-nya'! (Akhiran '-na' BUKAN bahasa Sangihe!).
      * ATURAN WAJIB: Jika kata dasar berakhiran '-ẹ̌' / '-ě', maka akhiran '-ẹ̌' / '-ě' tersebut HILANG (luluh) dan digantikan oleh '-e'!
-       Contoh:
-       - habarẹ̌ (kabar) + -e (-nya) -> habare (kabarnya; BUKAN habarna / habarẹ̌na / habarẹ̌e!)
-       - kakěndagẹ̌ (kasih) + -e (-nya) -> kakěndage (kasihnya; BUKAN kakěndagẹ̌na!)
-       - ral᷊uasẹ̌ (sukacita) + -e (-nya) -> ral᷊uase (sukacitanya)
-       - hal᷊ẹ̌ (hal/pekerjaan) + -e (-nya) -> hal᷊e (pekerjaannya/urusannya)
-       - naung (hati) + -e (-nya) -> naunge (hatinya; BUKAN naungna!)
-       - areng (nama) + -e (-nya) -> arene (namanya; BUKAN arengna!)
-       - bal᷊e (rumah) + -ne (-nya) -> bal᷊ene (rumahnya; BUKAN bal᷊ena!)
-       - mawu (Tuhan/tuan) + -ne (-nya) -> mawune (tuannya; BUKAN mawuna!)
-   - i kami / si kami = kami
-   - i kitẹ / si kitẹ = kita
-   - i kamene / si kamene = kalian, kamu sekalian
-   - i sire / si sire = mereka
+       Contoh: habarẹ̌ + -e -> habare (kabarnya); kakěndagẹ̌ + -e -> kakěndage (kasihnya); ral᷊uasẹ̌ + -e -> ral᷊uase (sukacitanya); hal᷊ẹ̌ + -e -> hal᷊e (pekerjaannya/urusannya); naung + -e -> naunge (hatinya); areng + -e -> arene (namanya); bal᷊e + -ne -> bal᷊ene (rumahnya); mawu + -ne -> mawune (tuannya).
+   - i kami / si kami = kami | i kitẹ / si kitẹ = kita | i kamene / si kamene = kalian | i sire / si sire = mereka
 2. Sapaan, Panggilan & Ungkapan Sopan:
    - Tabea / Tabeạ = Salam, halo, permisi, hormat
    - Tarimakasẹ̌ = Terima kasih, syukur (Tarimakasẹ̌ l᷊abọ = Terima kasih banyak)
    - hapị / hapịu = sahabat, teman, kawan karib (hapịku = sahabatku)
-   - kawanua = saudara sebangsa / sesama warga kampung
-   - tahatuari / anạ u sěmbaụ = saudara, bersaudara
+   - kawanua = saudara sebangsa / sesama warga kampung | tahatuari / anạ u sěmbaụ = saudara, bersaudara
    - i wawu = ibu, nyonya | i amang = bapak, ayah | i inang = ibu, bunda
    - Mawu / Ruata / Ghenggona = Tuhan, Allah
 3. Kata Tanya & Kata Hubung:
    - apa = apa | i sai = siapa | su apa = di mana
    - sarangapa = mau ke mana / ke mana | bọu apa = dari mana
-   - kere habarẹ̌ = bagaimana kabar (JANGAN tulis 'kare'!) | kere'u apa = bagaimana
+   - kere habarẹ̌ / kere habaru = bagaimana kabar / bagaimana kabarmu | kere'u apa = bagaimana
    - ual᷊ingu apa = mengapa | ual᷊ingu = karena, sebab
    - su = di, pada, ke | bọu = dari | sarang = sampai, ke, menuju
    - dingangu / ringangu = dengan, bersama, dan | kụ = dan, lalu
-   - arawe = tetapi, namun | kere = seperti
-4. Kata Sifat & Keadaan Hati:
+   - arawe = tetapi, namun | kere = seperti | kụtẹ̌u / ute = kalau begitu, maka
+4. Kata Sifat & Keadaan:
    - mapia = baik, bagus | mahuweka = sehat, kuat, segar
    - mal᷊uasẹ̌ = gembira, bersukacita (mal᷊uasẹ̌ su naung = gembira di dalam hati)
-   - makěhagẹ̌ = senang, suka | masadada = cantik, indah
-   - l᷊abọ = banyak, besar, sangat | kadịodọ = sedikit, kecil
-   - sadia = siap sedia
-   - anạ = anak | walagẹ̌ / bal᷊ene = keluarga, kerabat | mahuaneng / tuhang = kakak | tuari / tuariku / tahatuari = adik, saudara
+   - makěhagẹ̌ = senang, suka | masadada = cantik, indah | matěnggi = tinggi | mal᷊awọ = banyak, ramai
+   - l᷊abọ = banyak, besar, sangat | kadịodọ = sedikit, kecil | sadia = siap sedia
+   - anạ = anak | walagẹ̌ / bal᷊ene = keluarga, kerabat | mahuaneng / tuhang = kakak | tuari / tuariku = adik, saudara
 5. Kata Kerja Sehari-hari:
    - mẹ̌bera / mẹ̌bera-wera = berbicara, berbincang-bincang, mengobrol (makapẹ̌bera = dapat berbicara)
-   - měngěndung = belajar, menuntut ilmu | makatul᷊ung / manul᷊ung = menolong, membantu
+   - měngěndung = belajar, menuntut ilmu | měnděndung / mẹ̌tul᷊ada = mengajar, melatih
+   - makatul᷊ung / manul᷊ung = menolong, membantu
    - mapulu / mẹ̌měnning = mau, ingin, bersedia | makakoạ / botonge = dapat, bisa, boleh
    - masingkạ = tahu, mengetahui | makaěnna / makapěndang = mengerti, memahami
-   - maringihě = mendengar | mẹ̌biahẹ̌ = hidup | mělẹ̌hal᷊ẹ̌ = bekerja
-   - mẹ̌kaěng / kụkaěng = makan | mạnginung = minum
+   - maringihě = mendengar | mẹ̌biahẹ̌ = hidup, tinggal | mělẹ̌hal᷊ẹ̌ = bekerja
+   - mẹ̌kaěng / kụkaěng = makan | mạnginung = minum | mẹ̌tana = memasak
    - duměnta / riměnta = datang, tiba | tamai / kakoạ = pergi (kakoạ sarang... = pergi ke...) | mapul᷊ẹ = pulang
    - kạtikị = tidur | mẹ̌bangung = bangun | makasilo = melihat | mẹ̌deạ = mencari
    - měmohẹ = menulis | mẹ̌basa = membaca | mẹ̌kantarị = bernyanyi, melagukan pujian
    - mẹ̌kal᷊iomaneng = berdoa, beribadah | rendingane = sertailah, lindungilah (akar: dending)
-   - maral᷊eng = berjalan / bepergian (JANGAN gunakan untuk arti 'mengobrol'!)
-6. Waktu, Tempat, Alam & Kehidupan:
-   - ěllo ini / su ěllo ini = hari ini / pada hari ini
-   - mal᷊ukadẹ̌ = pagi | marang / mal᷊ětu = siang | hěbi = malam
+   - maral᷊eng = berjalan / bepergian (contoh: maral᷊eng sarang tahiti / l᷊audẹ̌ / pasarẹ̌)
+6. Waktu, Tempat, Budaya, Kuliner, Alam & Kehidupan Sangihe:
+   - ěllo ini / su ěllo ini = hari ini | mal᷊ukadẹ̌ = pagi | marang / mal᷊ětu = siang | hěbi = malam | suěllo = besok | kahěbi = kemarin
    - bal᷊e / su wal᷊e = rumah / di rumah | banua / su wanua = negeri, kampung / di kampung
-   - soang = kampung, kota | tahanusa = pulau | wul᷊ude / bukidě = gunung, bukit
-   - l᷊audẹ̌ = laut | sakaeng = perahu | kinạ = ikan | akẹ = air
-   - anging = angin | tahiti = hujan | matangěllo = matahari | wul᷊ang = bulan | wituing = bintang
+   - soang = kampung, kota (Tahuna, Tamako, Manganitu, Tabụkan, Tagulandang, Siau, Kendahe)
+   - tahanusa = pulau (Tahanusa Sangihẹ̌ = Pulau Sangihe) | wul᷊ude / bukidě = gunung, bukit (Wul᷊ude Awu = Gunung Awu)
+   - l᷊audẹ̌ = laut | sakaeng = perahu | l᷊onde = perahu tradisional Sangihe | kinạ = ikan | akẹ = air
+   - kạkaěng = makanan | sagu / l᷊ěmpeng = sagu | bagea = kue bagea | dabu-dabu = sambal | kal᷊apa = kelapa | busa = pisang
+   - adatẹ̌ = adat, budaya | masamperẹ̌ = kesenian bernyanyi Masamper | gunde = tari Gunde | al᷊abadiri = tari Alabadiri | tagonggong = alat musik gendang Sangihe | sasahara = bahasa sastra laut/adat Sangihe
    - naung = hati, pikiran, niat | kakěndagẹ̌ = kasih, cinta | karal᷊unsemahẹ̌ / mẹ̌dame = damai sejahtera, damai
    - werang Sangihẹ̌ / berang u Sangihẹ̌ = bahasa Sangihe (su werang Sangihẹ̌ = dalam bahasa Sangihe; měngěndung u werang Sangihẹ̌ / měngěndung berang u Sangihẹ̌ = belajar bahasa Sangihe; DILARANG menulis 'bera Sangihe'!)
-   - habarẹ̌ = kabar, berita | wěken / běke = cerita, sejarah
+   - habarẹ̌ = kabar, berita | wěken / běke = cerita, sejarah, kisah
 
-B. CONTOH KALIMAT & PARAGRAF SANGIHE TERVERIFIKASI (YANG WAJAR & AKURAT SAAT DITERJEMAHKAN):
-- "Tabea hapị! Kere habarẹ̌ su ěllo ini?"
-  (= Salam sahabat! Bagaimana kabar pada hari ini?)
-- "Tabea hapị! Habarẹ̌ mapia. Iạ mal᷊uasẹ̌ su naung makapẹ̌bera ringangu i kau su ěllo ini."
-  (= Salam sahabat! Kabar baik. Saya gembira di dalam hati dapat berbicara denganmu pada hari ini.)
-- "Su ěllo ini iạ su wal᷊e kụ sadia mẹ̌bera-wera ringangu i kau su werang Sangihẹ̌."
-  (= Pada hari ini saya di rumah dan siap berbincang-bincang dengan engkau dalam bahasa Sangihe.)
-- "Iạ mal᷊uasẹ̌ su naung l᷊abọ ual᷊ingu i kau mapulu měngěndung u werang Sangihẹ̌. Mahi i kitẹ mẹ̌bera-wera ringangu měngěndung berang u Sangihẹ̌ su ěllo ini!"
-  (= Saya sangat gembira di dalam hati karena engkau ingin belajar bahasa Sangihe. Mari kita berbincang-bincang dan belajar bahasa Sangihe pada hari ini!)
-- "Apa i kau sadia měngěndung u werang Sangihẹ̌ dingangu iạ su ěllo ini?"
-  (= Apakah engkau siap belajar bahasa Sangihe bersama saya pada hari ini?)
-- "Apa i kau mahuweka su ěllo ini? Apa i kitẹ sarung mẹ̌bera-wera su ěllo ini?"
-  (= Apakah engkau sehat pada hari ini? Apa yang akan kita bicarakan pada hari ini?)
-- "Mahi i kitẹ mẹ̌bera-wera ringangu mal᷊uasẹ̌ su naung."
-  (= Mari kita berbincang-bincang dengan gembira di dalam hati.)
-- "Areengku i Sangiang. Iạ hapịu apan sadia mẹ̌bera-wera ringangu i kau su werang Sangihẹ̌."
-  (= Namaku Sangiang. Saya sahabatmu yang siap berbincang-bincang denganmu dalam bahasa Sangihe.)
-- "Kere habaru su ěllo ini?"
-  (= Bagaimana kabarmu pada hari ini? — Perhatikan: habarẹ̌ + -u -> habaru; habarẹ̌ + -e -> habare = kabarnya)
-- "Tarimakasẹ̌ l᷊abọ, hapịu! Mawu měndending si kitẹ patikụ."
-  (= Terima kasih banyak, sahabatku! Tuhan menyertai kita semua.)
+B. PANDUAN POLA JAWABAN DINAMIS SESUAI PERTANYAAN PENGGUNA (JANGAN MENYALIN SATU KALIMAT YANG SAMA!):
+- Jika pengguna menyapa / menanyakan kabar ("Kere habarẹ̌?", "Tabea", "Kere habaru?"):
+  Jawab sapaannya dengan hangat dan tanyakan kembali aktivitas atau topik yang ingin dibahas, misalnya:
+  "Tabea hapị! Habarẹ̌ mapia su ěllo ini. Kere lai habaru? Apa hal᷊ẹ̌u su ěllo ini?"
+- Jika pengguna bertanya identitas / nama ("Isai arengu?", "Isai i kau?"):
+  Perkenalkan diri sebagai Sangiang:
+  "Tabea hapị! Areengku i Sangiang. Iạ hapịu bọu Yayasan Cipta Manggala Dwipa dingangu Divisi DigiLab CMD. I sai arengu, hapị?"
+- Jika pengguna ingin belajar bahasa Sangihe ("Iạ mapulu měngěndung berang u Sangihẹ̌"):
+  Berikan semangat dan langsung ajarkan beberapa kosakata atau kalimat Sangihe sehari-hari:
+  "Mapia l᷊abọ ual᷊ingu i kau mapulu měngěndung u werang Sangihẹ̌! Su werang Sangihẹ̌, i kitẹ botonge mẹ̌bera 'Tabea' (salam), 'Kere habaru?' (bagaimana kabarmu?), dingangu 'Tarimakasẹ̌ l᷊abọ' (terima kasih banyak). Kata apa apan mapulu i kau masingkạ su ěllo ini?"
+- Jika pengguna bertanya "Sarangapa i kau?", "Su apa i kau?", atau tentang kegiatan:
+  Jawab sesuai konteks kegiatan (bekerja, membaca, membantu sahabat belajar tentang budaya/bahasa Sangihe) dan ajukan pertanyaan balik yang relevan dengan topik pengguna.
+- Jika pengguna bertanya tentang makanan/kuliner, pulau/kampung Sangihe, laut/ikan, budaya/Masamper, keluarga, atau doa:
+  Gunakan kosakata dari **[Rujukan Kamus Sangihe-Indonesia Modern]** dan **[Contoh Kalimat Paralel Korpus]** yang dilampirkan pada pesan pengguna untuk membahas topik tersebut secara spesifik!
 ===========================================================================
 """
 
@@ -297,20 +279,70 @@ def detect_user_language(user_text: str) -> str:
     return "indonesian"
 
 
+def apply_sangihe_morphophonemic_rules(text: str) -> str:
+    """Enforce Sangihe open-syllable lenition (b->w, d->r) and -ng genitive linkers."""
+    import re
+    if not text:
+        return ""
+    out = text
+    out = re.sub(r"\bsu\s+(?:b|w)erang?\s+Sangih(?:e|ẹ̌|ě)\b", "su werang Sangihẹ̌", out, flags=re.IGNORECASE)
+    out = re.sub(r"\bu\s+(?:b|w)erang?\s+Sangih(?:e|ẹ̌|ě)\b", "u werang Sangihẹ̌", out, flags=re.IGNORECASE)
+    out = re.sub(
+        r"\bměngěndung\s+(?:b|w)era\s+Sangih(?:e|ẹ̌|ě)\b",
+        "měngěndung u werang Sangihẹ̌",
+        out,
+        flags=re.IGNORECASE,
+    )
+    out = re.sub(
+        r"([aAeEiIoOuUěạịụ]\s+)(?:b|w)erang?\s+Sangih(?:e|ẹ̌|ě)\b",
+        r"\1werang Sangihẹ̌",
+        out,
+    )
+    out = re.sub(r"\b([bB]|w|W)era\s+Sangih(?:e|ẹ̌|ě)\b", lambda m: "Berang u Sangihẹ̌" if m.group(1).isupper() else "werang Sangihẹ̌", out)
+    out = re.sub(r"\bm[ẹe]̌?bera-bera\b", "mẹ̌bera-wera", out, flags=re.IGNORECASE)
+    out = re.sub(r"\bsu\s+bal᷊e\b", "su wal᷊e", out, flags=re.IGNORECASE)
+    out = re.sub(r"\bsu\s+banua\b", "su wanua", out, flags=re.IGNORECASE)
+    out = re.sub(r"\bmel᷊uas(ẹ̌|ě|e)?\b", "mal᷊uasẹ̌", out, flags=re.IGNORECASE)
+    out = re.sub(r"\bi\s+kai\s+(sadia|mapulu|mahuweka|makakoạ|masingkạ)\b", r"i kau \1", out, flags=re.IGNORECASE)
+    out = re.sub(r"\b(mẹ̌bera|mẹ̌bera-wera|makapẹ̌bera|kakoạ|sadia)\s+dingangu\b", r"\1 ringangu", out)
+    return out
+
+
+def sanitize_historical_assistant_content(text: str) -> str:
+    import re
+    if not text:
+        return ""
+    cleaned = apply_sangihe_morphophonemic_rules(text)
+    cleaned = re.sub(
+        r"Su\s+[ěe]llo\s+ini\s+i[ạa]\s+su\s+wal᷊?e\s+k[ụu]\s+sadia\s+m[ẹěe]̌?bera-wera\s+(?:dingangu|ringangu)\s+i\s+kau\.?\s*",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
+    )
+    cleaned = re.sub(
+        r"I[ạa]\s+mal᷊?uas[ẹěe]̌?\s+su\s+naung\s+ual᷊?ingu\s+makap[ẹěe]̌?bera\s+(?:dingangu|ringangu)\s+i\s+kau\s+su\s+(?:bera|werang)\s+Sangih[ẹěe]̌?\.?\s*",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
+    ).strip()
+    return cleaned or "Tabea hapị! Mahi i kitẹ mẹ̌bera-wera."
+
+
 def augment_prompt_with_lexicon(user_text: str) -> Optional[str]:
     """Look up words in kamus_sangihe_modern.sqlite and parallel_corpus.sqlite and append RAG context + strict language directive."""
     user_lang = detect_user_language(user_text)
     if user_lang == "sangihe":
         lang_directive = (
-            "[INSTRUKSI BAHASA WAJIB: Pengguna berbicara kepada Anda dalam BAHASA SANGIHE. "
-            "Anda WAJIB menjawab 100% SEPENUHNYA DALAM BAHASA SANGIHE MURNI! "
-            "DILARANG KERAS mencampur dengan kalimat atau terjemahan Bahasa Indonesia sedikit pun! "
-            "Susunlah seluruh kalimat Bahasa Sangihe Anda HANYA menggunakan kosakata Sangihe asli yang terverifikasi di Kamus Inti & Rujukan Kamus di bawah (tanpa kata karangan sendiri), sehingga jika jawaban Sangihe Anda dimasukkan ke Mesin Penerjemah Sangiang, hasilnya adalah kalimat Bahasa Indonesia yang 100% wajar dan masuk akal.]"
+            f'[INSTRUKSI BAHASA, TOPIK & ANTI-PENGULANGAN WAJIB:\n'
+            f'1. Pengguna berbicara kepada Anda dalam BAHASA SANGIHE: "{user_text.strip()}"\n'
+            f'2. Anda WAJIB menjawab 100% SEPENUHNYA DALAM BAHASA SANGIHE MURNI yang SECARA LANGSUNG MENJAWAB ISI PERTANYAAN ATAU TOPIK PENGGUNA DI ATAS!\n'
+            f'3. DILARANG KERAS menjawab dengan kalimat klise/template yang sama berulang-ulang seperti "Su ěllo ini iạ su wal᷊e kụ sadia mẹ̌bera-wera dingangu i kau. Iạ mal᷊uasẹ̌ su naung ual᷊ingu makapẹ̌bera ringangu i kau..."! Jawaban Anda HARUS spesifik menanggapi apa yang ditanyakan/dibicarakan pengguna dan BERBEDA dari balasan Anda sebelumnya!\n'
+            f'4. DILARANG KERAS mencampur dengan Bahasa Indonesia sedikit pun! WAJIB patuhi hukum perubahan bunyi (lenisi) sesudah suku kata terbuka: konsonan \'b-\' menjadi \'w-\' dan \'d-\' menjadi \'r-\' sesudah vokal terbuka, serta gunakan ligatur \'-ng\' pada frasa genitif (misalnya: tulis \'werang Sangihẹ̌\', \'su werang Sangihẹ̌\', \'u werang Sangihẹ̌\', atau \'berang u Sangihẹ̌\' — DILARANG KERAS menulis \'bera Sangihe\'!). Gunakan \'mẹ̌bera-wera\', \'mal᷊uasẹ̌\', dan \'ringangu\' sesudah kata berakhiran vokal terbuka.]'
         )
     else:
         lang_directive = (
-            "[INSTRUKSI BAHASA WAJIB: Pengguna berbicara kepada Anda dalam BAHASA INDONESIA. "
-            "Anda WAJIB menjawab SEPENUHNYA DALAM BAHASA INDONESIA sebagai teman diskusi yang hangat, cerdas, dan akrab (tidak perlu mencampur kalimat Bahasa Sangihe kecuali pengguna secara eksplisit memintanya).]"
+            f'[INSTRUKSI BAHASA & TOPIK WAJIB: Pengguna berbicara kepada Anda dalam BAHASA INDONESIA ("{user_text.strip()}"). '
+            "Anda WAJIB menjawab SEPENUHNYA DALAM BAHASA INDONESIA secara langsung, relevan dengan topik pengguna, hangat, cerdas, dan mengalir (tidak perlu mencampur kalimat Bahasa Sangihe kecuali pengguna secara eksplisit memintanya).]"
         )
 
     if not lexical_tool:
@@ -378,19 +410,31 @@ async def chat_endpoint(req: ChatRequest):
     # Prepare message chain
     messages_payload: List[Dict[str, str]] = []
     has_system = False
+    prev_assistant_text = ""
     for msg in req.messages:
         if msg.role == "system":
             has_system = True
             messages_payload.append({"role": "system", "content": msg.content})
+        elif msg.role == "assistant":
+            sanitized = sanitize_historical_assistant_content(msg.content)
+            content_to_use = (
+                "Tabea hapị! Apa pole apan mapuluokụ i kau mẹ̌bera-wera dingangu iạ?"
+                if sanitized == prev_assistant_text
+                else sanitized
+            )
+            prev_assistant_text = content_to_use
+            messages_payload.append({"role": "assistant", "content": content_to_use})
         else:
             messages_payload.append({"role": msg.role, "content": msg.content})
 
     if not has_system:
         messages_payload.insert(0, {"role": "system", "content": SANGIANG_SYSTEM_PROMPT})
 
+    active_user_lang = "indonesian"
     # Optional lexical augmentation for the last user prompt
     if len(messages_payload) > 1 and messages_payload[-1]["role"] == "user":
         last_user_text = messages_payload[-1]["content"]
+        active_user_lang = detect_user_language(last_user_text)
         hint = augment_prompt_with_lexicon(last_user_text)
         if hint:
             messages_payload[-1]["content"] += hint
@@ -415,7 +459,7 @@ async def chat_endpoint(req: ChatRequest):
         gemini_payload: Dict[str, Any] = {
             "contents": gemini_contents,
             "generationConfig": {
-                "temperature": req.temperature,
+                "temperature": max(req.temperature, 0.55),
                 "topP": 0.9,
                 "maxOutputTokens": 1024,
             },
@@ -424,40 +468,35 @@ async def chat_endpoint(req: ChatRequest):
             gemini_payload["systemInstruction"] = {"parts": [{"text": sys_text.strip()}]}
 
         api_model = GEMINI_API_MODEL_MAP.get(target_model.lower(), target_model)
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{api_model}:generateContent"
         if req.stream:
             async def gemini_event_generator() -> AsyncGenerator[str, None]:
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/{api_model}:streamGenerateContent"
                 try:
                     async with httpx.AsyncClient(timeout=90.0) as client:
-                        async with client.stream(
-                            "POST",
-                            url,
-                            params={"key": api_key, "alt": "sse"},
-                            json=gemini_payload,
-                        ) as response:
-                            if response.status_code != 200:
-                                err_body = await response.aread()
-                                yield f"data: {json.dumps({'error': f'Gemini API error {response.status_code}: {err_body.decode()}'})}\n\n"
-                                return
-
-                            async for line in response.aiter_lines():
-                                line = line.strip()
-                                if not line or not line.startswith("data:"):
-                                    continue
-                                raw_json = line[5:].strip()
-                                if not raw_json:
-                                    continue
-                                try:
-                                    data = json.loads(raw_json)
-                                    cands = data.get("candidates", [])
-                                    if cands:
-                                        parts = cands[0].get("content", {}).get("parts", [])
-                                        chunk = "".join(p.get("text", "") for p in parts)
-                                        if chunk:
-                                            yield f"data: {json.dumps({'chunk': chunk, 'done': False, 'model': 'Sangiang'})}\n\n"
-                                except json.JSONDecodeError:
-                                    continue
-                            yield f"data: {json.dumps({'chunk': '', 'done': True, 'model': 'Sangiang'})}\n\n"
+                        res = await client.post(url, params={"key": api_key}, json=gemini_payload)
+                        if res.status_code != 200:
+                            yield f"data: {json.dumps({'error': f'Gemini API error {res.status_code}: {res.text}'})}\n\n"
+                            return
+                        data = res.json()
+                        cands = data.get("candidates", [])
+                        raw_reply = ""
+                        if cands:
+                            parts = cands[0].get("content", {}).get("parts", [])
+                            raw_reply = "".join(p.get("text", "") for p in parts)
+                        final_reply = (
+                            apply_sangihe_morphophonemic_rules(raw_reply)
+                            if active_user_lang == "sangihe"
+                            else raw_reply
+                        )
+                        import re
+                        tokens = re.split(r"(\s+)", final_reply)
+                        buf = ""
+                        for i, tok in enumerate(tokens):
+                            buf += tok
+                            if len(buf) >= 28 or i == len(tokens) - 1:
+                                yield f"data: {json.dumps({'chunk': buf, 'done': False, 'model': 'Sangiang'})}\n\n"
+                                buf = ""
+                        yield f"data: {json.dumps({'chunk': '', 'done': True, 'model': 'Sangiang'})}\n\n"
                 except Exception as e:
                     yield f"data: {json.dumps({'error': str(e)})}\n\n"
 
@@ -471,7 +510,6 @@ async def chat_endpoint(req: ChatRequest):
                 },
             )
         else:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{api_model}:generateContent"
             async with httpx.AsyncClient(timeout=90.0) as client:
                 res = await client.post(url, params={"key": api_key}, json=gemini_payload)
                 res.raise_for_status()
@@ -481,7 +519,9 @@ async def chat_endpoint(req: ChatRequest):
                 if cands:
                     parts = cands[0].get("content", {}).get("parts", [])
                     content = "".join(p.get("text", "") for p in parts)
-                return {"response": content, "model": target_model}
+                if active_user_lang == "sangihe":
+                    content = apply_sangihe_morphophonemic_rules(content)
+                return {"response": content, "model": "Sangiang"}
 
     payload = {
         "model": target_model,
