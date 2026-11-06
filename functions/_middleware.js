@@ -30,7 +30,7 @@ export async function onRequest(context) {
 
   if (isChatSubdomain && env.ASSETS) {
     if (url.pathname === "/" || url.pathname === "/index.html") {
-      const chatUrl = new URL("/chat/index.html", url.origin);
+      const chatUrl = new URL("/chat/", url.origin);
       return env.ASSETS.fetch(new Request(chatUrl.toString(), request));
     }
     if (url.pathname.startsWith("/static/")) {

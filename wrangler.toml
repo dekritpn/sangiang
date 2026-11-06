@@ -4,6 +4,11 @@ compatibility_date = "2024-11-01"
 workers_dev = true
 preview_urls = true
 
+routes = [
+  { pattern = "translate.sangihe.org", custom_domain = true },
+  { pattern = "chat.sangihe.org", custom_domain = true }
+]
+
 [placement]
 mode = "smart"
 

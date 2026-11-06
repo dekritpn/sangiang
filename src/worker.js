@@ -97,7 +97,7 @@ export default {
     if (env.ASSETS) {
       if (isChatSubdomain) {
         if (url.pathname === "/" || url.pathname === "/index.html") {
-          const chatUrl = new URL("/chat/index.html", url.origin);
+          const chatUrl = new URL("/chat/", url.origin);
           return env.ASSETS.fetch(new Request(chatUrl.toString(), request));
         }
         if (url.pathname.startsWith("/static/")) {
@@ -107,12 +107,12 @@ export default {
       }
 
       // Handle directory paths like /chat or /translate without trailing slash
-      if (url.pathname === "/chat" || url.pathname === "/chat/") {
-        const chatUrl = new URL("/chat/index.html", url.origin);
+      if (url.pathname === "/chat") {
+        const chatUrl = new URL("/chat/", url.origin);
         return env.ASSETS.fetch(new Request(chatUrl.toString(), request));
       }
-      if (url.pathname === "/translate" || url.pathname === "/translate/") {
-        const translateUrl = new URL("/translate/index.html", url.origin);
+      if (url.pathname === "/translate") {
+        const translateUrl = new URL("/translate/", url.origin);
         return env.ASSETS.fetch(new Request(translateUrl.toString(), request));
       }
 
