@@ -1,0 +1,19 @@
+\chapter{Membersihkan Butiran Emas: Normalisasi dan Pre-processing}
+
+\section{Mengapa Teks Mentah Tidak Boleh Langsung Diproses?}
+Dalam pepatah ilmu data, dikenal prinsip terkenal: \textit{“Garbage In, Garbage Out”} (jika data yang dimasukkan berantakan, maka hasil yang dikeluarkan komputer juga akan kacau). Sebelum sebuah kamus atau teks kalimat dapat dipakai oleh kecerdasan buatan, teks tersebut harus melalui proses pembersihan dan perapian (*pre-processing*).
+
+\begin{infobox}[Analogi Menyaring Pasir Emas]
+Menambang data dari buku-buku tua mirip dengan mendulang pasir emas di sungai. Di dalam pasir tersebut, terdapat butiran emas berharga (kata-kata bermakna), tetapi juga terdapat kerikil, lumpur, dan dedaunan (tanda kutip ganda yang miring, spasi berlebih, huruf besar-kecil yang tidak konsisten). Modul pre-processing kita bertindak sebagai ayakan halus yang mencuci bersih data mentah sehingga yang tersisa hanyalah kosakata murni yang siap diolah.
+\end{infobox}
+
+\section{Langkah-Langkah Pembersihan Teks}
+Modul \texttt{morphology/normalizer.py} menjalankan beberapa tugas penting:
+
+\begin{enumerate}
+    \item \textbf{Penyatuan Tanda Petik dan Glotal (\textit{Apostrophe Standardization}):} Dalam naskah ketikan, tanda petik sering bervariasi antara tanda petik tegak (\texttt{'}), petik miring (\texttt{’}), atau aksen (\texttt{`}). Modul kami menyatukan semuanya ke satu standar agar pencarian tidak meleset.
+    \item \textbf{Penormalan Spasi \& Tanda Baca:} Menghilangkan spasi ganda, merapikan tanda titik-koma, serta memisahkan tanda baca yang menempel pada kata tanpa merusak arti.
+    \item \textbf{Penyaringan Kata Tugas (\textit{Stopwords Filtering}):} Dalam percakapan, kata-kata sambung pendek seperti \textit{su} (di/pada), \textit{u} (dari/milik), \textit{i} (si/penanda nama orang), dan \textit{k\d{u}} (dan/lalu) muncul ribuan kali. Jika komputer mencari arti kata \textit{su} di kamus setiap kali menerjemahkan, proses akan menjadi sangat lambat tanpa memberikan nilai tambah. Sistem kami secara cerdas memfilter kata-kata tugas umum ini saat mencari leksikon utama.
+\end{enumerate}
+
+Dengan langkah-langkah di atas, mesin penerjemah dapat berkonsentrasi penuh pada kata-kata kunci pembawa pesan utama dalam kalimat.

@@ -1,0 +1,29 @@
+\chapter{Lampiran: Ringkasan Kaidah Morfologi Sangihe}
+
+Tabel berikut menyajikan ringkasan aturan pembentukan kata yang diimplementasikan di dalam modul pemecah kata komputer \texttt{morphology/stemmer.py}:
+
+\begin{table}[htbp]
+\centering
+\caption{Daftar Afiks dan Pola Pembentukan Kata Bahasa Sangihe}
+\label{tab:affixes}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Kategori} & \textbf{Bentuk Imbuhan} & \textbf{Fungsi Makna / Contoh Penggunaan} \\
+\midrule
+\textbf{Awalan Kerja} & \textit{m\v{e}-, ma-, m\d{a}-} & Membentuk kata kerja aktif (\textit{m\v{e}baes\v{\d{e}}}, \textit{matan\d{a}}). \\
+\textbf{Awalan Hasil} & \textit{ni-, n\v{e}-, na-} & Menandakan tindakan pasif atau lampau (\textit{niw\v{e}liang}). \\
+\textbf{Awalan Instrumen} & \textit{ipang-, ipa-} & Alat yang dipakai melakukan pekerjaan (\textit{ipanewa}). \\
+\textbf{Sisipan Aktif} & \textit{-um-} & Diselipkan di suku pertama (\textit{t-um-ampa} dari \textit{tampa}). \\
+\textbf{Sisipan Pasif} & \textit{-in-} & Diselipkan di suku pertama (\textit{k-in-oro} dari \textit{koro}). \\
+\textbf{Akhiran Tempat/Hal} & \textit{-ang, -eng} & Lokasi atau objek hasil perbuatan (\textit{wal\d{e}kang}). \\
+\textbf{Klika Penentu/Milik} & \textit{-e, -u, -ku, -ne} & Penanda kata sandang tertentu atau kepemilikan (\textit{waes-u}). \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section*{Hukum Alih Bunyi Morfonemik}
+\begin{itemize}
+    \item \textbf{Alih Bunyi $b \leftrightarrow w$:} Konsonan letup $b$ pada pangkal kata melunak menjadi $w$ saat kata tersebut mendapatkan imbuhan atau klitika kepunyaan (misal: \textit{baes\v{\d{e}}} $\rightarrow$ \textit{waes-u}).
+    \item \textbf{Alih Bunyi $d \leftrightarrow r$:} Konsonan gusi $d$ kerap melunak menjadi getar $r$ di antara dua vokal (misal: \textit{daraung} $\leftrightarrow$ \textit{raraung}).
+    \item \textbf{Vokal Gema (\textit{Echo Vowel}):} Vokal akhir lemah (seperti \textit{-e} pada lema berakhiran konsonan) akan luruh saat akar kata disambung dengan akhiran atau partikel penentu.
+\end{itemize}

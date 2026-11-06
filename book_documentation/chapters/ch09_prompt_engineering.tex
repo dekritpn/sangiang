@@ -1,0 +1,34 @@
+\chapter{Memandu Sang Model: Seni Rekayasa Prompt \& Pemilihan Nomor Arti}
+
+\section{Prompt: Mengajar Asisten Pintar Cara Bekerja}
+Model kecerdasan buatan (\textit{Large Language Model}) ibarat seorang asisten jenius yang baru pertama kali masuk kantor. Ia memiliki kemampuan penalaran yang luar biasa, namun ia tidak tahu peraturan khusus di kantor kita kecuali jika kita memberinya lembar petunjuk tugas yang jelas.
+
+Lembar petunjuk tugas ini disebut **Prompt** (\textit{Instruksi Sistem}).
+
+\begin{infobox}[Analogi Petunjuk Masak untuk Koki Terkenal]
+Seorang koki berbintang lima tahu cara memotong, merebus, dan menumis aneka bahan makanan. Namun jika Anda memintanya membuat masakan khas Sangihe tanpa resep tertulis, ia mungkin akan memasaknya dengan gaya Barat. Rekayasa Prompt adalah seni menuliskan resep masakan yang begitu jelas dan runtut sehingga sang koki dapat menghasilkan cita rasa kuliner tradisional yang otentik.
+\end{infobox}
+
+\section{Tantangan Kata Bermakna Ganda (Polisemi)}
+Dalam kamus klasik Steller-Aebersold, banyak kata yang memiliki lebih dari satu arti. Contohnya lema nomor 331, \textbf{\textit{baes\v{\d{e}}}}:
+\begin{itemize}
+    \item \textbf{Arti 1:} \textit{kemarau, hari panas tanpa hujan, reda dari badai.}
+    \item \textbf{Arti 2:} \textit{sarang hewan, liang petiduran tempat tinggal binatang.}
+\end{itemize}
+
+Pada awal uji coba, model AI selalu mengambil arti nomor 1 secara kaku! Akibatnya, kalimat dongeng binatang \textit{Mahi i\d{a}ko m\v{e}baes\v{\d{e}} su waes-u} diterjemahkan menjadi \textit{“Mari, izinkanlah aku tinggal di kemaraumu”}---sebuah kalimat aneh yang tidak masuk akal bagi akal sehat manusia.
+
+\section{Solusi: Panduan Disambiguasi Leksikal Otomatis}
+Untuk memperbaiki kelemahan tersebut, berkas \texttt{engine/prompt\_templates.py} kami lengkapi dengan pasal instruksi khusus:
+\begin{quote}
+\itshape
+“Perhatikan bahwa kamus memuat beberapa nomor arti (1, 2, dst.). JANGAN langsung mengambil arti nomor 1 secara membabi buta! Bacalah seluruh nomor arti yang tersedia dan pilihlah nomor arti yang paling selaras dengan alur cerita dan konteks kalimat.”
+\end{quote}
+
+Selain itu, panjang ringkasan definisi kamus yang dikirimkan ke model diperluas dari 160 karakter menjadi 280 karakter agar definisi kedua dan contoh kalimatnya tidak terpotong. Hasilnya sungguh menakjubkan: model secara mandiri memilih arti nomor 2 (\textit{sarang/liang}), menghasilkan terjemahan sastrawi yang tepat:
+\begin{center}
+\textbf{“Mari, izinkanlah aku tinggal di sarangmu.”}
+\end{center}
+
+\section{Sentuhan Akhir: Pemulihan Diakritik Otomatis}
+Setelah kalimat bahasa Sangihe dihasilkan oleh model, sistem kami menjalankan modul pemeriksa ejaan (\texttt{morphology/diacritic\_restorer.py}). Modul ini memeriksa kembali setiap kata keluaran terhadap glosarium kamus dan mengembalikan titik-titik diakritik fonemis (\d{a}, \d{e}, \v{e}, l᷊) yang mungkin terlewat oleh model AI. Langkah pemolesan akhir ini menjamin bahwa seluruh teks yang tampil di layar pembaca selalu memenuhi kaidah ejaan ortografi resmi.

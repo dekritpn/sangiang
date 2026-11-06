@@ -1,0 +1,11 @@
+name = "sangiang"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "public"
+
+# Cloudflare D1 Database Binding
+# Saat sudah menjalankan `npx wrangler d1 create sangiang-db`,
+# tempelkan database_id yang muncul ke bawah ini:
+[[d1_databases]]
+binding = "DB"
+database_name = "sangiang-db"
+database_id = "25a13421-a6b1-4739-98db-6cf0cd95c2a5"

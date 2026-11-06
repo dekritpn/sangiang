@@ -1,0 +1,39 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Large Model Binaries
+*.gguf
+outputs/
+*.bin
+
+# Environment variables & secrets
+.env
+.env.local
+
+# Node / Wrangler / SQLite temporary files
+node_modules/
+.wrangler/
+*.sqlite-shm
+*.sqlite-wal
+cloudflare_d1/*.sql
+
+# Large local SQLite & training dataset files (already imported into Cloudflare D1)
+data/*.sqlite
+data/*.pdf
+data/web/
+training/*.zip
+training/data/*.zip
+training/data/*.jsonl
+training/sangihe_lora_adapter/
+book_documentation/**/*.aux
+book_documentation/**/*.log
+book_documentation/**/*.out
+book_documentation/**/*.toc

@@ -1,0 +1,31 @@
+\chapter{Jembatan Penghubung: Arsitektur Layanan REST API}
+
+\section{Apa Itu API dan Mengapa Kita Membutuhkannya?}
+Setelah mesin penerjemah pintar kita berhasil diciptakan, bagaimana cara aplikasi lain (seperti aplikasi ponsel pintar Android, situs web, atau bot percakapan) berbicara dan meminta bantuan kepadanya? Di sinilah peran **REST API** (\textit{Application Programming Interface}).
+
+\begin{infobox}[Analogi Pelayan di Restoran Favorit]
+Bayangkan sebuah restoran yang mewah:
+\begin{itemize}
+    \item \textbf{Dapur Koki:} Adalah mesin penerjemah kita (Python, Kamus Steller, dan Model Qwen) yang bekerja meramu bumbu kalimat.
+    \item \textbf{Pelanggan:} Adalah pengguna atau aplikasi di ponsel pintar yang ingin menerjemahkan kalimat.
+    \item \textbf{Pelayan Restoran (\textit{REST API}):} Adalah pelayan ramah yang membawakan buku menu, mencatat kalimat apa yang ingin diterjemahkan, membawanya ke dapur, lalu mengantarkan kembali hasil terjemahan hangat yang tersusun rapi di atas piring saji!
+\end{itemize}
+\end{infobox}
+
+\section{Membangun dengan FastAPI: Cepat, Ramping, dan Modern}
+Untuk membangun layanan ini, kami memilih **FastAPI**, sebuah kerangka kerja modern berbasis Python yang dikenal sangat gesit, memiliki validasi tipe data otomatis melalui Pydantic, dan secara otomatis menyediakan buku petunjuk interaktif di alamat \texttt{/docs}.
+
+Layanan ini menyediakan empat pintu layanan utama:
+
+\begin{enumerate}
+    \item \textbf{\texttt{POST /v1/translate} (Pintu Layanan Terjemahan):} \\
+    Pintu utama tempat pengguna mengirimkan teks. Pintu ini menerima pilihan arah terjemahan (\textit{Sangihe $\rightarrow$ ID} atau sebaliknya), suhu kreativitas model, serta pilihan model yang ingin digunakan.
+    \item \textbf{\texttt{GET /v1/models} (Pintu Daftar Model):} \\
+    Memungkinkan aplikasi melihat model apa saja yang sedang terpasang di komputer (misalnya memilih antara \texttt{qwen2.5:7b} dasar atau \texttt{qwen2.5-sangihe:7b} hasil pelatihan).
+    \item \textbf{\texttt{POST /v1/morphology/analyze} (Pintu Laboratorium Morfologi):} \\
+    Menerima sebuah kata Sangihe, lalu mengembalikan laporan bedah kata: apakah memiliki imbuhan, apa saja kandidat kata dasarnya, dan apakah kata tersebut merupakan bentuk reduplikasi.
+    \item \textbf{\texttt{GET /health} (Pintu Cek Detak Jantung Sistem):} \\
+    Memeriksa kesehatan seluruh komponen dalam sekejap: apakah basis data leksikon siap, apakah peladen AI Ollama aktif, dan berapa jumlah korpus yang tersedia.
+\end{enumerate}
+
+Dengan arsitektur ini, mesin penerjemah kita dapat dihubungkan ke berbagai platform masa depan secara fleksibel tanpa perlu mengubah kode inti mesin penerjemahnya.

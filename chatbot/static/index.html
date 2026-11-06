@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sangiang AI — Percakapan Cerdas Bahasa Sangihe</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Chatbot kecerdasan buatan Bahasa Sangihe bertenaga Sangiang. Inisiasi Yayasan Cipta Manggala Dwipa & Divisi DigiLab CMD.">
+  <link rel="icon" type="image/jpeg" href="/static/sangiang.jpeg">
+  
+  <!-- Fonts: Outfit (UI) and Gentium Plus (Diacritics) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Plus:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- External Markdown & Highlight Libraries (with local fallbacks) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-theme">
+  <div class="gemini-app" id="app">
+    
+    <!-- Left Collapsible Sidebar -->
+    <aside class="gemini-sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <button id="btn-toggle-sidebar" class="btn-icon" title="Tutup menu samping" aria-label="Toggle Sidebar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <button id="btn-new-chat" class="btn-new-chat" title="Mulai obrolan baru">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="new-chat-text">Obrolan Baru</span>
+        </button>
+      </div>
+
+      <div class="sidebar-section-title">Terbaru</div>
+      <div class="recent-chats-list" id="recent-chats-list">
+        <!-- Injected via app.js -->
+        <div class="recent-chat-item active" data-id="default">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="chat-title">Percakapan dengan Sangiang</span>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="model-badge-card">
+          <div class="sidebar-sangiang-avatar-wrap">
+            <img src="/static/sangiang.jpeg" alt="Sangiang" class="sidebar-sangiang-avatar">
+            <div class="status-pulse-dot"></div>
+          </div>
+          <div class="model-meta">
+            <div class="model-meta-name" id="sidebar-model-name">Sangiang</div>
+            <div class="model-meta-tag">Putri Raja • Sangihe AI</div>
+          </div>
+        </div>
+
+        <a href="http://localhost:8000" id="nav-translate-link" target="_blank" class="sidebar-link-btn" title="Buka Mesin Penerjemah Sangiang">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 8l6 6"></path>
+            <path d="M4 14h6v6"></path>
+            <path d="M2 5h12"></path>
+            <path d="M7 2h1"></path>
+            <path d="M22 22l-5-10-5 10"></path>
+            <path d="M14 18h6"></path>
+          </svg>
+          <span>Sangiang Translate</span>
+        </a>
+
+        <button id="btn-about" class="sidebar-link-btn" title="Tentang Proyek">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>Tentang Sangiang</span>
+        </button>
+
+        <button id="btn-theme-toggle" class="sidebar-link-btn" title="Ganti Tema">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <span id="theme-text">Mode Terang</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Chat Workspace -->
+    <main class="gemini-main">
+      <!-- Top App Bar -->
+      <header class="gemini-header">
+        <div class="header-left">
+          <button id="btn-open-sidebar" class="btn-icon mobile-menu-btn" title="Buka menu" aria-label="Buka Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          
+          <div class="app-brand-title">
+            <div class="sparkle-avatar header-sparkle">
+              <img src="/static/sangiang.jpeg" alt="Sangiang" class="sangiang-avatar-img">
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">Sangiang</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <button id="btn-clear-chat" class="btn-icon" title="Bersihkan riwayat percakapan">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat Viewport -->
+      <div class="chat-viewport" id="chat-viewport">
+        <!-- Hero Greeting State (shown when messages is empty) -->
+        <section class="hero-greeting" id="hero-greeting">
+          <div class="hero-content">
+            <div class="hero-sparkle-glow">
+              <img src="/static/sangiang.jpeg" alt="Sangiang" class="hero-sangiang-img">
+            </div>
+            <h1 class="hero-title">
+              <span class="gemini-gradient-text">Halo, Penutur Sangihe.</span>
+            </h1>
+            <h2 class="hero-subtitle">
+              Saya Sangiang, teman diskusi Anda. Mari mengobrol atau bertukar pikiran hari ini!
+            </h2>
+
+            <!-- Suggestion Chips Grid -->
+            <div class="suggestion-grid">
+              <div class="suggestion-card" data-prompt="Tabea Sangiang! Kere habarẹ̌ su ěllo ini? Mahi i kitẹ mẹ̌bera-wera.">
+                <div class="card-icon">👋</div>
+                <div class="card-text">
+                  <div class="card-title">Mẹ̌bera-wera Bahasa Sangihe</div>
+                  <div class="card-desc">Mulai percakapan penuh dalam Bahasa Sangihe bersama Sangiang.</div>
+                </div>
+              </div>
+
+              <div class="suggestion-card" data-prompt="Menurutmu, bagaimana cara paling menarik agar generasi muda tertarik menggunakan Bahasa Sangihe dalam pergaulan sehari-hari?">
+                <div class="card-icon">💬</div>
+                <div class="card-text">
+                  <div class="card-title">Diskusi Pelestarian Bahasa</div>
+                  <div class="card-desc">Bertukar pikiran tentang masa depan bahasa daerah di era digital.</div>
+                </div>
+              </div>
+
+              <div class="suggestion-card" data-prompt="Ceritakan filosofi hidup masyarakat bahari Kepulauan Sangihe dan tradisi Tulude yang mempererat persaudaraan.">
+                <div class="card-icon">🏝️</div>
+                <div class="card-text">
+                  <div class="card-title">Falsafah & Budaya Nusa Utara</div>
+                  <div class="card-desc">Bincangkan kearifan lokal, adat Tulude, dan sejarah bahari.</div>
+                </div>
+              </div>
+
+              <div class="suggestion-card" data-prompt="Mari berbalas pantun atau sastra lisan Sangihe bertema persahabatan dan semangat mengarungi lautan.">
+                <div class="card-icon">🌊</div>
+                <div class="card-text">
+                  <div class="card-title">Apresiasi Sastra & Biong</div>
+                  <div class="card-desc">Berbincang hangat tentang keindahan sastra lisan Kepulauan Sangihe.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Message Stream Container -->
+        <div class="messages-container" id="messages-container"></div>
+      </div>
+
+      <!-- Bottom Floating Prompt Area -->
+      <footer class="gemini-footer">
+        <div class="prompt-box-outer">
+          <!-- Sangihe Diacritic Quick Keyboard (Expandable) -->
+          <div class="diacritic-dock" id="diacritic-dock">
+            <span class="dock-label">Diakritik Sangihe:</span>
+            <div class="dock-keys">
+              <button class="dock-key" data-char="ạ" title="a titik bawah (U+1EA1)">ạ</button>
+              <button class="dock-key" data-char="ẹ" title="e titik bawah (U+1EB9)">ẹ</button>
+              <button class="dock-key" data-char="ẹ̌" title="e titik pepet (U+1EB9 + U+030C)">ẹ̌</button>
+              <button class="dock-key" data-char="ě" title="e pepet (U+011B)">ě</button>
+              <button class="dock-key" data-char="ị" title="i titik bawah (U+1ECB)">ị</button>
+              <button class="dock-key" data-char="ọ" title="o titik bawah (U+1ECD)">ọ</button>
+              <button class="dock-key" data-char="ụ" title="u titik bawah (U+1EE5)">ụ</button>
+              <button class="dock-key" data-char="l᷊" title="l gelombang bawah (l + U+1DCA)">l᷊</button>
+            </div>
+            <button id="btn-dock-close" class="btn-dock-close" title="Sembunyikan bilah diakritik">✕</button>
+          </div>
+
+          <!-- Main Input Pill Box -->
+          <div class="prompt-box" id="prompt-box">
+            <textarea 
+              id="prompt-input" 
+              class="prompt-textarea" 
+              placeholder="Tanyakan apa saja kepada Sangiang..." 
+              rows="1" 
+              aria-label="Prompt Input"
+            ></textarea>
+
+            <div class="prompt-actions">
+              <div class="actions-left">
+                <button id="btn-toggle-diacritics" class="btn-prompt-action" title="Tampilkan tombol karakter diakritik Sangihe">
+                  <span class="action-glyph">ạ</span>
+                  <span class="action-caption">Diakritik</span>
+                </button>
+              </div>
+
+              <div class="actions-right">
+                <button id="btn-send" class="btn-send" title="Kirim pesan" aria-label="Kirim Pesan">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="send-icon">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                  </svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="stop-icon" style="display: none;">
+                    <rect x="6" y="6" width="12" height="12" rx="2"></rect>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="legal-disclaimer">
+            Sangiang adalah model kecerdasan buatan Bahasa Sangihe. Inisiator: <strong>Yayasan Cipta Manggala Dwipa</strong> • Rekayasa AI & Penerjemah: <strong>Divisi DigiLab CMD</strong>.
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- About Modal -->
+    <div class="modal-backdrop" id="about-modal" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title">
+            <img src="/static/sangiang.jpeg" alt="Sangiang" class="modal-sangiang-img">
+            Tentang Sangiang AI
+          </div>
+          <button id="btn-modal-close" class="btn-icon">✕</button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Sangiang</strong> adalah agen kecerdasan buatan percakapan dwibahasa (Bahasa Sangihe $\leftrightarrow$ Bahasa Indonesia) yang dibangun untuk melestarikan dan merevitalisasi warisan bahasa daerah Kepulauan Nusa Utara.</p>
+          
+          <div class="about-attribution-box">
+            <div><strong>Inisiator Proyek:</strong> Yayasan Cipta Manggala Dwipa</div>
+            <div><strong>Rekayasa Sistem AI & Penerjemah:</strong> Divisi DigiLab CMD</div>
+            <div><strong>Sistem AI:</strong> Sangiang (Sangihe Artificial Intelligence Network Agent)</div>
+            <div><strong>Leksikografi:</strong> Kamus Sangihe-Indonesia Modern, Kamus Steller-Aebersold (Brill / KITLV) & Teks Kitab Suci (LAI)</div>
+          </div>
+          
+          <p>Nama <em>Sangiang</em> diambil dari sosok putri raja dalam sastra lisan Sangihe, sekaligus merupakan semi-akronim dari <em>Sangihe Artificial Intelligence Network Agent</em>.</p>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-modal-ok" class="btn-primary">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

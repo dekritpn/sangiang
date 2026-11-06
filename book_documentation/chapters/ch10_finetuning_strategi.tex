@@ -1,0 +1,32 @@
+\chapter{Melatih Otak AI: Mengapa dan Bagaimana Fine-Tuning Bekerja?}
+
+\section{Dari Dokter Umum Menjadi Dokter Spesialis}
+Meskipun sistem Hybrid RAG sudah sangat membantu dengan menyediakan kamus terbuka di atas meja, model dasar \texttt{Qwen2.5:7b} pada dasarnya belum pernah diajari tata krama dan struktur gramatika Bahasa Sangihe sejak lahir. 
+
+\begin{infobox}[Analogi Dokter Umum dan Dokter Spesialis]
+Model bahasa fondasi ibarat seorang lulusan kedokteran umum yang sangat cerdas: ia paham biologi, anatomi, dan kimia obat secara umum. Namun, jika Anda memintanya menangani bedah saraf langka, ia memerlukan pendidikan spesialisasi tambahan. 
+
+Proses **Fine-Tuning** (\textit{Pelatihan Lanjutan}) adalah proses menyekolahkan sang model pintar ke program pendidikan spesialisasi Bahasa Sangihe. Di sana, ia membaca puluhan ribu contoh dialog nyata sampai struktur tata bahasa dan rasa bahasanya meresap ke dalam ingatannya secara alami.
+\end{infobox}
+
+\section{Mengapa Tidak Melatih dari Nol (\textit{Train from Scratch})?}
+Melatih model kecerdasan buatan dari nol membutuhkan jutaan dokumen teks, ratusan komputer supercanggih bernilai puluhan miliar rupiah, dan waktu berbulan-bulan. Bagi bahasa daerah yang memiliki keterbatasan data teks (*low-resource*), melatih dari nol adalah hal yang mustahil dan tidak efisien.
+
+Sebaliknya, teknik \textit{fine-tuning} memanfaatkan kecerdasan penalaran umum yang sudah dimiliki model \texttt{Qwen2.5:7b}, lalu mengarahkannya secara spesifik ke domain bahasa daerah kita.
+
+\section{Keajaiban Teknologi LoRA dan QLoRA 4-bit}
+Bagaimana mungkin sebuah model raksasa berukuran 7 miliar parameter dapat dilatih hanya menggunakan komputer gratisan di Google Colab? Kuncinya terletak pada dua inovasi teknologi mutakhir:
+
+\begin{enumerate}
+    \item \textbf{Kuantisasi 4-bit (QLoRA):} Bobot angka di dalam otak AI dikompresi sedemikian rupa sehingga hanya memakan seperempat dari ukuran memori aslinya, menghemat lebih dari 70\% kebutuhan memori kartu grafis (VRAM).
+    \item \textbf{LoRA (\textit{Low-Rank Adaptation}):} Alih-alih mengubah seluruh 7,65 miliar parameter otak model, kita "membekukan" model asli dan hanya menambahkan lapisan adaptor tipis pada sambungan saraf proyeksi utamanya.
+\end{enumerate}
+
+\begin{metricbox}[Efisiensi Pelatihan dengan Unsloth LoRA]
+Pada eksperimen pelatihan proyek ini:
+\begin{itemize}
+    \item \textbf{Total Parameter Model Asli:} 7.655.986.688 parameter.
+    \item \textbf{Parameter yang Dilatih (Trainable):} Hanya 40.370.176 parameter (\textbf{hanya 0,53\%} dari keseluruhan model!).
+    \item \textbf{Hasilnya:} Pelatihan 56.312 pasang kalimat dapat berjalan mulus di atas kartu grafis GPU T4 gratisan tanpa pernah mengalami kehabisan memori (*Out of Memory*).
+\end{itemize}
+\end{metricbox}

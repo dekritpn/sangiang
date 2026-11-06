@@ -1,0 +1,37 @@
+\chapter{Mesin Pencari Secepat Kilat: Menyelamatkan Komputer dari Kemacetan Memori}
+
+\section{Tantangan Nyata di Komputer Pribadi}
+Banyak penelitian kecerdasan buatan berasumsi bahwa sistem akan dijalankan di pusat data raksasa milik korporasi teknologi dengan lusinan kartu grafis (GPU) seharga ratusan juta rupiah. Namun, proyek ini dirancang dengan prinsip kemandirian: **harus bisa berjalan di komputer kerja biasa (komputer meja atau laptop dengan prosesor Intel dan memori RAM 32 GB) tanpa kartu grafis khusus.**
+
+Menjalankan model kecerdasan buatan berukuran 7 miliar parameter (\texttt{Qwen2.5:7b}) di atas prosesor biasa (CPU) memiliki tantangan tersendiri: setiap detiknya sangat berharga.
+
+\section{Kisah Kemacetan Memori: Tragedi Model yang Terus Tergusur}
+Di tahap awal eksperimen, kami mencoba menggunakan metode pencarian vektor modern bernama \textit{Dense Embedding} (menggunakan model khusus bernama \texttt{bge-m3}). Namun, sebuah fenomena mengejutkan terjadi: setiap kali pengguna mengirimkan satu kalimat panjang, sistem tiba-tiba membeku selama dua menit lebih lalu menampilkan pesan galat: \textit{“Ollama Timeout”}!
+
+Apa yang sebenarnya terjadi di dalam "otak" komputer?
+
+\begin{infobox}[Analogi Meja Kerja yang Sempit]
+Bayangkan Anda memiliki meja belajar kecil yang hanya muat satu buku ensiklopedia raksasa setebal 5.000 halaman (\textbf{Model Bahasa Qwen}). 
+Tiba-tiba, seorang asisten datang dan meminta Anda membuka buku kamus saku kecil (\textbf{Model Pencari Vektor BGE-M3}). Karena meja Anda tidak muat dua buku sekaligus, Anda terpaksa:
+\begin{enumerate}
+    \item Mengangkat buku raksasa 5.000 halaman itu ke lemari gudang (butuh waktu 15 detik).
+    \item Meletakkan buku kamus saku di atas meja untuk mencari satu kata (butuh waktu 1 detik).
+    \item Mengangkat kembali buku kamus saku ke lemari, lalu berjalan ke gudang memikul kembali buku raksasa 5.000 halaman itu ke atas meja (butuh waktu 45 detik!).
+\end{enumerate}
+Hanya untuk mencari satu kata, Anda menghabiskan waktu semenit lebih hanya untuk bolak-balik mengangkat buku! Dalam ilmu komputer, fenomena ini dinamakan \textbf{Model Thrashing / Eviction}.
+\end{infobox}
+
+\section{Solusi Elegan: Beralih ke Mesin Pencari SQLite BM25}
+Untuk memecahkan masalah ini secara tuntas, kami tidak memaksakan komputer memuat dua model AI sekaligus. Kami memanfaatkan teknologi basis data legendaris yang sangat ringan dan efisien: **SQLite FTS5 dengan Algoritma BM25**.
+
+BM25 adalah algoritma pencarian teks teruji (seperti yang digunakan mesin pencari internet) yang langsung menghitung kemiripan kata kunci tanpa perlu menjalankan model kecerdasan buatan tambahan.
+
+\begin{metricbox}[Perbandingan Performa Pencarian Rujukan]
+\begin{itemize}
+    \item \textbf{Sebelumnya (Model Vektor BGE-M3):} Latensi $>$ 60--120 detik, terjadi penggusuran model di RAM, rawan waktu habis (\textit{timeout}).
+    \item \textbf{Setelah Optimasi (SQLite BM25):} Waktu pencarian turun drastis menjadi \textbf{kurang dari 3 milidetik (0,003 detik)}!
+    \item \textbf{Status Model Utama:} Model \texttt{Qwen2.5:7b} dapat berdiam dengan tenang dan stabil di memori RAM (\texttt{keep\_alive="60m"}) tanpa pernah terusir lagi.
+\end{itemize}
+\end{metricbox}
+
+Dengan keputusan arsitektur yang cerdas ini, waktu tunggu penerjemahan yang tadinya macet total berhasil dipangkas menjadi hitungan detik saja, sehingga sistem dapat digunakan dengan nyaman oleh siapa saja.

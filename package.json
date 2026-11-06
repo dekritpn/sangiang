@@ -1,0 +1,15 @@
+{
+  "name": "sangiang-sangihe-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sangiang Translation Engine & Sangiang Chatbot for sangihe.org (Cloudflare Pages + D1)",
+  "scripts": {
+    "build": "python3 scripts/build_cloudflare_pages.py",
+    "dev": "npx wrangler pages dev public",
+    "deploy": "python3 scripts/build_cloudflare_pages.py && npx wrangler pages deploy public --project-name=sangiang"
+  },
+  "devDependencies": {
+    "wrangler": "^3.86.0"
+  }
+}
+

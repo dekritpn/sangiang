@@ -1,0 +1,61 @@
+\chapter{Mengumpulkan Harta Karun Kata: Korpus \& Kamus Klasik}
+
+\section{Bahan Bakar Utama Kecerdasan Buatan: Data Paralel}
+Sebuah mobil secanggih apa pun tidak akan dapat melaju tanpa bahan bakar. Demikian pula dengan kecerdasan buatan: model AI secanggih apa pun tidak akan bisa menerjemahkan bahasa tanpa adanya data contoh kalimat yang benar.
+
+Dalam dunia penerjemahan mesin, data paling berharga disebut **Korpus Paralel** (\textit{Parallel Corpus}).
+
+\begin{infobox}[Analogi Buku Dua Bahasa dan Teks Film]
+Bayangkan sebuah buku cerita yang di halaman kirinya dicetak dalam Bahasa Sangihe, dan tepat di halaman kanannya dicetak terjemahan resminya dalam Bahasa Indonesia kalimat demi kalimat. Atau bayangkan sebuah film yang menampilkan dua baris terjemahan teks (subtitle) sekaligus di layar. Dengan membandingkan ribuan pasangan kalimat tersebut, kecerdasan buatan dapat mempelajari bagaimana frasa tertentu dialihbahasakan secara alami.
+\end{infobox}
+
+\section{Lima Sumber Daya Utama Proyek Ini}
+Proyek ini mengintegrasikan lima warisan dokumen besar yang telah didigitisasi:
+
+\subsection{1. Kamus Klasik Steller-Aebersold (\StatLemmaTotal{} Lema)}
+Kamus monumental \textit{Sangihe-Nederlandsch Woordenboek} karya K.G.F. Steller dan W.E. Aebersold (1959) diterbitkan di bawah naungan Koninklijk Instituut voor Taal-, Land- en Volkenkunde (KITLV), dengan hak cipta buku dipegang oleh \textbf{Brill / KITLV}. 
+
+Adapun korpus terjemahan kamus tersebut ke dalam Bahasa Indonesia---yang dikerjakan secara cermat dan komprehensif oleh tim penerjemah \textbf{Divisi DigiLab CMD} dan menjadi basis leksikal komputasi dalam proyek ini---merupakan hak cipta milik \textbf{Yayasan Cipta Mandala Dwipa}. Di dalam sistem, data ini dimuat dari basis data SQLite \texttt{sarindi.sqlite} yang mencakup:
+\begin{itemize}
+    \item \textbf{\StatLemmaTotal{} lema utama} lengkap dengan tanda diakritik fonemis dan penjelasan arti rinci.
+    \item \textbf{Indeks Balik Bahasa Indonesia (\textit{id\_index}):} Memungkinkan kita mencari padanan kata Sangihe dari sudut pandang kosakata Bahasa Indonesia.
+    \item \textbf{Pencarian Teks Cepat (SQLite FTS5):} Memungkinkan komputer menemukan lema yang cocok dalam hitungan sepersekian milidetik.
+\end{itemize}
+
+\subsection{2. Teks Paralel Kitab Suci Sangihe (\StatCorpusBible{} Ayat)}
+Naskah terjemahan Alkitab Bahasa Sangihe yang disandingkan berdampingan dengan Alkitab Terjemahan Baru (TB) dan Bahasa Indonesia Masa Kini (BIMK). Hak cipta dari seluruh naskah dan buku teks Kitab Suci ini dipegang oleh \textbf{Lembaga Alkitab Indonesia (LAI)}. Sumber ini menyumbang lebih dari 29 ribu pasangan ayat dengan register bahasa formal, tata kalimat yang tertib, dan diakritik yang terjaga rapi.
+
+\subsection{3. Sastra Klasik: Dongeng Sasahara \& Wiracarita Himbawo}
+Untuk melengkapi ragam bahasa percakapan, metafora bahari, dan folklor tradisional, proyek ini memasukkan:
+\begin{itemize}
+    \item \textbf{27 Bab Dongeng Klasik Sangihe (\StatCorpusDongeng{} Kalimat):} Kisah binatang, fabel moral, dan legenda rakyat (seperti kisah Gurita dan Ular Laut).
+    \item \textbf{Puisi Epik \textit{Biong i Himbawo} (\StatCorpusHimbawo{} Larik):} Nyanyian kepahlawanan dengan struktur persajakan puitis tingkat tinggi.
+\end{itemize}
+
+\subsection{4. Sastra Folklor Daerah: \textit{Tiga Kulano dari Dagho} (\StatCorpusTigaKulano{} Pasangan Kalimat)}
+Sebagai terobosan mutakhir untuk memutus ketergantungan model terhadap domain religius (bias 99\% teks Alkitab), proyek ini mengintegrasikan buku kumpulan cerita rakyat dwibahasa \textit{Tiga Kulano dari Dagho} (Paul Nebath dkk., Departemen Pendidikan dan Kebudayaan, 1983). Korpus ini mencakup 14 bab kisah kepahlawanan, fabel satwa, mitologi laut, dan asal-usul tanjung yang tersebar di wilayah kepulauan:
+\begin{itemize}
+    \item \textbf{10 Cerita Sangihe Besar (286 Pasangan):} Termasuk wiracarita \textit{Gumansalangi}, putri legendaris \textit{Tomatiti}, pahlawan bahari \textit{Tiga Orang Pemberani dari Dagho}, \textit{Ompung} (dewa lautan), serta fabel satwa jenaka \textit{Kera dan Bangau}.
+    \item \textbf{2 Cerita Bahasa Talaud (70 Pasangan):} Kisah manusia pertama di Pulau Karakelang (\textit{Alamona Ntaumata Ntaloda}) dan hikmah anak yang durhaka (\textit{Battiu Anao}).
+    \item \textbf{1 Cerita Dialek Tagulandang (32 Pasangan):} Legenda terbentuknya tanjung terputus (\textit{Tonggeng Napoto}).
+    \item \textbf{1 Cerita Dialek Siau (19 Pasangan):} Fabel musyawarah satwa \textit{Kina Hetung dingangu Manu Banggiung}.
+\end{itemize}
+
+\begin{infobox}[Pemulihan Filologis \& Rekonstruksi Halaman Tertukar]
+Pada buku cetakan fisik tahun 1983, keterbatasan teknologi cetak saat itu memaksa penyunting menambahkan tanda-tanda diakritik menggunakan coretan pena manual di atas ketikan mesin tik, yang saat dipindai melalui OCR menghasilkan ribuan derau karakter. Selain itu, ditemukan anomali perwajahan kritis di mana potongan naskah Bahasa Sangihe antara Cerita 7 (\textit{Walawo, Urang, Lipang...}) dan Cerita 12 (\textit{Datu I Ralero}) tertukar halamannya pada lembaran cetak. 
+
+Melalui pipeline restorasi berbasis leksikon Steller-Aebersold (\texttt{scripts/process\_tiga\_kulano.py}) dan algoritma \textit{Dynamic Programming Sentence Alignment}, kedua naskah berhasil disambung kembali sesuai koherensi plot aslinya, serta dibersihkan ke dalam ortografi fonemis baku lengkap dengan konsonan kepak retrofleks (\textit{l᷊}) dan vokal pepet (\textit{ě, ẹ̌}).
+\end{infobox}
+
+\subsection{5. Korpus Percakapan Sehari-Hari (\StatCorpusPercakapan{} Pasangan Kalimat)}
+Untuk menjembatani model dengan situasi percakapan nyata di dunia modern, proyek ini menyaring dan menyelaraskan data kosakata percakapan dari sumber-sumber web terbuka (\texttt{data/web/}) serta ungkapan pragmatis kesantunan masyarakat kontemporer. Korpus ini dikurasi secara cermat melalui skrip \texttt{scripts/process\_web\_conversations.py}:
+\begin{itemize}
+    \item \textbf{Salam Waktu \& Sapaan:} Ungkapan salam formal dan santai seperti \textit{Salamate měhěbị} (selamat pagi), \textit{Salamate ěllong darua} (selamat siang), \textit{Salamate sělẹ̌} (selamat sore), dan \textit{Salamate hěbi} (selamat malam).
+    \item \textbf{Pragmatik Kesantunan:} Frasa penting dalam interaksi sosial seperti \textit{Tarima kasehẹ̌} (terima kasih), \textit{Makiangsingkatẹ̌} (terima kasih banyak), \textit{Kapurane iạ} (maafkan saya), \textit{Tabea} (permisi), dan \textit{Pariurung} (silakan).
+    \item \textbf{Tanya Jawab Percakapan:} Pola tanya jawab lazim seperti kabar (\textit{Kere habarẹ̌?}), asal (\textit{Bọu apa i kau?}), tujuan (\textit{Sarang apa i kau?}), nama (\textit{Isai arengu?}), serta jamuan makan (\textit{Ndaị e kumâng!}).
+    \item \textbf{Panggilan Budaya:} Panggilan kehormatan dan kasih sayang khas suku Sangihe seperti \textit{Ungke / Opo} (pemuda) dan \textit{Wawu} (pemudi).
+\end{itemize}
+Kehadiran korpus percakapan ini memberikan penahan (*pragmatic anchor*) yang esensial agar bot percakapan Sangiang (Port 2026) dapat merespons tegur sapa warga dengan luwes, santun, dan alami tanpa mengeluarkan respons yang melantur.
+
+\section{Totalitas Bank Memori Paralel}
+Melalui modul pengindeks cerdas (\texttt{retrieval/indexer.py}), seluruh data ini dilebur dan disimpan dalam satu basis data terpadu \texttt{parallel\_corpus.sqlite}. Kini sistem memiliki total \textbf{\StatCorpusTotal{} pasangan kalimat rujukan} yang siap dipanggil kapan saja oleh mesin penerjemah.

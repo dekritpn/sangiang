@@ -1,0 +1,460 @@
+[
+  {
+    "unit_id": "percakapan:web:001",
+    "regional_text": "Kere habarẹ̌?",
+    "regional_normalized": "Kere habare?",
+    "indonesian_text": "Apa kabar?",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "kera habare = apa kabar?"
+  },
+  {
+    "unit_id": "percakapan:web:002",
+    "regional_text": "Mapaelẹ̌",
+    "regional_normalized": "Mapaele",
+    "indonesian_text": "Kabar baik / Baik-baik saja",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "mapaele = baik\""
+  },
+  {
+    "unit_id": "percakapan:web:003",
+    "regional_text": "Bọu apa i kau?",
+    "regional_normalized": "Bou apa i kau?",
+    "indonesian_text": "Dari mana kamu?",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "boa apa i kau = darimana kamu?"
+  },
+  {
+    "unit_id": "percakapan:web:004",
+    "regional_text": "Bọu pai",
+    "regional_normalized": "Bou pai",
+    "indonesian_text": "Dari sana",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "bo pai = dari sana"
+  },
+  {
+    "unit_id": "percakapan:web:005",
+    "regional_text": "Sarang apa i kau?",
+    "regional_normalized": "Sarang apa i kau?",
+    "indonesian_text": "Mau ke mana kamu?",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "sarang apa kau = mau kemana kamu?"
+  },
+  {
+    "unit_id": "percakapan:web:006",
+    "regional_text": "Sarang pai",
+    "regional_normalized": "Sarang pai",
+    "indonesian_text": "Mau ke sana",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "sarang  pai = mau ke sana"
+  },
+  {
+    "unit_id": "percakapan:web:007",
+    "regional_text": "Isai arengu?",
+    "regional_normalized": "Isai arengu?",
+    "indonesian_text": "Siapa namamu?",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "sai arengu = siapa namamu"
+  },
+  {
+    "unit_id": "percakapan:web:008",
+    "regional_text": "Arengku...",
+    "regional_normalized": "Arengku...",
+    "indonesian_text": "Nama saya...",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "areng ku... = nama saya,., blablabla"
+  },
+  {
+    "unit_id": "percakapan:web:009",
+    "regional_text": "Hadọko, sarang pai mal᷊igha",
+    "regional_normalized": "Hadoko, sarang pai maligha",
+    "indonesian_text": "Tunggu, mau ke sana sebentar",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "hadoko sarang pai maliga = tunggu, mau kesana sebentar"
+  },
+  {
+    "unit_id": "percakapan:web:010",
+    "regional_text": "Sarang sikola",
+    "regional_normalized": "Sarang sikola",
+    "indonesian_text": "Pergi ke sekolah",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "sarang sikola = pergi ke sekolah"
+  },
+  {
+    "unit_id": "percakapan:web:011",
+    "regional_text": "Abe kararau dumal᷊eng",
+    "regional_normalized": "Abe kararau dumaleng",
+    "indonesian_text": "Jangan berjalan terlalu jauh",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "abe kararau dumaleng = jangan jauh2 berjalan"
+  },
+  {
+    "unit_id": "percakapan:web:012",
+    "regional_text": "Dumal᷊eng",
+    "regional_normalized": "Dumaleng",
+    "indonesian_text": "Berjalan",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "dumaleng = berjalan"
+  },
+  {
+    "unit_id": "percakapan:web:013",
+    "regional_text": "Marau",
+    "regional_normalized": "Marau",
+    "indonesian_text": "Jauh",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "marau = jauh"
+  },
+  {
+    "unit_id": "percakapan:web:014",
+    "regional_text": "Marani",
+    "regional_normalized": "Marani",
+    "indonesian_text": "Dekat",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "marani = dekat"
+  },
+  {
+    "unit_id": "percakapan:web:015",
+    "regional_text": "Ndaị e kumâng",
+    "regional_normalized": "Ndai e kumang",
+    "indonesian_text": "Mari makan / Ayo makan",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "ndaie kumang = mari makan"
+  },
+  {
+    "unit_id": "percakapan:web:016",
+    "regional_text": "Seng bọu",
+    "regional_normalized": "Seng bou",
+    "indonesian_text": "Sudah selesai / Sudah",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "seng bou = sudah"
+  },
+  {
+    "unit_id": "percakapan:web:017",
+    "regional_text": "Mẹ̌dorong ko kadodo",
+    "regional_normalized": "Medorong ko kadodo",
+    "indonesian_text": "Minta sedikit",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "medorong ko kadodo = minta sedikit"
+  },
+  {
+    "unit_id": "percakapan:web:018",
+    "regional_text": "Dako e pangal᷊a hal᷊a",
+    "regional_normalized": "Dako e pangala hala",
+    "indonesian_text": "Ambil saja sendiri",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "dako e pengala hala = ambil saja sendiri"
+  },
+  {
+    "unit_id": "percakapan:web:019",
+    "regional_text": "Dako e i kau pangal᷊a",
+    "regional_normalized": "Dako e i kau pangala",
+    "indonesian_text": "Pergilah ambil sendiri",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "dako e i kau pengala = pergi saja ambil"
+  },
+  {
+    "unit_id": "percakapan:web:020",
+    "regional_text": "Su apa tampane?",
+    "regional_normalized": "Su apa tampane?",
+    "indonesian_text": "Di mana tempatnya?",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "sua tampae = dimana tempatnya"
+  },
+  {
+    "unit_id": "percakapan:web:021",
+    "regional_text": "Pai sini",
+    "regional_normalized": "Pai sini",
+    "indonesian_text": "Di sini",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "pai sini = di sini"
+  },
+  {
+    "unit_id": "percakapan:web:022",
+    "regional_text": "Ndaị e měnalang",
+    "regional_normalized": "Ndai e menalang",
+    "indonesian_text": "Ayo bermain",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "ndai e menalang = ayo bermain"
+  },
+  {
+    "unit_id": "percakapan:web:023",
+    "regional_text": "Měnalang apa?",
+    "regional_normalized": "Menalang apa?",
+    "indonesian_text": "Bermain apa?",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "menalang apa = bermain apa?"
+  },
+  {
+    "unit_id": "percakapan:web:024",
+    "regional_text": "Tau apa i kau?",
+    "regional_normalized": "Tau apa i kau?",
+    "indonesian_text": "Orang mana kamu?",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "tau apa i kau = orang mana kamu?"
+  },
+  {
+    "unit_id": "percakapan:web:025",
+    "regional_text": "Ungke / Opo",
+    "regional_normalized": "Ungke / Opo",
+    "indonesian_text": "Panggilan sayang atau kehormatan bagi anak laki-laki / pemuda Sangihe",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "Ungke/ Opo = laki - laki dari sangihe"
+  },
+  {
+    "unit_id": "percakapan:web:026",
+    "regional_text": "Wawu",
+    "regional_normalized": "Wawu",
+    "indonesian_text": "Panggilan sayang bagi anak perempuan / gadis Sangihe",
+    "source_domain": "percakapan",
+    "category": "kosakata_web",
+    "raw_source": "Wawu = perempuan dari sangihe"
+  },
+  {
+    "unit_id": "percakapan:core:001",
+    "regional_text": "Salamate měhěbị!",
+    "regional_normalized": "Salamate mehebi!",
+    "indonesian_text": "Selamat pagi!",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:002",
+    "regional_text": "Salamate ěllong darua!",
+    "regional_normalized": "Salamate ellong darua!",
+    "indonesian_text": "Selamat siang!",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:003",
+    "regional_text": "Salamate sělẹ̌!",
+    "regional_normalized": "Salamate sele!",
+    "indonesian_text": "Selamat sore!",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:004",
+    "regional_text": "Salamate hěbi!",
+    "regional_normalized": "Salamate hebi!",
+    "indonesian_text": "Selamat malam!",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:005",
+    "regional_text": "Tarima kasehẹ̌.",
+    "regional_normalized": "Tarima kasehe.",
+    "indonesian_text": "Terima kasih.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:006",
+    "regional_text": "Makiangsingkatẹ̌.",
+    "regional_normalized": "Makiangsingkate.",
+    "indonesian_text": "Terima kasih banyak.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:007",
+    "regional_text": "Mambeng kerene.",
+    "regional_normalized": "Mambeng kerene.",
+    "indonesian_text": "Sama-sama / Terima kasih kembali.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:008",
+    "regional_text": "Tawẹ apa-apa.",
+    "regional_normalized": "Tawe apa-apa.",
+    "indonesian_text": "Tidak apa-apa / Sama-sama.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:009",
+    "regional_text": "Kapurane iạ.",
+    "regional_normalized": "Kapurane ia.",
+    "indonesian_text": "Maafkan saya.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:010",
+    "regional_text": "Kapurane i kau deẹ̌.",
+    "regional_normalized": "Kapurane i kau dee.",
+    "indonesian_text": "Mohon dimaafkan ya.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:011",
+    "regional_text": "Tabea.",
+    "regional_normalized": "Tabea.",
+    "indonesian_text": "Permisi / Mohon izin.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:012",
+    "regional_text": "Pariurung.",
+    "regional_normalized": "Pariurung.",
+    "indonesian_text": "Silakan.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:013",
+    "regional_text": "Mẹ̌sombang kal᷊imonang.",
+    "regional_normalized": "Mesombang kalimonang.",
+    "indonesian_text": "Sampai jumpa lagi.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:014",
+    "regional_text": "Mẹ̌sombang bọu ini.",
+    "regional_normalized": "Mesombang bou ini.",
+    "indonesian_text": "Sampai bertemu nanti.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:015",
+    "regional_text": "Kere habarẹ̌? — Mapaelẹ̌, tarima kasehẹ̌.",
+    "regional_normalized": "Kere habare? — Mapaele, tarima kasehe.",
+    "indonesian_text": "Apa kabar? — Baik-baik saja, terima kasih.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:016",
+    "regional_text": "Bọu apa i kau? — Bọu pai, bọu sikola.",
+    "regional_normalized": "Bou apa i kau? — Bou pai, bou sikola.",
+    "indonesian_text": "Dari mana kamu? — Dari sana, dari sekolah.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:017",
+    "regional_text": "Sarang apa i kau? — Iạ sarang pasideng.",
+    "regional_normalized": "Sarang apa i kau? — Ia sarang pasideng.",
+    "indonesian_text": "Mau ke mana kamu? — Saya mau pergi ke pasar.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:018",
+    "regional_text": "Isai arengu? — Arengku i Ungke.",
+    "regional_normalized": "Isai arengu? — Arengku i Ungke.",
+    "indonesian_text": "Siapa namamu? — Nama saya Ungke.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:019",
+    "regional_text": "I kau tau apa? — Iạ kai tau Sangihe.",
+    "regional_normalized": "I kau tau apa? — Ia kai tau Sangihe.",
+    "indonesian_text": "Kamu orang mana? — Saya orang Sangihe.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:020",
+    "regional_text": "Su apa tampane? — Pai sini.",
+    "regional_normalized": "Su apa tampane? — Pai sini.",
+    "indonesian_text": "Di mana tempatnya? — Di sini.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:021",
+    "regional_text": "I kau seng kimaěng? — Iye, iạ seng kimaěng.",
+    "regional_normalized": "I kau seng kimaeng? — Iye, ia seng kimaeng.",
+    "indonesian_text": "Apakah kamu sudah makan? — Ya, saya sudah makan.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:022",
+    "regional_text": "I kau seng kimaěng? — Bedang, iạ bedang tawẹ kimaěng.",
+    "regional_normalized": "I kau seng kimaeng? — Bedang, ia bedang tawe kimaeng.",
+    "indonesian_text": "Apakah kamu sudah makan? — Belum, saya belum makan.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:023",
+    "regional_text": "Apa pẹ̌koạen-u? — Iạ pẹ̌bẹ̌tatahěndung basa Sangihe.",
+    "regional_normalized": "Apa pekoaen-u? — Ia pebetatahendung basa Sangihe.",
+    "indonesian_text": "Apa yang sedang kamu kerjakan? — Saya sedang belajar bahasa Sangihe.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:024",
+    "regional_text": "Abe kararau dumal᷊eng.",
+    "regional_normalized": "Abe kararau dumaleng.",
+    "indonesian_text": "Jangan berjalan terlalu jauh.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:025",
+    "regional_text": "Ndaị e kumâng! — Iye, mahi i kite kumâng sěngkarang.",
+    "regional_normalized": "Ndai e kumang! — Iye, mahi i kite kumang sengkarang.",
+    "indonesian_text": "Mari makan! — Ya, mari kita makan bersama.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:026",
+    "regional_text": "Mẹ̌dorong ko kadodo. — Dako e pangal᷊a hal᷊a.",
+    "regional_normalized": "Medorong ko kadodo. — Dako e pangala hala.",
+    "indonesian_text": "Boleh minta sedikit? — Pergilah ambil sendiri.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:027",
+    "regional_text": "Měnalang apa i kite? — Ndaị e měnalang bola.",
+    "regional_normalized": "Menalang apa i kite? — Ndai e menalang bola.",
+    "indonesian_text": "Kita mau main apa? — Ayo main bola.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  },
+  {
+    "unit_id": "percakapan:core:028",
+    "regional_text": "Basa Sangihe kai masehọ pẹ̌tatol᷊eang.",
+    "regional_normalized": "Basa Sangihe kai maseho petatoleang.",
+    "indonesian_text": "Bahasa Sangihe itu mudah dipelajari.",
+    "source_domain": "percakapan",
+    "category": "percakapan_harian"
+  }
+]

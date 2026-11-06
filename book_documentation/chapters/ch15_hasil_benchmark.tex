@@ -1,0 +1,32 @@
+\chapter{Menguji Keunggulan: Evaluasi Komparatif Model Base vs Fine-Tuned}
+
+\section{Pertarungan Dua Generasi Model}
+Untuk membuktikan seberapa besar lompatan kualitas yang dihasilkan dari proses \textit{fine-tuning}, kami mengadu kedua model secara langsung (*head-to-head*) menggunakan perkakas \texttt{benchmark/compare\_models.py} pada \StatBenchmarkSamples{} kalimat uji independen.
+
+\begin{enumerate}
+    \item \textbf{Generasi 1 -- Model Base (\texttt{qwen2.5:7b}) + Hybrid RAG:} \\
+    Model fondasi umum yang hanya mengandalkan petunjuk kamus di prompt tanpa pernah dilatih khusus tentang Bahasa Sangihe.
+    \item \textbf{Generasi 2 -- Model Fine-Tuned (\texttt{\StatFinetunedModel}) + Hybrid RAG:} \\
+    Model spesialis yang telah menuntaskan 1.000 langkah latihan intensif dan menyerap pola dari 56.312 pasang kalimat instruksi.
+\end{enumerate}
+
+\section{Tiga Temuan Kunci dari Pengujian}
+
+\begin{linguisticbox}[Peningkatan Mutu Terjemahan yang Signifikan]
+Dari analisis perbandingan kalimat demi kalimat, terlihat jelas keunggulan model hasil pelatihan:
+\begin{itemize}
+    \item \textbf{Kelancaran Tata Kalimat (Idiomatis):} Model dasar terkadang menerjemahkan dengan struktur kata yang kaku menyerupai susunan Bahasa Indonesia. Sebaliknya, model \texttt{\StatFinetunedModel} secara alami menggunakan partikel penghubung khas Sangihe (\textit{k\d{u}, ute, e}) dan susunan predikat-subjek yang lazim digunakan penutur asli.
+    \item \textbf{Kepatuhan Tanda Diakritik Spontan:} Pada arah terjemahan Indonesia $\rightarrow$ Sangihe, model dasar sangat bergantung pada modul pemulih eksternal. Model hasil fine-tuning secara spontan mengetikkan kata dengan huruf beraksen (\d{a}, \d{e}, \v{e}, l᷊) langsung dari "otak"-nya tanpa perlu diingatkan berulang kali.
+    \item \textbf{Penanganan Kata Ganti Kepunyaan (\textit{Enclitics}):} Model hasil fine-tuning sangat mahir menggabungkan akhiran kata milik (\textit{-ku, -u, -ne}) secara langsung ke akar kata dengan menerapkan hukum alih bunyi fonemis yang benar.
+\end{itemize}
+\end{linguisticbox}
+
+\section{Menatap Masa Depan: Langkah Ke Depan Pelestarian Bahasa}
+Keberhasilan proyek ini membuktikan bahwa bahasa daerah yang memiliki keterbatasan data (*low-resource*) dapat diselamatkan dan diintegrasikan ke era kecerdasan buatan modern melalui sinergi antara **keilmuan filologi tradisional** dan **rekayasa perangkat lunak modern**.
+
+Langkah pengembangan berikutnya dapat mencakup:
+\begin{itemize}
+    \item \textbf{Pengenalan Suara (\textit{Automatic Speech Recognition} / ASR):} Memungkinkan para tetua adat merekam tuturan lisan dongeng Sangihe dan langsung ditranskripsikan ke dalam teks oleh komputer.
+    \item \textbf{Aplikasi Pembelajaran Seluler:} Mengemas mesin ini ke dalam aplikasi ponsel pintar ringan untuk generasi muda di kepulauan agar bangga mempelajari dan menggunakan bahasa ibu mereka.
+\end{itemize}
+Dengan teknologi ini, lentera kearifan Bahasa Sangihe akan terus menyala terang melintasi generasi dan batas-batas samudra.

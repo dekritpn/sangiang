@@ -1,0 +1,171 @@
+% =======================================================================
+% Preamble Konfigurasi Buku Dokumentasi LLM Bahasa Sangihe
+% Disusun untuk Kompilasi menggunakan XeLaTeX
+% =======================================================================
+
+\usepackage{fontspec}
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    total={160mm,245mm},
+    left=28mm,
+    right=22mm,
+    top=28mm,
+    bottom=25mm
+}
+
+% -----------------------------------------------------------------------
+% Pengaturan Tipografi & Font Unicode Sangihe
+% -----------------------------------------------------------------------
+% Menggunakan Gentium Plus sebagai font utama (SIL International)
+% Mendukung penuh seluruh karakter fonemis Sangihe:
+% ạ, ẹ, ị, ọ, ụ, ě, ẹ̌, serta combining under-tilde U+1DCA pada l᷊
+\setmainfont{Gentium Plus}
+
+\setsansfont{Noto Sans}[
+    Scale=0.92
+]
+
+\setmonofont{Noto Sans Mono}[
+    Scale=0.88
+]
+
+% -----------------------------------------------------------------------
+% Paket Pendukung Desain & Layout
+% -----------------------------------------------------------------------
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% -----------------------------------------------------------------------
+% Palet Warna Modern (Nord / Slate)
+% -----------------------------------------------------------------------
+\definecolor{primaryBlue}{HTML}{0284C7}
+\definecolor{deepNavy}{HTML}{0F172A}
+\definecolor{accentTeal}{HTML}{0D9488}
+\definecolor{accentAmber}{HTML}{D97706}
+\definecolor{accentRose}{HTML}{E11D48}
+\definecolor{bgGray}{HTML}{F8FAFC}
+\definecolor{borderGray}{HTML}{CBD5E1}
+\definecolor{codeBg}{HTML}{F1F5F9}
+
+% -----------------------------------------------------------------------
+% Header & Footer
+% -----------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\small\nouppercase{\rightmark}}
+\fancyhead[RE]{\small\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% -----------------------------------------------------------------------
+% Format Judul Bab & Seksi
+% -----------------------------------------------------------------------
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\huge\bfseries\color{deepNavy}}
+  {\filleft\Huge\sffamily\color{primaryBlue}\chaptertitlename\ \thechapter}
+  {1ex}
+  {\titlerule\vspace{1.5ex}\filright}
+  [\vspace{1.5ex}\titlerule]
+
+\titleformat{\section}
+  {\normalfont\sffamily\Large\bfseries\color{deepNavy}}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\sffamily\large\bfseries\color{primaryBlue}}
+  {\thesubsection}{1em}{}
+
+% -----------------------------------------------------------------------
+% TColorBox untuk Kotak Informasi Teknis (Callouts)
+% -----------------------------------------------------------------------
+\newtcolorbox{infobox}[1][]{
+    enhanced,
+    colback=bgGray,
+    colframe=primaryBlue,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    title={Catatan Arsitektur: #1},
+    arc=3mm,
+    boxrule=1pt,
+    left=4mm, right=4mm, top=3mm, bottom=3mm,
+    drop shadow=black!10!white
+}
+
+\newtcolorbox{linguisticbox}[1][]{
+    enhanced,
+    colback=bgGray,
+    colframe=accentTeal,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    title={Kaidah Linguistik Sangihe: #1},
+    arc=3mm,
+    boxrule=1pt,
+    left=4mm, right=4mm, top=3mm, bottom=3mm,
+    drop shadow=black!10!white
+}
+
+\newtcolorbox{metricbox}[1][]{
+    enhanced,
+    colback=white,
+    colframe=accentAmber,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    title={Metrik Evaluasi Empiris: #1},
+    arc=3mm,
+    boxrule=1pt,
+    left=4mm, right=4mm, top=3mm, bottom=3mm,
+    drop shadow=black!10!white
+}
+
+% -----------------------------------------------------------------------
+% Konfigurasi Code Listings
+% -----------------------------------------------------------------------
+\lstset{
+    backgroundcolor=\color{codeBg},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    rulecolor=\color{borderGray},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{primaryBlue}\bfseries,
+    stringstyle=\color{accentTeal},
+    commentstyle=\color{gray}\itshape,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+% -----------------------------------------------------------------------
+% Hyperref
+% -----------------------------------------------------------------------
+\usepackage[
+    unicode=true,
+    colorlinks=true,
+    linkcolor=deepNavy,
+    citecolor=primaryBlue,
+    urlcolor=primaryBlue,
+    bookmarksnumbered=true
+]{hyperref}

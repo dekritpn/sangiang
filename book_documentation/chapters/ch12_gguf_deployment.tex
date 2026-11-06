@@ -1,0 +1,32 @@
+\chapter{Membawa Pulang Sang Juara: Kuantisasi GGUF \& Ollama Lokal}
+
+\section{Dari Awan Komputasi ke Komputer di Meja Kerja}
+Setelah menjalani 1.000 langkah pelatihan yang intensif di Google Colab, model kecerdasan buatan kita kini telah resmi menyandang gelar "Spesialis Bahasa Sangihe". Namun, bobot model tersebut masih tersimpan di server awan Google dalam bentuk pecahan file tensor raksasa yang membutuhkan GPU berkekuatan tinggi.
+
+Tujuan utama proyek kita adalah kemandirian: model ini harus bisa "pulang kampung" dan dijalankan di komputer meja lokal kita secara mandiri.
+
+\section{Seni Kuantisasi Q4\_K\_M: Mengompresi Tanpa Mengurangi Kecerdasan}
+Bobot asli sebuah model 7 miliar parameter umumnya disimpan dalam format angka pecahan 16-bit (\textit{Float16}), yang membutuhkan kapasitas memori RAM sebesar 14 hingga 16 Gigabyte hanya untuk memuat modelnya saja.
+
+Untuk membuatnya ramping, Unsloth menjalankan proses yang dinamakan **Kuantisasi GGUF (Q4\_K\_M)**.
+
+\begin{infobox}[Analogi Resolusi Gambar Digital]
+Bayangkan sebuah lukisan pemandangan laut Sangihe beresolusi super tinggi dengan ukuran file 15 Gigabyte. Jika lukisan tersebut dicetak di selembar kertas majalah, mata manusia tidak akan melihat perbedaan nyata antara versi file 15 Gigabyte dengan versi foto berkualitas tinggi yang dikompresi menjadi 4,5 Gigabyte. 
+
+Kuantisasi Q4\_K\_M bekerja persis seperti kompresi pintar tersebut: angka-angka matematis di dalam saraf AI disederhanakan dari 16-bit menjadi 4-bit, sehingga ukuran file menyusut tajam menjadi **hanya 4,5 GB**, namun kemampuan menalar dan menerjemahkan kalimatnya tetap tajam dan fasih!
+\end{infobox}
+
+\section{Pendaftaran Otomatis ke Ollama Lokal}
+Setelah file berakhiran \texttt{.gguf} diunduh ke komputer lokal (di dalam folder \texttt{training/}), pengguna tidak perlu mengetikkan perintah terminal yang membingungkan. Proyek ini telah menyediakan skrip otomatisasi:
+\begin{lstlisting}[language=bash]
+./training/deploy_to_ollama.sh
+\end{lstlisting}
+
+Skrip ini bekerja di balik layar:
+\begin{enumerate}
+    \item Membaca cetak biru \texttt{training/Modelfile} yang berisi aturan sistem ChatML dan suhu generasi (\textit{temperature = 0.2}).
+    \item Memerintahkan peladen Ollama lokal untuk mendaftarkan model baru dengan nama resmi: \textbf{\texttt{\StatFinetunedModel}}.
+    \item Memastikan model tersebut langsung muncul di daftar model yang siap bekerja (\texttt{ollama list}).
+\end{enumerate}
+
+Kini, komputer pribadi Anda telah resmi memiliki mesin penerjemah Bahasa Sangihe mandiri yang dapat beroperasi kapan pun secara luring (*offline*) tanpa memerlukan kuota internet maupun biaya langganan cloud!

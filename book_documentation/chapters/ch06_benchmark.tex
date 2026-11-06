@@ -1,0 +1,34 @@
+\chapter{Ujian yang Jujur: Tolok Ukur Benchmark \& Anti-Kebocoran Data}
+
+\section{Mengapa Kita Butuh Ujian yang Independen?}
+Bagaimana kita tahu bahwa sistem penerjemah AI kita benar-benar pandai menerjemahkan, dan bukan sekadar "menghafal mati" kalimat-kalimat yang pernah ia lihat?
+
+\begin{infobox}[Analogi Soal Ujian Akhir Sekolah]
+Bayangkan seorang guru yang sedang mendidik muridnya menjelang ujian nasional. Selama berbulan-bulan di kelas, sang guru memberikan ratusan latihan soal (ini adalah \textbf{Data Latih / Training Set}). Namun, saat hari ujian tiba, sang guru harus mengunci lembar soal ujian akhir di laci tertutup dan tidak boleh membocorkannya kepada murid (ini adalah \textbf{Data Uji / Test Benchmark}). 
+
+Jika seorang murid mendapatkan nilai 100 karena sebelumnya sudah melihat kunci jawaban soal ujian, nilai tersebut adalah nilai palsu (\textit{data leakage}). Tetapi jika murid tersebut mampu menjawab soal-soal baru yang belum pernah ia lihat sama sekali, barulah kita yakin bahwa ia benar-benar cerdas!
+\end{infobox}
+
+\section{Menyusun 150 Kalimat Uji Acuan}
+Untuk menguji kemampuan sistem secara objektif, modul \texttt{benchmark/generate\_testset.py} menyaring **\StatBenchmarkSamples{} kalimat acuan** pilihan dari seluruh korpus data kita. Kalimat-kalimat ini dipilih dengan metode cuplikan berlapis (*stratified sampling*) yang mencakup:
+\begin{itemize}
+    \item Kalimat pendek (sapaan dan ujaran ringkas).
+    \item Kalimat panjang dengan anak kalimat majemuk.
+    \item Kalimat dengan kepadatan tanda diakritik tinggi (\d{a}, \d{e}, \v{e}, l᷊).
+    \item Representasi berimbang dari ketiga domain (teks Alkitab, fabel dongeng rakyat, dan puitika Himbawo).
+\end{itemize}
+
+Seluruh 150 kalimat ini disimpan secara terisolasi di dalam berkas \texttt{benchmark/testset.json}.
+
+\section{Prinsip Ketat Anti-Kebocoran Data (\textit{Anti-Leakage})}
+Saat modul \texttt{training/prepare\_dataset.py} mengekstrak data untuk melatih model bahasa, sistem secara otomatis membaca seluruh identitas unik (ID) dari ke-150 kalimat uji tersebut dan **mengecualikannya secara mutlak** dari kumpulan data latih.
+
+Dengan demikian, ketika model AI diuji di akhir nanti, model tersebut benar-benar diuji dengan kalimat-kalimat yang belum pernah ia temui selama sesi latihannya di komputer.
+
+\section{Tiga Rapor Penilaian Kualitas}
+Untuk mengukur seberapa bagus terjemahan yang dihasilkan, kami menggunakan tiga metrik internasional yang dihitung secara matematis oleh modul \texttt{benchmark/evaluate.py}:
+\begin{enumerate}
+    \item \textbf{Skor BLEU (\textit{Bilingual Evaluation Understudy}):} Mengukur seberapa banyak kecocokan urutan kata (1 kata, 2 kata, hingga 4 kata berturut-turut) antara hasil terjemahan AI dengan terjemahan resmi pakar manusia. Semakin tinggi skornya (skala 0--100), semakin mirip hasil terjemahannya dengan bahasa manusia.
+    \item \textbf{Skor chrF++ (\textit{Character n-gram F-score}):} Berbeda dengan BLEU yang mencocokkan kata per kata, chrF++ mencocokkan susunan huruf demi huruf. Metrik ini sangat adil untuk bahasa daerah yang memiliki banyak imbuhan dan tanda diakritik.
+    \item \textbf{Rasio Kepadatan Diakritik (\textit{Diacritic Density Ratio}):} Menghitung apakah jumlah tanda diakritik pada terjemahan Sangihe sesuai dengan standar ortografi resmi ataukah huruf-hurufnya gundul tanpa aksen.
+\end{enumerate}

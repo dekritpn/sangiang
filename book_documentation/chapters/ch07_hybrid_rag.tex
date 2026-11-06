@@ -1,0 +1,24 @@
+\chapter{Arsitektur Cerdas: Mengapa Memilih Teknologi Hybrid RAG?}
+
+\section{Dua Cara Belajar: Menghafal Mati vs Ujian Buka Buku}
+Ketika manusia belajar bahasa asing, ada dua cara yang bisa ditempuh:
+\begin{enumerate}
+    \item \textbf{Menghafal Seluruh Kamus di Luar Kepala:} Menghafal ribuan kata dan jutaan kalimat sampai kepala pusing. Masalahnya, ingatan manusia (dan memori parameter AI) bisa salah ingat, mencampuradukkan kata, atau mengarang fakta yang tidak ada (dalam istilah AI disebut \textit{halusinasi}).
+    \item \textbf{Ujian Sistem Buka Buku (\textit{Open-Book Examination}):} Belajar memahami tata bahasa dan pola kalimat, lalu saat bertugas menerjemahkan dokumen, kita meletakkan sebuah kamus besar dan catatan arsip terjemahan terdahulu di atas meja kerja kita.
+\end{enumerate}
+
+\begin{infobox}[Prinsip RAG: Retrieval-Augmented Generation]
+Teknologi **RAG** (\textit{Pengambilan Informasi yang Memperkaya Generasi Teks}) adalah perwujudan digital dari konsep ujian buka buku. Setiap kali ada pengguna yang mengetik kalimat untuk diterjemahkan, sistem komputer tidak langsung menyuruh model AI mengarang jawaban. Sistem akan terlebih dahulu menjadi "asisten perpustakaan" yang gesit: membuka arsip kamus, mengambil halaman rujukan yang cocok, lalu menyerahkan kutipan rujukan tersebut ke hadapan model AI seraya berkata: \textit{“Ini kalimat yang diminta, dan ini arti kata-kata resminya dari kamus. Terjemahkanlah sekarang berdasarkan rujukan ini!”}
+\end{infobox}
+
+\section{Mengapa Harus \textit{Hybrid} (Campuran Dua Tingkat)?}
+Dalam penerjemahan bahasa daerah, mencari rujukan hanya dari satu sumber sering kali tidak cukup. Oleh karena itu, arsitektur kami dinamakan **Hybrid RAG** karena menggabungkan dua tingkat rujukan sekaligus:
+
+\begin{enumerate}
+    \item \textbf{Tingkat 1: Rujukan Kata Dasar (Leksikon Steller-Aebersold)} \\
+    Sistem mencari arti setiap kata penting yang ada dalam kalimat. Jika ada kata \textit{bal\d{o}to}, kamus akan membisikkan bahwa artinya adalah \textit{ular laut}; jika ada kata \textit{kuhita}, artinya adalah \textit{gurita}. Ini memastikan model AI tidak salah mengartikan kosakata langka.
+    \item \textbf{Tingkat 2: Rujukan Kalimat Utuh (\textit{Translation Memory})} \\
+    Sistem mencari kalimat dalam basis data 29 ribu ayat yang memiliki susunan kata paling mirip dengan kalimat input. Ini memberikan contoh nyata bagaimana menyusun tata krama, intonasi, dan struktur frasa yang sopan.
+\end{enumerate}
+
+Dengan menyatukan kedua rujukan ini ke dalam satu lembar panduan singkat, model AI \texttt{\StatBaseModel} dapat menghasilkan terjemahan yang tepat sasaran, fasih, dan memiliki dasar filologis yang dapat dipertanggungjawabkan.

@@ -1,0 +1,48 @@
+\chapter{Morfologi Sangihe: Seni Membongkar dan Menyusun Kata}
+
+\section{Morfologi: Mengapa Kata Dasar Bisa Berubah Wujud?}
+Dalam ilmu bahasa, **morfologi** adalah studi tentang bagaimana kata dibentuk dari potongan-potongan makna terkecil. Jika dalam Bahasa Indonesia kita mengenal kata dasar \textit{ajar} yang bisa menjadi \textit{belajar, mengajar, terpelajar}, maka dalam Bahasa Sangihe variasinya jauh lebih kaya dan dinamis.
+
+\begin{infobox}[Analogi Bongkar Pasang Pakaian]
+Bayangkan sebuah kata dasar seperti sesosok tubuh manusia. Morfologi adalah seni memakaikan pakaian pada tubuh tersebut:
+\begin{itemize}
+    \item Memakaikan topi di kepala disebut \textbf{Awalan (Prefiks)}, seperti \textit{mě-}, \textit{ma-}, atau \textit{ipang-}.
+    \item Memakaikan sabuk di tengah pinggang disebut \textbf{Sisipan (Infiks)}, seperti menyisipkan suku kata \textit{-um-} atau \textit{-in-} tepat di tengah perut kata!
+    \item Memakaikan sepatu di kaki disebut \textbf{Akhiran (Sufiks)}, seperti \textit{-ang}, \textit{-eng}, atau \textit{-e}.
+    \item Mengajak bayangannya ikut berjalan bersama disebut \textbf{Pengulangan (Reduplikasi)}.
+\end{itemize}
+Tugas modul komputer kita (\texttt{stemmer.py}) adalah seperti seorang detektif yang melihat seseorang berpakaian lengkap, lalu menanggalkan topinya, melepas sabuknya, dan mencopot sepatunya agar dapat mengenali siapa sosok orang (kata dasar) yang sebenarnya!
+\end{infobox}
+
+\section{Keunikan Sisipan di Dalam Perut Kata}
+Salah satu ciri khas rumpun bahasa Filipina dan Austronesia utara yang diwarisi oleh Bahasa Sangihe adalah keberadaan **infiks** (sisipan). Di sebagian besar bahasa dunia, imbuhan hanya dipasang di depan atau di belakang kata. Namun di Bahasa Sangihe, imbuhan diselipkan ke sela-sela huruf pertama dan kedua kata dasar:
+
+\begin{linguisticbox}[Contoh Sisipan -um- dan -in-]
+Perhatikan bagaimana kata dasar bertransformasi saat disisipi makna tindakan atau kala lampau:
+\begin{itemize}
+    \item Kata dasar: \textbf{tampa} (\textit{tempat / tiba}) $\rightarrow$ Disisipi \textit{-um-} di antara $t$ dan $a$ $\rightarrow$ \textbf{t-um-ampa} (\textit{sedang tiba / datang melangkah}).
+    \item Kata dasar: \textbf{koro} (\textit{bakar}) $\rightarrow$ Disisipi \textit{-in-} $\rightarrow$ \textbf{k-in-oro} (\textit{telah dibakar}).
+\end{itemize}
+Jika modul pencari di komputer tidak memahami aturan sisipan ini, komputer akan mencari kata \textit{tumampa} di kamus dan tidak akan pernah menemukannya, karena kata tersebut terdaftar di bawah huruf T (\textit{tampa}), bukan huruf T-U!
+\end{linguisticbox}
+
+\section{Hukum Alih Bunyi: Studi Kasus Nyata Kata \textit{Waes}}
+Dalam perjalanan pengembangan translation engine ini, kami menemukan sebuah kasus menarik yang membuktikan betapa pentingnya pemahaman morfologi yang mendalam.
+
+Dalam dongeng klasik Sangihe, terdapat sebuah kalimat terkenal:
+\begin{center}
+\textit{“Mahi i\d{a}ko m\v{e}baes\v{\d{e}} su \textbf{waes-u}.”}
+\end{center}
+Awalnya, sistem penerjemah menerjemahkan kata \textbf{waes-u} dengan arti "kemarau-mu", padahal arti yang tepat dalam konteks cerita binatang tersebut adalah **"sarang-mu"**! Mengapa kebingungan ini bisa terjadi?
+
+\begin{enumerate}
+    \item Kata aslinya berbunyi \textbf{baes\v{\d{e}}} (lema nomor 331 di kamus Steller-Aebersold).
+    \item Saat kata benda ini diberi kata ganti milik \textit{-u} ("milikmu"), bahasa Sangihe memberlakukan hukum fonemis:
+    \begin{itemize}
+        \item Konsonan bibir $b$ bermutasi melunak menjadi $w$ ($b \leftrightarrow w$).
+        \item Huruf vokal gema (\textit{echo vowel}) di ujung kata luruh, menyisakan akar \textit{waes}.
+        \item Ditambahkan akhiran \textit{-u}, menjadi \textbf{waes-u}.
+    \end{itemize}
+\end{enumerate}
+
+Dengan menanamkan aturan alih bunyi ini ke dalam berkas \texttt{morphology/stemmer.py}, komputer kini secara otomatis tahu bahwa kata \textit{waes} berasal dari lema asli \textbf{\textit{baes\v{\d{e}}}}. Mesin pencari kamus pun berhasil menemukan arti lema yang sebenarnya di dalam database hanya dalam waktu kurang dari 2 milidetik!

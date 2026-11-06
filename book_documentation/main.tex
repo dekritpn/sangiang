@@ -1,0 +1,126 @@
+\documentclass[11pt,twoside,openright]{book}
+
+\input{preamble.tex}
+\input{stats_autogen.tex}
+
+\title{
+    {\Huge\sffamily\bfseries Menghidupkan Bahasa di Era AI}\\[0.5em]
+    {\Large\sffamily Kisah, Sains, dan Rekayasa di Balik Mesin Penerjemah Bahasa Sangihe}\\[1em]
+    {\normalsize\itshape Membangun Jembatan Digital untuk Bahasa Daerah Nusantara}
+}
+
+\author{\textbf{Divisi DigiLab CMD}}
+\date{\StatLastSyncDate}
+
+\begin{document}
+
+\frontmatter
+
+% =======================================================================
+% Halaman Depan (Title Page)
+% =======================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{1.5cm}
+    
+    {\Huge\sffamily\bfseries\color{deepNavy} Menghidupkan Bahasa di Era AI}\\[0.6em]
+    {\LARGE\sffamily\color{primaryBlue} Kisah, Sains, dan Rekayasa di Balik Mesin Penerjemah Sangiang}\\[1.5em]
+    {\large\itshape Membangun Jembatan Digital untuk Bahasa Daerah Nusantara}
+    
+    \vspace{2.5cm}
+    \begin{tcolorbox}[
+        enhanced,
+        colback=bgGray,
+        colframe=primaryBlue,
+        arc=2mm,
+        width=0.85\textwidth,
+        boxrule=0.8pt,
+        halign=center
+    ]
+        {\small\sffamily\color{deepNavy}\textbf{Inisiator Proyek:}}\\[0.3em]
+        {\Large\sffamily\bfseries\color{primaryBlue} Yayasan Cipta Mandala Dwipa}
+    \end{tcolorbox}
+
+    \vfill
+
+    {\normalsize\sffamily Rekayasa Sistem AI dan Penerjemah:\\[0.4em] \textbf{\Large Divisi DigiLab CMD}}\\[1.5em]
+    {\small\sffamily \StatLastSyncDate}
+    \vspace*{1cm}
+\end{titlepage}
+
+% =======================================================================
+% Halaman Copyright / Kolofon
+% =======================================================================
+\newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{flushleft}
+    \small\sffamily
+    \textbf{Menghidupkan Bahasa di Era AI:}\\
+    \textit{Kisah, Sains, dan Rekayasa di Balik Mesin Penerjemah Bahasa Sangihe (Sangiang)}\\[0.8em]
+    \rule{\textwidth}{0.6pt}\\[0.8em]
+    
+    \textbf{Inisiator Proyek:}\\
+    \textbf{Yayasan Cipta Mandala Dwipa}\\[0.8em]
+    
+    \textbf{Rekayasa Sistem AI dan Penerjemah:}\\
+    \textbf{Divisi DigiLab CMD}\\[0.8em]
+    
+    \textbf{Pernyataan Kepemilikan Hak Cipta:}\\
+    \begin{itemize}[leftmargin=1.2em, itemsep=0.35em]
+        \item \textbf{Yayasan Cipta Mandala Dwipa:} Pemilik hak cipta korpus terjemahan \textit{Kamus Sangihe-Indonesia}. Hak Cipta \copyright\ 2026 dilindungi oleh undang-undang.
+        \item \textbf{Divisi DigiLab CMD:} Tim rekayasa sistem kecerdasan buatan (AI) dan penerjemah korpus.
+        \item \textbf{Brill / KITLV (Koninklijk Instituut voor Taal-, Land- en Volkenkunde):} Pemilik hak cipta buku-buku kamus terkait, khususnya karya leksikografi klasik \textit{Sangihe-Nederlandsch Woordenboek} (1959) oleh K.G.F. Steller \& W.E. Aebersold.
+        \item \textbf{Lembaga Alkitab Indonesia (LAI):} Pemilik hak cipta buku-buku teks Kitab Suci terkait, mencakup Alkitab Terjemahan Bahasa Sangihe, Terjemahan Baru (TB), dan Alkitab Bahasa Indonesia Masa Kini (BIMK).
+    \end{itemize}
+    \vspace{0.6em}
+    
+    \textbf{Misi \& Dedikasi:}\\
+    Buku dan sistem teknologi ini dipersembahkan untuk masyarakat penutur Bahasa Sangihe di Kepulauan Sangihe, Sulawesi Utara, perantauan Nusa Utara, serta seluruh pecinta kebudayaan dan bahasa daerah Nusantara.\\[0.8em]
+    
+    \textbf{Tipografi \& Kompilasi Teknis:}\\
+    Buku ini disusun dalam format \LaTeX\ dan dikompilasi menggunakan mesin Xe\LaTeX.\\
+    Menggunakan jenis huruf \textit{Gentium Plus} karya SIL International untuk memastikan seluruh glif fonemis dan tanda diakritik ortografi Bahasa Sangihe (\d{a}, \d{e}, \v{\d{e}}, \v{e}, \d{i}, \d{o}, \d{u}, serta \textit{l᷊}) tercetak dengan sempurna.\\[0.8em]
+    
+    \textbf{Cetakan Digital:} Edisi Pertama -- \StatLastSyncDate\\
+\end{flushleft}
+\clearpage
+
+\chapter*{Pengantar untuk Pembaca}
+Buku ini ditulis bukan hanya untuk para peneliti kecerdasan buatan, melainkan untuk siapa saja yang mencintai bahasa daerah, kebudayaan Nusantara, dan ingin memahami bagaimana teknologi modern seperti \textit{Large Language Model} (LLM) dapat digunakan untuk menyelamatkan dan melestarikan warisan leluhur kita.
+
+Proyek ini terwujud berkat inisiasi dan visi mulia dari \textbf{Yayasan Cipta Mandala Dwipa} yang berkomitmen pada pelestarian kebudayaan serta kemajuan peradaban literasi digital bahasa daerah. Setiap konsep teknis yang tampak rumit---mulai dari kecerdasan buatan, basis data, hingga struktur morfologi kata---akan dijelaskan dengan bahasa yang lugas, analogi sehari-hari, dan ilustrasi yang mudah dibayangkan.
+
+\tableofcontents
+
+\mainmatter
+
+\part{Mengenal Bahasa Sangihe dan Tantangan Digitalnya}
+\include{chapters/ch01_pendahuluan}
+\include{chapters/ch02_fonologi_diakritik}
+\include{chapters/ch03_morfologi}
+
+\part{Mengumpulkan Harta Karun Kata: Korpus \& Kamus}
+\include{chapters/ch04_korpus_leksikon}
+\include{chapters/ch05_preprocessing}
+\include{chapters/ch06_benchmark}
+
+\part{Arsitektur Cerdas: Teknologi Hybrid RAG}
+\include{chapters/ch07_hybrid_rag}
+\include{chapters/ch08_retrieval_engine}
+\include{chapters/ch09_prompt_engineering}
+
+\part{Melatih Otak AI: Seni Fine-Tuning Model}
+\include{chapters/ch10_finetuning_strategi}
+\include{chapters/ch11_pelatihan_evaluasi}
+\include{chapters/ch12_gguf_deployment}
+
+\part{Menikmati Hasil Karya: Aplikasi \& Uji Kualitas}
+\include{chapters/ch13_rest_api}
+\include{chapters/ch14_web_ui}
+\include{chapters/ch15_hasil_benchmark}
+
+\backmatter
+\include{chapters/appendix_morphology}
+
+\end{document}

@@ -1,0 +1,46 @@
+\chapter{Ruang Kerja Interaktif: Antarmuka Web Translation Workbench}
+
+\section{Dari Kode Hitam-Putih Menjadi Pengalaman Visual yang Memikat}
+Sebuah karya rekayasa kecerdasan buatan tidak akan membawa manfaat luas jika hanya bisa dioperasikan oleh pemrogram melalui baris perintah terminal yang kaku. Masyarakat penutur, guru sekolah, budayawan, dan generasi muda membutuhkan antarmuka visual yang ramah, elegan, dan menyenangkan untuk disentuh.
+
+Oleh karena itu, kami merancang **Web Translation Workbench** yang dapat diakses langsung melalui peramban web di komputer maupun ponsel pintar.
+
+\begin{infobox}[Filosofi Desain: Modern Glassmorphism \& Nuansa Bahari]
+Antarmuka web dirancang dengan gaya modern \textit{Glassmorphism} berlatar belakang gelap (\textit{dark mode}) yang nyaman di mata. Gradien biru laut dan pirus terinspirasi dari keindahan perairan laut Kepulauan Sangihe, memberikan kesan bahwa teknologi canggih ini berakar kuat pada kearifan bahari leluhur.
+\end{infobox}
+
+\section{Fitur-Fitur Unggulan Meja Kerja Digital}
+Antarmuka web ini dibekali fitur-fitur praktis yang dirancang khusus untuk memecahkan kesulitan pengguna:
+
+\begin{enumerate}
+    \item \textbf{Bilah Sisip Diakritik Virtual (\textit{Virtual Diacritic Bar}):} \\
+    Bagi pengguna yang ingin mengetikkan ejaan sempurna namun papan ketiknya tidak memiliki tombol khusus, tersedia tombol-tombol sentuh kilat untuk menyisipkan huruf beraksen: \textbf{\d{a}, \d{e}, \v{\d{e}}, \v{e}, \d{i}, \d{o}, \d{u}}, dan \textbf{l᷊}.
+    \item \textbf{Pilihan Contoh Cepat (\textit{Quick Sample Pills}):} \\
+    Disediakan tombol-tombol siap klik yang memuat contoh kalimat nyata dari berbagai sumber: kisah fabel klasik Gurita dan Ular Laut, kalimat tanpa diakritik sama sekali, maupun ayat pembuka kitab suci.
+    \item \textbf{Panel Inspektur Konteks RAG (\textit{RAG Context Inspector}):} \\
+    Berbeda dari Google Translate biasa yang hanya menampilkan hasil akhir tanpa alasan, sistem kami memiliki tab transparansi cerdas:
+    \begin{itemize}
+        \item \textbf{Tab Leksikon:} Menampilkan kartu kamus Steller-Aebersold yang digunakan AI untuk menerjemahkan kalimat tersebut.
+        \item \textbf{Tab Kalimat Paralel:} Menampilkan ayat rujukan yang memiliki kemiripan struktur.
+        \item \textbf{Tab Morfologi:} Mengurai kata menjadi akar kata dasar.
+        \item \textbf{Tab Kamus Cepat:} Memungkinkan pengguna mencari arti kata apa pun secara instan di database 11 ribu lema.
+    \end{itemize}
+    \item \textbf{Pemilih Model di Sudut Layar:} \\
+    Dropdown di bagian atas memungkinkan pengguna menguji dan membandingkan terjemahan antara model fondasi asli (\texttt{qwen2.5:7b}) dan model spesialis Sangiang hasil fine-tuning (\texttt{sangiang:7b}) hanya dengan sekali klik!
+\end{enumerate}
+
+\section{Antarmuka Percakapan Cerdas: Sangiang Chatbot (Port 2026)}
+Sebagai pelengkap dari mesin penerjemah kata demi kata di port 8000, kami mengembangkan sub-proyek antarmuka percakapan modern bergaya \textbf{Google Gemini} yang berjalan di \texttt{localhost:2026}.
+
+\begin{infobox}[Dua Wajah Teknologi Sangiang]
+Jika Workbench di port 8000 adalah seperti **laboratorium leksikografi dan meja kerja penerjemah resmi**, maka Chatbot di port 2026 adalah seperti **ruang tamu hangat di mana Anda dapat bercakap-cakap santai dengan Putri Sangiang**---menanyakan asal-usul peradaban bahari, meminta diajarkan sapaan adat, hingga meminta Sangiang merangkai bait puitis warisan wiracarita Nusa Utara secara mengalir (\textit{real-time streaming}).
+\end{infobox}
+
+Fitur-fitur utama Sangiang Chatbot di port 2026 meliputi:
+\begin{itemize}
+    \item \textbf{Estetika Modern Obsidian \& Aurora Sparkle:} Tema gelap elegan dengan tipografi modern dan aksen gradien warna-warni khas asisten cerdas masa kini.
+    \item \textbf{Pengetikan Mengalir (\textit{Token Streaming SSE}):} Respons dijawab kata demi kata secara halus dengan animasi kursor aktif.
+    \item \textbf{Papan Ketik Diakritik Terapung (\textit{Floating Diacritic Dock}):} Pengguna dapat menyisipkan huruf-huruf beraksen (\d{a}, \d{e}, \v{\d{e}}, \v{e}, \d{i}, \d{o}, \d{u}, \textit{l᷊}) tepat di posisi kursor pengetikan.
+    \item \textbf{Sintesis Suara (\textit{Text-to-Speech}):} Pengguna dapat mendengarkan pelafalan kalimat secara audio melalui peramban web.
+    \item \textbf{Bilah Riwayat Obrolan (\textit{Recent Sessions Sidebar}):} Menyimpan topik obrolan sebelumnya secara lokal sehingga percakapan dapat dilanjutkan kapan saja.
+\end{itemize}

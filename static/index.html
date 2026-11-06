@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sangiang Translation Engine</title>
+  <meta name="description" content="Mesin penerjemah dua arah Bahasa Sangihe dan Bahasa Indonesia berbasis Sangiang AI, Kamus Sangihe-Indonesia Modern, dan korpus paralel.">
+  <link rel="icon" type="image/jpeg" href="/static/sangiang.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-group">
+        <div class="logo-icon">
+          <img src="/static/sangiang.jpeg" alt="Sangiang" class="logo-avatar-img">
+        </div>
+        <div>
+          <h1 class="logo-title">Sangiang Translation Engine</h1>
+          <p class="logo-subtitle">Sangihe Artificial Intelligence Network Agent • Putri Cerdas Bahasa Sangihe</p>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <div class="status-indicator" id="system-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Memeriksa sistem...</span>
+        </div>
+        <a href="http://localhost:2026" id="nav-chatbot-link" target="_blank" class="api-docs-link" style="background: rgba(162, 105, 255, 0.15); border-color: rgba(162, 105, 255, 0.35); color: #c084fc;">
+          <img src="/static/sangiang.jpeg" alt="Sangiang" class="mini-sangiang-icon">
+          Sangiang Chatbot
+        </a>
+        <a href="/docs" target="_blank" class="api-docs-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          API Docs
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    <!-- Direction Switcher Bar -->
+    <div class="control-panel card">
+      <div class="lang-selector-group">
+        <div class="lang-badge" id="source-lang-label">Bahasa Sangihe</div>
+        <button id="btn-swap-lang" class="btn-icon" title="Tukar arah terjemahan" aria-label="Tukar bahasa">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m16 3 4 4-4 4"></path>
+            <path d="M20 7H4"></path>
+            <path d="m8 21-4-4 4-4"></path>
+            <path d="M4 17h16"></path>
+          </svg>
+        </button>
+        <div class="lang-badge" id="target-lang-label">Bahasa Indonesia</div>
+      </div>
+
+      <!-- Quick sample prompts -->
+      <div class="sample-pills">
+        <span class="pills-label">Contoh:</span>
+        <button class="pill-btn" data-text="Siapa namamu?" data-dir="sangihe_to_id">Siapa namamu?</button>
+        <button class="pill-btn" data-text="Isai arengu?" data-dir="sangihe_to_id">Isai arengu?</button>
+        <button class="pill-btn" data-text="Mahi iạko měbaesẹ̌ su waes-u." data-dir="sangihe_to_id">Mahi iạko měbaesẹ̌ (Dongeng)</button>
+        <button class="pill-btn" data-text="kuhita reduan baloto mebawellin baese su lohang u himang" data-dir="sangihe_to_id">Input Tanpa Diakritik</button>
+        <button class="pill-btn" data-text="Pada mulanya Allah menciptakan langit dan bumi." data-dir="id_to_sangihe">Kejadian 1:1 (Alkitab)</button>
+      </div>
+    </div>
+
+    <!-- Dual Translation Workbench -->
+    <div class="translation-grid">
+      <!-- Input Box -->
+      <div class="card box-card">
+        <div class="box-header">
+          <span class="box-title" id="input-box-title">Input Teks Sangihe</span>
+          <button id="btn-clear-input" class="btn-subtle" title="Bersihkan input">Hapus</button>
+        </div>
+
+        <!-- Diacritic Helper Toolbar -->
+        <div class="diacritic-toolbar" id="diacritic-toolbar">
+          <span class="toolbar-label">Sisip Karakter:</span>
+          <div class="diacritic-chips">
+            <button class="dia-chip" data-char="ạ">ạ</button>
+            <button class="dia-chip" data-char="ẹ">ẹ</button>
+            <button class="dia-chip" data-char="ẹ̌">ẹ̌</button>
+            <button class="dia-chip" data-char="ě">ě</button>
+            <button class="dia-chip" data-char="ị">ị</button>
+            <button class="dia-chip" data-char="ọ">ọ</button>
+            <button class="dia-chip" data-char="ụ">ụ</button>
+            <button class="dia-chip" data-char="l᷊">l᷊</button>
+            <button class="dia-chip" data-char="’">’</button>
+          </div>
+        </div>
+
+        <textarea id="input-text" placeholder="Ketik atau tempel kalimat di sini (dapat menggunakan atau tanpa tanda diakritik)..." rows="6"></textarea>
+
+        <div class="box-footer">
+          <div class="char-count" id="input-char-count">0 karakter</div>
+          <button id="btn-translate" class="btn-primary">
+            <span class="btn-spinner" id="btn-spinner"></span>
+            <span class="btn-label" id="btn-label">Terjemahkan</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Output Box -->
+      <div class="card box-card">
+        <div class="box-header">
+          <span class="box-title" id="output-box-title">Hasil Terjemahan Formal</span>
+          <div class="output-actions">
+            <span class="badge" id="diacritic-badge" style="display:none;">Diakritik Dipulihkan ✨</span>
+            <button id="btn-copy-output" class="btn-subtle" title="Salin terjemahan">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Salin
+            </button>
+          </div>
+        </div>
+
+        <div class="output-display" id="output-text">
+          <div class="output-placeholder">Hasil terjemahan berkualitas tinggi akan muncul di sini...</div>
+        </div>
+
+        <!-- User Feedback & Correction Panel -->
+        <div class="feedback-panel" id="feedback-panel" style="display: none;">
+          <div class="feedback-prompt-row" id="feedback-prompt-row">
+            <span class="feedback-label">Apakah terjemahan ini sudah tepat?</span>
+            <div class="feedback-btn-group">
+              <button type="button" id="btn-feedback-good" class="btn-feedback btn-feedback-good" title="Konfirmasi bahwa terjemahan ini sudah benar">
+                👍 Sudah Benar
+              </button>
+              <button type="button" id="btn-feedback-edit" class="btn-feedback btn-feedback-edit" title="Berikan koreksi terjemahan yang lebih tepat">
+                ✏️ Koreksi Terjemahan
+              </button>
+            </div>
+          </div>
+
+          <div class="feedback-correction-box" id="feedback-correction-box" style="display: none;">
+            <label for="feedback-correction-input" class="feedback-correction-label">
+              Terjemahan yang benar seharusnya:
+            </label>
+            <div class="feedback-dia-row">
+              <span class="toolbar-label">Diakritik:</span>
+              <button type="button" class="dia-chip-fb" data-char="ạ">ạ</button>
+              <button type="button" class="dia-chip-fb" data-char="ẹ">ẹ</button>
+              <button type="button" class="dia-chip-fb" data-char="ẹ̌">ẹ̌</button>
+              <button type="button" class="dia-chip-fb" data-char="ě">ě</button>
+              <button type="button" class="dia-chip-fb" data-char="ị">ị</button>
+              <button type="button" class="dia-chip-fb" data-char="ọ">ọ</button>
+              <button type="button" class="dia-chip-fb" data-char="ụ">ụ</button>
+              <button type="button" class="dia-chip-fb" data-char="l᷊">l᷊</button>
+            </div>
+            <textarea id="feedback-correction-input" class="feedback-textarea" rows="2" placeholder="Ketik terjemahan yang benar menurut Anda di sini..."></textarea>
+            <div class="feedback-actions-row">
+              <button type="button" id="btn-feedback-cancel" class="btn-subtle">Batal</button>
+              <button type="button" id="btn-feedback-submit" class="btn-secondary btn-submit-corr">Kirim Koreksi</button>
+            </div>
+          </div>
+
+          <div class="feedback-status-msg" id="feedback-status-msg" style="display: none;"></div>
+        </div>
+
+        <div class="box-footer">
+          <div class="latency-info" id="latency-info"></div>
+          <div class="engine-badge">
+            <img src="/static/sangiang.jpeg" alt="Sangiang" class="badge-sangiang-icon">
+            Sangiang
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAG Context & Linguistic Inspector -->
+    <section class="inspector-section card">
+      <div class="inspector-header">
+        <h2 class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          Inspektur Konteks RAG & Linguistik
+        </h2>
+
+        <div class="tab-buttons">
+          <button class="tab-btn active" data-tab="tab-lexical" id="tab-btn-lexical">
+            Kamus Sangihe <span class="tab-counter" id="count-lexical">0</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-parallel" id="tab-btn-parallel">
+            Translation Memory <span class="tab-counter" id="count-parallel">0</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-morphology" id="tab-btn-morphology">
+            Analisis Morfologi
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Content: Lexical RAG -->
+      <div class="tab-content active" id="tab-lexical">
+        <div class="context-list" id="lexical-results">
+          <div class="empty-state">Belum ada proses terjemahan. Ketik kalimat dan klik "Terjemahkan" untuk melihat lema yang ditarik dari kamus.</div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Semantic Parallel TM -->
+      <div class="tab-content" id="tab-parallel">
+        <div class="context-list" id="parallel-results">
+          <div class="empty-state">Contoh kalimat paralel terdekat dari korpus Alkitab, Dongeng, dan Himbawo akan muncul di sini.</div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Morphology Analyzer -->
+      <div class="tab-content" id="tab-morphology">
+        <div class="morph-container">
+          <div class="morph-input-row">
+            <input type="text" id="morph-quick-input" placeholder="Ketik sebuah kata bahasa Sangihe (misal: kumiang, měbẹ̌bawěllin)...">
+            <button id="btn-analyze-morph" class="btn-secondary">Bedah Kata</button>
+          </div>
+          <div id="morph-results" class="morph-result-box">
+            <div class="empty-state">Masukkan kata di atas untuk menguji parser afiks & akar kata Sangihe.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Direct Lexical Search Section -->
+    <section class="card dictionary-search-section">
+      <div class="search-header">
+        <h2 class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          Pencarian Kamus Langsung (Sangihe & Indonesia)
+        </h2>
+        <div class="search-bar">
+          <input type="text" id="dict-search-input" placeholder="Cari lema Sangihe atau arti kata dalam bahasa Indonesia...">
+          <button id="btn-dict-search" class="btn-secondary">Cari di Kamus</button>
+        </div>
+      </div>
+      <div id="dict-search-results" class="dict-results-container"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>Sangiang Translation Engine • Inisiator Proyek: <strong>Yayasan Cipta Manggala Dwipa</strong> • Rekayasa Sistem AI dan Penerjemah: <strong>Divisi DigiLab CMD</strong> • Berbasis Kamus Sangihe-Indonesia Modern, Kamus Steller-Aebersold (Brill/KITLV), Korpus Terjemahan Kamus (Yayasan Cipta Manggala Dwipa), & Teks Alkitab (LAI).</p>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+\chapter{Seni Bunyi dan Rahasia Tanda Diakritik Sangihe}
+
+\section{Mengapa Tanda Kecil Membawa Arti Besar?}
+Dalam Bahasa Indonesia, kata \textit{tahu} (mengerti) dan \textit{tahu} (makanan berbahan kedelai) ditulis persis sama tanpa tanda baca khusus. Kita hanya bisa membedakannya lewat konteks kalimat. Namun, dalam Bahasa Sangihe, perbedaan bunyi vokal memiliki pengaruh yang sangat mendalam dan mutlak dalam menentukan arti suatu kata.
+
+Untuk mengabadikan perbedaan bunyi tersebut ke dalam tulisan, para linguis dan penerjemah klasik (termasuk Dr. N. Adriani, K.G.F. Steller, dan W.E. Aebersold) merumuskan sistem ejaan dengan **tanda diakritik** (\textit{penanda aksen di atas atau di bawah huruf}).
+
+\begin{linguisticbox}[Daftar Bunyi Khusus Bahasa Sangihe]
+Bahasa Sangihe mengenal bunyi-bunyi khas yang tidak dimiliki oleh Bahasa Indonesia standar:
+\begin{itemize}
+    \item \textbf{Vokal Bertitik Bawah (\d{a}, \d{e}, \d{i}, \d{o}, \d{u}):} Menandakan vokal tertutup atau vokal panjang yang diucapkan dengan bibir lebih terkatup atau posisi lidah yang lebih tinggi.
+    \item \textbf{Pepet (\v{e}):} Huruf $e$ lemah seperti bunyi huruf $e$ pada kata Indonesia \textit{sedap} atau \textit{segar}.
+    \item \textbf{Kombinasi Bertitik-Pepet (\v{\d{e}}):} Bunyi vokal yang menggabungkan artikulasi tertutup dan nada sentak.
+    \item \textbf{Lateral Terpalatisasi ($l^\sim$ / \textit{l᷊}):} Ditulis dengan huruf $l$ yang diberi tanda gelombang kecil di bawahnya (Unicode \texttt{U+1DCA}). Diucapkan seperti huruf $l$ yang lidahnya melengkung lembut ke langit-langit mulut.
+\end{itemize}
+\end{linguisticbox}
+
+\section{Dilema Papan Ketik Modern: Masalah Mengetik di Ponsel}
+Di zaman modern saat ini, hampir semua orang berkomunikasi menggunakan papan ketik standar (QWERTY) di ponsel pintar atau laptop. Di papan ketik tersebut, tidak ada tombol untuk huruf \textbf{\d{a}}, \textbf{\v{e}}, atau \textbf{l᷊}.
+
+\begin{infobox}[Analogi Nada Musik Lagu Daerah]
+Bayangkan sebuah partitur lagu daerah yang indah. Nada aslinya memiliki tanda nada tinggi, nada rendah, dan tanda jeda istirahat. Namun, saat dinyanyikan di jalanan tanpa teks, orang-orang hanya mengingat lirik dasarnya saja tanpa tanda not balok. Tugas mesin penerjemah pintar kita adalah seperti seorang guru paduan suara yang andal: meskipun pendengar hanya bersenandung datar (mengetik tanpa diakritik), sang guru tetap tahu nada yang benar dan mampu menuliskan kembali not balok lengkap dengan tanda lagunya secara sempurna.
+\end{infobox}
+
+Oleh karena itu, salah satu aturan emas (*core requirement*) yang ditetapkan sejak awal pembuatan sistem ini adalah:
+\begin{center}
+\textbf{“Input tanpa tanda diakritik harus diterima dengan lapang dada, namun keluaran hasil terjemahan Bahasa Sangihe harus tetap mengembalikan tanda diakritik yang lengkap dan akurat.”}
+\end{center}
+
+\section{Strategi Dua Jalur: Penormalan dan Pemulihan Diakritik}
+Bagaimana sistem komputer kita mengatasi dilema ini? Kami merancang teknik yang disebut **Normalisasi Fonemis Dwiarah**:
+
+\begin{enumerate}
+    \item \textbf{Jalur Masuk (Penormalan Kata):} Saat pengguna mengetik kata \texttt{mebaese su waesu} (tanpa tanda apa pun), modul \texttt{normalizer.py} akan membersihkan huruf-huruf tersebut menjadi bentuk dasar. Huruf bertitik dan bertanda disetarakan ke huruf alfabet biasa ($a, e, i, o, u$). Tujuannya agar mesin pencari kamus dapat mencocokkannya dengan cepat di database leksikon.
+    \item \textbf{Jalur Keluar (Pemulihan Diakritik):} Setelah model AI menerjemahkan kalimat, modul cerdas \texttt{DiacriticRestorer} akan memeriksa glosarium terverifikasi dan teks rujukan paralel. Modul ini secara otomatis menyisipkan kembali tanda diakritik yang sah, sehingga kata berubah kembali menjadi ejaan formal: \textbf{\textit{měbaes\d{e}\v{} su waes-u}}.
+\end{enumerate}
+
+Dengan rancangan ini, pengguna yang awam tidak perlu repot mencari simbol tersembunyi di papan ketik saat mengetik kalimat, namun hasil terjemahan yang dihasilkan tetap menjunjung tinggi kehormatan ortografi asli Bahasa Sangihe.
