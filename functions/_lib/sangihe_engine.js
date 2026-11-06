@@ -755,38 +755,75 @@ export function restoreDiacritics(text, lexicalEntries, parallelMatches) {
 
 export async function callGemini(env, systemPrompt, userPrompt, temperature = 0.2) {
   const apiKey = env.GEMINI_API_KEY || env.GOOGLE_API_KEY;
-  if (!apiKey) {
-    throw new Error("GEMINI_API_KEY belum diatur di Environment Variables Cloudflare Pages.");
+  if (apiKey) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const payload = {
+      contents: [{ role: "user", parts: [{ text: userPrompt }] }],
+      generationConfig: {
+        temperature,
+        topP: 0.9,
+        maxOutputTokens: 512,
+      },
+    };
+    if (systemPrompt) {
+      payload.systemInstruction = { parts: [{ text: systemPrompt }] };
+    }
+
+    let lastErrText = "";
+    let lastStatus = 0;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (resp.ok) {
+        const data = await resp.json();
+        const cands = data.candidates || [];
+        if (!cands.length) return "";
+        const parts = (cands[0].content && cands[0].content.parts) || [];
+        return parts.map(p => p.text || "").join("").trim();
+      }
+
+      lastStatus = resp.status;
+      lastErrText = await resp.text();
+    }
+
+    // Fallback to Cloudflare Workers AI if Gemini is geo-restricted on an edge node or rate-limited
+    if (env.AI) {
+      try {
+        const messages = [];
+        if (systemPrompt) messages.push({ role: "system", content: systemPrompt });
+        messages.push({ role: "user", content: userPrompt });
+        const aiResult = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+          messages,
+          temperature,
+          max_tokens: 512,
+        });
+        if (aiResult && aiResult.response) {
+          return String(aiResult.response).trim();
+        }
+      } catch {
+        // Ignore fallback error and throw primary error below
+      }
+    }
+
+    throw new Error(`Gemini API HTTP ${lastStatus}: ${lastErrText}`);
   }
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(apiKey)}`;
-  const payload = {
-    contents: [{ role: "user", parts: [{ text: userPrompt }] }],
-    generationConfig: {
+  if (env.AI) {
+    const messages = [];
+    if (systemPrompt) messages.push({ role: "system", content: systemPrompt });
+    messages.push({ role: "user", content: userPrompt });
+    const aiResult = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+      messages,
       temperature,
-      topP: 0.9,
-      maxOutputTokens: 512,
-    },
-  };
-  if (systemPrompt) {
-    payload.systemInstruction = { parts: [{ text: systemPrompt }] };
+      max_tokens: 512,
+    });
+    return String((aiResult && aiResult.response) || "").trim();
   }
 
-  const resp = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
-  if (!resp.ok) {
-    const errText = await resp.text();
-    throw new Error(`Gemini API HTTP ${resp.status}: ${errText}`);
-  }
-
-  const data = await resp.json();
-  const cands = data.candidates || [];
-  if (!cands.length) return "";
-  const parts = (cands[0].content && cands[0].content.parts) || [];
-  return parts.map(p => p.text || "").join("").trim();
+  throw new Error("GEMINI_API_KEY belum diatur di Environment Variables Cloudflare.");
 }
 

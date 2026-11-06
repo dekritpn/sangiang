@@ -1,11 +1,19 @@
 name = "sangiang"
 main = "src/worker.js"
 compatibility_date = "2024-11-01"
+workers_dev = true
+preview_urls = true
+
+[placement]
+mode = "smart"
 
 [assets]
 directory = "./public"
 binding = "ASSETS"
 run_worker_first = true
+
+[ai]
+binding = "AI"
 
 [[d1_databases]]
 binding = "DB"
