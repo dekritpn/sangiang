@@ -12,6 +12,7 @@ let activeSessionId = "session_" + Date.now();
 // DOM References
 const appContainer = document.getElementById("app");
 const sidebar = document.getElementById("sidebar");
+const sidebarBackdrop = document.getElementById("sidebar-backdrop");
 const btnToggleSidebar = document.getElementById("btn-toggle-sidebar");
 const btnOpenSidebar = document.getElementById("btn-open-sidebar");
 const btnNewChat = document.getElementById("btn-new-chat");
@@ -60,19 +61,46 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Sidebar Toggle
+// Sidebar Toggle (Responsive: Mobile Drawer vs Desktop Collapsible)
+function isMobileViewport() {
+  return window.matchMedia("(max-width: 768px)").matches;
+}
+
+function openMobileSidebar() {
+  sidebar.classList.add("mobile-open");
+  sidebarBackdrop?.classList.add("active");
+}
+
+function closeMobileSidebar() {
+  sidebar.classList.remove("mobile-open");
+  sidebarBackdrop?.classList.remove("active");
+}
+
 btnToggleSidebar.addEventListener("click", () => {
-  sidebar.classList.toggle("collapsed");
+  if (isMobileViewport()) {
+    closeMobileSidebar();
+  } else {
+    sidebar.classList.toggle("collapsed");
+  }
 });
 
 btnOpenSidebar?.addEventListener("click", () => {
-  sidebar.classList.remove("collapsed");
+  if (isMobileViewport()) {
+    openMobileSidebar();
+  } else {
+    sidebar.classList.toggle("collapsed");
+  }
+});
+
+sidebarBackdrop?.addEventListener("click", () => {
+  closeMobileSidebar();
 });
 
 // New Chat
 btnNewChat.addEventListener("click", () => {
   if (isStreaming) stopStreaming();
   startNewChat();
+  if (isMobileViewport()) closeMobileSidebar();
 });
 
 // Clear Chat
@@ -88,6 +116,7 @@ btnClearChat.addEventListener("click", () => {
 
 // About Modal
 btnAbout.addEventListener("click", () => {
+  if (isMobileViewport()) closeMobileSidebar();
   aboutModal.style.display = "flex";
 });
 btnModalClose.addEventListener("click", () => {
@@ -596,6 +625,7 @@ function loadRecentSessions() {
       item.addEventListener("click", () => {
         const id = item.getAttribute("data-id");
         switchSession(id);
+        if (isMobileViewport()) closeMobileSidebar();
       });
     });
   } catch (e) {
