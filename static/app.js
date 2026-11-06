@@ -384,7 +384,7 @@ async function checkSystemHealth() {
 
     if (data.status === "healthy") {
       dot.className = "status-dot online";
-      text.textContent = `Sangiang Online • Korpus: ${data.corpus_sentences_count.toLocaleString()} kalimat`;
+      text.textContent = `Sangiang Online`;
     } else {
       dot.className = "status-dot";
       text.textContent = `Degraded`;
