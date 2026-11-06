@@ -9,9 +9,6 @@ routes = [
   { pattern = "chat.sangihe.org", custom_domain = true }
 ]
 
-[placement]
-mode = "smart"
-
 [assets]
 directory = "./public"
 binding = "ASSETS"
@@ -24,3 +21,12 @@ binding = "AI"
 binding = "DB"
 database_name = "sangiang-db"
 database_id = "25a13421-a6b1-4739-98db-6cf0cd95c2a5"
+
+[durable_objects]
+bindings = [
+  { name = "GEMINI_PROXY", class_name = "GeminiProxyDO" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["GeminiProxyDO"]

@@ -788,31 +788,47 @@ export function applySangiheMorphophonemicRules(text) {
   return out;
 }
 
-export async function callGemini(env, systemPrompt, userPrompt, temperature = 0.2) {
+export async function callGeminiPayload(env, payload, temperature = 0.2) {
   const apiKey = env.GEMINI_API_KEY || env.GOOGLE_API_KEY;
   if (apiKey) {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(apiKey)}`;
-    const payload = {
-      contents: [{ role: "user", parts: [{ text: userPrompt }] }],
-      generationConfig: {
-        temperature,
-        topP: 0.9,
-        maxOutputTokens: 512,
-      },
-    };
-    if (systemPrompt) {
-      payload.systemInstruction = { parts: [{ text: systemPrompt }] };
+
+    // 1. Primary path: Route through US-pinned Durable Object ('wnam' / 'enam')
+    //    so users whose Indonesian ISP routes to Hong Kong (HKG) never hit geo-restrictions.
+    if (env.GEMINI_PROXY) {
+      const regions = [
+        { name: "sangiang-us-west-v1", hint: "wnam" },
+        { name: "sangiang-us-east-v1", hint: "enam" },
+      ];
+      for (const reg of regions) {
+        try {
+          const id = env.GEMINI_PROXY.idFromName(reg.name);
+          const stub = env.GEMINI_PROXY.get(id, { locationHint: reg.hint });
+          const proxyResp = await stub.fetch("https://gemini-proxy/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url, payload }),
+          });
+          if (proxyResp.ok) {
+            const data = await proxyResp.json();
+            const cands = data.candidates || [];
+            if (!cands.length) return "";
+            const parts = (cands[0].content && cands[0].content.parts) || [];
+            return parts.map(p => p.text || "").join("").trim();
+          }
+        } catch {
+          // Try next region
+        }
+      }
     }
 
-    let lastErrText = "";
-    let lastStatus = 0;
-    for (let attempt = 0; attempt < 2; attempt++) {
+    // 2. Direct fetch if Durable Object is unavailable
+    try {
       const resp = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
       if (resp.ok) {
         const data = await resp.json();
         const cands = data.candidates || [];
@@ -820,18 +836,31 @@ export async function callGemini(env, systemPrompt, userPrompt, temperature = 0.
         const parts = (cands[0].content && cands[0].content.parts) || [];
         return parts.map(p => p.text || "").join("").trim();
       }
-
-      lastStatus = resp.status;
-      lastErrText = await resp.text();
+    } catch {
+      // Fall through to Cloudflare Workers AI fallback
     }
+  }
 
-    // Fallback to Cloudflare Workers AI if Gemini is geo-restricted on an edge node or rate-limited
-    if (env.AI) {
+  // 3. Fallback to Cloudflare Workers AI (tries multiple models in case one requires license acceptance)
+  if (env.AI) {
+    const messages = [];
+    if (payload.systemInstruction && payload.systemInstruction.parts && payload.systemInstruction.parts[0]) {
+      messages.push({ role: "system", content: payload.systemInstruction.parts[0].text });
+    }
+    for (const c of payload.contents || []) {
+      messages.push({
+        role: c.role === "model" ? "assistant" : "user",
+        content: (c.parts && c.parts[0] && c.parts[0].text) || "",
+      });
+    }
+    const cfModels = [
+      "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "@cf/meta/llama-3.1-8b-instruct",
+      "@cf/qwen/qwen1.5-14b-chat-awq",
+    ];
+    for (const cfModel of cfModels) {
       try {
-        const messages = [];
-        if (systemPrompt) messages.push({ role: "system", content: systemPrompt });
-        messages.push({ role: "user", content: userPrompt });
-        const aiResult = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+        const aiResult = await env.AI.run(cfModel, {
           messages,
           temperature,
           max_tokens: 512,
@@ -840,25 +869,26 @@ export async function callGemini(env, systemPrompt, userPrompt, temperature = 0.
           return String(aiResult.response).trim();
         }
       } catch {
-        // Ignore fallback error and throw primary error below
+        // Try next CF AI model
       }
     }
-
-    throw new Error(`Gemini API HTTP ${lastStatus}: ${lastErrText}`);
   }
 
-  if (env.AI) {
-    const messages = [];
-    if (systemPrompt) messages.push({ role: "system", content: systemPrompt });
-    messages.push({ role: "user", content: userPrompt });
-    const aiResult = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
-      messages,
+  throw new Error("Layanan Sangiang AI sedang sibuk. Silakan coba sesaat lagi.");
+}
+
+export async function callGemini(env, systemPrompt, userPrompt, temperature = 0.2) {
+  const payload = {
+    contents: [{ role: "user", parts: [{ text: userPrompt }] }],
+    generationConfig: {
       temperature,
-      max_tokens: 512,
-    });
-    return String((aiResult && aiResult.response) || "").trim();
+      topP: 0.9,
+      maxOutputTokens: 512,
+    },
+  };
+  if (systemPrompt) {
+    payload.systemInstruction = { parts: [{ text: systemPrompt }] };
   }
-
-  throw new Error("GEMINI_API_KEY belum diatur di Environment Variables Cloudflare.");
+  return callGeminiPayload(env, payload, temperature);
 }
 

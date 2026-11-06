@@ -1,6 +1,7 @@
 import {
   SANGIANG_SYSTEM_PROMPT,
   applySangiheMorphophonemicRules,
+  callGeminiPayload,
   detectUserLanguage,
   lookupIndonesianTokens,
   lookupSangiheTokens,
@@ -119,59 +120,15 @@ export async function onRequestPost(context) {
       },
     };
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(apiKey || "")}`;
     let rawReply = "";
-    let ok = false;
-    let errDetail = "";
-
-    if (apiKey) {
-      for (let attempt = 0; attempt < 2; attempt++) {
-        const res = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(geminiPayload),
-        });
-        if (res.ok) {
-          const data = await res.json();
-          const cands = data.candidates || [];
-          const parts = (cands[0] && cands[0].content && cands[0].content.parts) || [];
-          rawReply = parts.map(p => p.text || "").join("");
-          ok = true;
-          break;
-        } else {
-          errDetail = `Gemini API HTTP ${res.status}: ${await res.text()}`;
-        }
-      }
-    }
-
-    if (!ok && env.AI) {
-      try {
-        const aiMessages = [{ role: "system", content: sysText.trim() }];
-        for (const c of geminiContents) {
-          aiMessages.push({
-            role: c.role === "model" ? "assistant" : "user",
-            content: (c.parts && c.parts[0] && c.parts[0].text) || "",
-          });
-        }
-        const aiRes = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
-          messages: aiMessages,
-          temperature,
-          max_tokens: 1024,
-        });
-        if (aiRes && aiRes.response) {
-          rawReply = String(aiRes.response);
-          ok = true;
-        }
-      } catch (e) {
-        errDetail = errDetail || String(e);
-      }
-    }
-
-    if (!ok) {
+    try {
+      rawReply = await callGeminiPayload(env, geminiPayload, temperature);
+    } catch (err) {
+      const errMsg = err.message || "Layanan Sangiang sedang sibuk, silakan coba sesaat lagi.";
       if (!stream) {
-        return Response.json({ detail: errDetail || "Gagal menghubungi layanan AI." }, { status: 500 });
+        return Response.json({ detail: errMsg }, { status: 500 });
       }
-      const errPayload = `data: ${JSON.stringify({ error: errDetail || "Gagal menghubungi layanan AI." })}\n\n`;
+      const errPayload = `data: ${JSON.stringify({ error: errMsg })}\n\n`;
       return new Response(errPayload, {
         headers: { "Content-Type": "text/event-stream", "Cache-Control": "no-cache" },
       });

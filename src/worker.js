@@ -122,3 +122,36 @@ export default {
     return new Response("Not Found", { status: 404 });
   },
 };
+
+/**
+ * Durable Object pinned to Western North America ('wnam') so that outbound
+ * LLM API requests always originate from a supported US region even when the
+ * user's ISP routes their initial connection through Hong Kong (HKG).
+ */
+export class GeminiProxyDO {
+  constructor(state, env) {
+    this.state = state;
+    this.env = env;
+  }
+
+  async fetch(request) {
+    try {
+      const { url, payload } = await request.json();
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const text = await resp.text();
+      return new Response(text, {
+        status: resp.status,
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+      });
+    } catch (err) {
+      return new Response(
+        JSON.stringify({ error: { message: err.message || String(err) } }),
+        { status: 502, headers: { "Content-Type": "application/json; charset=utf-8" } }
+      );
+    }
+  }
+}
