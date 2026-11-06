@@ -5,8 +5,8 @@
   "description": "Sangiang Translation Engine & Sangiang Chatbot for sangihe.org (Cloudflare Pages + D1)",
   "scripts": {
     "build": "python3 scripts/build_cloudflare_pages.py",
-    "dev": "npx wrangler pages dev public",
-    "deploy": "python3 scripts/build_cloudflare_pages.py && npx wrangler pages deploy public --project-name=sangiang"
+    "dev": "npx wrangler dev",
+    "deploy": "python3 scripts/build_cloudflare_pages.py && npx wrangler deploy"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"
