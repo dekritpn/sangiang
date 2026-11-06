@@ -42,16 +42,21 @@ B. KATA TUGAS, SAPAAN & UNGKAPAN IDIOMATIK SANGIHE:
 - Adverbia & Aspek: 'seng' (sudah, telah), 'sarung' (akan), 'nạung' (dahulu, telah), 'tawe' / 'ta' / 'kumbahang' (tidak, bukan, jangan), 'abe' / 'abeko' (jangan, janganlah), 'hinong' (harus, wajib, patut), 'piạ' (ada, mempunyai), 'kai' (adalah).
 
 C. HUKUM PERUBAHAN BUNYI & MORFOFONEMIK SANGIHE (KAIDAH ADRIANI):
-1. Alternasi Bilabial b <-> w (Lenisi Intervokalik):
-   Konsonan awal 'b-' melemah menjadi 'w-' sesudah vokal terbuka (prefiks ma-, na-, pa-, ka-, i-, ni-, maka-, taha- atau partikel i, u, su):
-   - bera (kata) -> mawera, bawera, iwerang (tetap 'b' pasca-pepet/nasal: mẹ̌bera, měmbera)
+1. Alternasi Bilabial b <-> w & Ligatur Genitif -ng (Lenisi Pasca-Suku Kata Terbuka):
+   Konsonan awal 'b-' WAJIB melemah menjadi 'w-' sesudah suku kata terbuka / vokal terbuka (baik sesudah prefiks ma-, na-, pa-, ka-, i-, ni-, maka-, taha-, reduplikasi suku terbuka, maupun sesudah kata/partikel berakhiran vokal terbuka seperti i, u, su, kụ, dingangu/ringangu, bọu/wọu, sadia, mapulu, makaěnna):
+   - bera (kata/bahasa) + ligatur genitif '-ng' + Sangihẹ̌ -> **werang Sangihẹ̌** (sesudah suku kata terbuka: 'su werang Sangihẹ̌', 'ringangu werang Sangihẹ̌', 'u werang Sangihẹ̌', 'makaěnna werang Sangihẹ̌') atau **berang Sangihẹ̌ / berang u Sangihẹ̌** (sesudah nasal tertutup '-ng' seperti 'měngěndung berang u Sangihẹ̌' / 'měngěndung u werang Sangihẹ̌').
+     * PERINGATAN KERAS: DILARANG KERAS menulis 'bera Sangihe' atau 'su bera Sangihe'! Kata 'bera' yang diikuti nama bahasa/pemilik WAJIB mendapat '-ng' menjadi 'werang Sangihẹ̌' (pasca-vokal terbuka) atau 'berang Sangihẹ̌' (pasca-nasal)!
+   - mẹ̌bera-wera (berbincang-bincang: suku pertama sesudah pepet 'ẹ̌' tetap 'b-', suku kedua sesudah vokal terbuka '-a' menjadi 'w-' -> '-wera'; WAJIB tulis 'mẹ̌bera-wera', JANGAN 'mẹbera-wera'!)
+   - bal᷊e (rumah) -> su wal᷊e (di rumah)
+   - banua (kampung/negeri) -> su wanua / su wanuang Sangihẹ̌ (di negeri Sangihe)
    - bohe (tulis) -> mawohe, bawohe, niwohe
    - biahě (hidup) -> mawiahě, bawiahě, kabiahang
    - bawa (bawa) -> mawawa, bawawa, niwawa
    - baesẹ̌ (sarang) -> su waes-u (di sarangmu)
    - bawu (ibu/putri) -> i wawu (Ibu/Putri)
-2. Alternasi Alveolar d <-> r (Lenisi Intervokalik & Awal Klausa):
-   Konsonan awal 'd-' berubah menjadi 'r-' sesudah vokal terbuka, dalam reduplikasi suku terbuka, atau bentuk imperatif/pasif:
+2. Alternasi Alveolar d <-> r (Lenisi Pasca-Suku Kata Terbuka & Awal Klausa):
+   Konsonan awal 'd-' berubah menjadi 'r-' sesudah suku kata terbuka (vokal terbuka), dalam reduplikasi suku terbuka, atau bentuk imperatif/pasif:
+   - dingangu (dengan/dan) -> **ringangu** sesudah kata berakhiran vokal terbuka (contoh: 'mẹ̌bera-wera ringangu i kau', 'makapẹ̌bera ringangu i kau'; sedangkan sesudah konsonan '-ng' tetap 'dingangu')
    - dal᷊eng (jalan) -> maral᷊eng, daral᷊eng, rumal᷊eng, su ral᷊eng
    - dingihě (dengar) -> maringihě, daringihang, raringihang
    - dending (damping/sertai/lindungi) -> rendingang, rendingane (sertailah / dampingilah)

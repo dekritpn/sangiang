@@ -1,5 +1,6 @@
 import {
   SANGIANG_SYSTEM_PROMPT,
+  applySangiheMorphophonemicRules,
   detectUserLanguage,
   lookupIndonesianTokens,
   lookupSangiheTokens,
@@ -11,13 +12,13 @@ async function augmentPromptWithLexicon(db, userText) {
   const userLang = detectUserLanguage(userText);
   const langDirective =
     userLang === "sangihe"
-      ? "[INSTRUKSI BAHASA WAJIB: Pengguna berbicara kepada Anda dalam BAHASA SANGIHE. Anda WAJIB menjawab 100% SEPENUHNYA DALAM BAHASA SANGIHE MURNI! DILARANG KERAS mencampur dengan kalimat atau terjemahan Bahasa Indonesia sedikit pun! Susunlah seluruh kalimat Bahasa Sangihe Anda HANYA menggunakan kosakata Sangihe asli yang terverifikasi di Kamus Inti & Rujukan Kamus di bawah (tanpa kata karangan sendiri), sehingga jika jawaban Sangihe Anda dimasukkan ke Mesin Penerjemah Sangiang, hasilnya adalah kalimat Bahasa Indonesia yang 100% wajar dan masuk akal.]"
+      ? "[INSTRUKSI BAHASA & MORFOFONEMIK WAJIB: Pengguna berbicara kepada Anda dalam BAHASA SANGIHE. Anda WAJIB menjawab 100% SEPENUHNYA DALAM BAHASA SANGIHE MURNI! DILARANG KERAS mencampur dengan Bahasa Indonesia sedikit pun! WAJIB patuhi hukum perubahan bunyi (lenisi) sesudah suku kata terbuka: konsonan 'b-' menjadi 'w-' dan 'd-' menjadi 'r-' sesudah vokal terbuka, serta gunakan ligatur '-ng' pada frasa genitif (misalnya: tulis 'werang Sangihẹ̌', 'su werang Sangihẹ̌', 'u werang Sangihẹ̌', atau 'berang u Sangihẹ̌' — DILARANG KERAS menulis 'bera Sangihe' tanpa '-ng' dan tanpa lenisi 'w-'!). Gunakan 'mẹ̌bera-wera', 'mal᷊uasẹ̌', dan 'ringangu' sesudah kata berakhiran vokal terbuka.]"
       : "[INSTRUKSI BAHASA WAJIB: Pengguna berbicara kepada Anda dalam BAHASA INDONESIA. Anda WAJIB menjawab SEPENUHNYA DALAM BAHASA INDONESIA sebagai teman diskusi yang hangat, cerdas, dan akrab (tidak perlu mencampur kalimat Bahasa Sangihe kecuali pengguna secara eksplisit memintanya).]";
 
-  if (!db) return `\n\n${langDirective}`;
+  if (!db) return { hint: `\n\n${langDirective}`, userLang };
   try {
     const words = tokenizeWords(userText, false);
-    if (!words.length) return `\n\n${langDirective}`;
+    if (!words.length) return { hint: `\n\n${langDirective}`, userLang };
 
     const sghEntries = await lookupSangiheTokens(db, words, 10);
     const idEntries = await lookupIndonesianTokens(db, words, 10);
@@ -44,6 +45,9 @@ async function augmentPromptWithLexicon(db, userText) {
       } else if (norm === "kau" || norm === "ikau") {
         lexHints.push("- **i kau**: [pron] ENGKAU / KAMU (kata ganti orang kedua tunggal)");
         continue;
+      } else if (norm === "bera" || norm === "wera" || norm === "berang" || norm === "werang") {
+        lexHints.push("- **werang Sangihẹ̌ / berang u Sangihẹ̌**: [n] bahasa Sangihe (sesudah vokal terbuka wajib lenisi b->w menjadi 'werang Sangihẹ̌', misal: 'su werang Sangihẹ̌', 'u werang Sangihẹ̌'; DILARANG menulis 'bera Sangihe'!)");
+        continue;
       }
       const defn = String(e.summary_gloss || e.body_plain || "").replace(/\n/g, " ").trim().slice(0, 260);
       lexHints.push(`- **${e.lema_display}**: ${defn}`);
@@ -64,9 +68,9 @@ async function augmentPromptWithLexicon(db, userText) {
     if (parHints.length) {
       sections.push("[Contoh Kalimat Paralel Korpus]:\n" + parHints.join("\n"));
     }
-    return "\n\n" + sections.join("\n\n");
+    return { hint: "\n\n" + sections.join("\n\n"), userLang };
   } catch {
-    return `\n\n${langDirective}`;
+    return { hint: `\n\n${langDirective}`, userLang };
   }
 }
 
@@ -79,12 +83,13 @@ export async function onRequestPost(context) {
     const stream = req.stream !== false;
 
     const apiKey = env.GEMINI_API_KEY || env.GOOGLE_API_KEY;
-    if (!apiKey) {
+    if (!apiKey && !env.AI) {
       return Response.json({ detail: "GEMINI_API_KEY tidak ditemukan di Environment Variables." }, { status: 500 });
     }
 
     let sysText = SANGIANG_SYSTEM_PROMPT;
     const geminiContents = [];
+    let activeUserLang = "indonesian";
 
     for (let i = 0; i < messages.length; i++) {
       const m = messages[i];
@@ -93,7 +98,8 @@ export async function onRequestPost(context) {
       } else {
         let content = m.content || "";
         if (i === messages.length - 1 && m.role === "user") {
-          const hint = await augmentPromptWithLexicon(env.DB, content);
+          const { hint, userLang } = await augmentPromptWithLexicon(env.DB, content);
+          activeUserLang = userLang;
           if (hint) content += hint;
         }
         geminiContents.push({
@@ -113,77 +119,91 @@ export async function onRequestPost(context) {
       },
     };
 
-    if (!stream) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(apiKey)}`;
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(geminiPayload),
-      });
-      const data = await res.json();
-      const cands = data.candidates || [];
-      const parts = (cands[0] && cands[0].content && cands[0].content.parts) || [];
-      const content = parts.map(p => p.text || "").join("");
-      return Response.json({ response: content, model: "Sangiang" });
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(apiKey || "")}`;
+    let rawReply = "";
+    let ok = false;
+    let errDetail = "";
+
+    if (apiKey) {
+      for (let attempt = 0; attempt < 2; attempt++) {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(geminiPayload),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const cands = data.candidates || [];
+          const parts = (cands[0] && cands[0].content && cands[0].content.parts) || [];
+          rawReply = parts.map(p => p.text || "").join("");
+          ok = true;
+          break;
+        } else {
+          errDetail = `Gemini API HTTP ${res.status}: ${await res.text()}`;
+        }
+      }
     }
 
-    // Streaming SSE response
-    const sseUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:streamGenerateContent?alt=sse&key=${encodeURIComponent(apiKey)}`;
-    const upstream = await fetch(sseUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(geminiPayload),
-    });
+    if (!ok && env.AI) {
+      try {
+        const aiMessages = [{ role: "system", content: sysText.trim() }];
+        for (const c of geminiContents) {
+          aiMessages.push({
+            role: c.role === "model" ? "assistant" : "user",
+            content: (c.parts && c.parts[0] && c.parts[0].text) || "",
+          });
+        }
+        const aiRes = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+          messages: aiMessages,
+          temperature,
+          max_tokens: 1024,
+        });
+        if (aiRes && aiRes.response) {
+          rawReply = String(aiRes.response);
+          ok = true;
+        }
+      } catch (e) {
+        errDetail = errDetail || String(e);
+      }
+    }
 
-    if (!upstream.ok || !upstream.body) {
-      const errBody = await upstream.text();
-      const errPayload = `data: ${JSON.stringify({ error: `Gemini API HTTP ${upstream.status}: ${errBody}` })}\n\n`;
+    if (!ok) {
+      if (!stream) {
+        return Response.json({ detail: errDetail || "Gagal menghubungi layanan AI." }, { status: 500 });
+      }
+      const errPayload = `data: ${JSON.stringify({ error: errDetail || "Gagal menghubungi layanan AI." })}\n\n`;
       return new Response(errPayload, {
         headers: { "Content-Type": "text/event-stream", "Cache-Control": "no-cache" },
       });
     }
 
+    const finalReply =
+      activeUserLang === "sangihe" ? applySangiheMorphophonemicRules(rawReply) : rawReply;
+
+    if (!stream) {
+      return Response.json({ response: finalReply, model: "Sangiang" });
+    }
+
+    // Stream the morphophonemically-verified reply smoothly as SSE chunks
     const { readable, writable } = new TransformStream();
     const writer = writable.getWriter();
     const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
 
     (async () => {
-      const reader = upstream.body.getReader();
-      let buffer = "";
       try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() || "";
-          for (const rawLine of lines) {
-            const line = rawLine.trim();
-            if (!line.startsWith("data:")) continue;
-            const jsonStr = line.slice(5).trim();
-            if (!jsonStr) continue;
-            try {
-              const data = JSON.parse(jsonStr);
-              const cands = data.candidates || [];
-              if (cands.length) {
-                const parts = (cands[0].content && cands[0].content.parts) || [];
-                const chunk = parts.map(p => p.text || "").join("");
-                if (chunk) {
-                  await writer.write(
-                    encoder.encode(`data: ${JSON.stringify({ chunk, done: false, model: "Sangiang" })}\n\n`)
-                  );
-                }
-              }
-            } catch {}
+        const words = finalReply.split(/(\s+)/);
+        let chunkBuf = "";
+        for (let i = 0; i < words.length; i++) {
+          chunkBuf += words[i];
+          if (chunkBuf.length >= 28 || i === words.length - 1) {
+            await writer.write(
+              encoder.encode(`data: ${JSON.stringify({ chunk: chunkBuf, done: false, model: "Sangiang" })}\n\n`)
+            );
+            chunkBuf = "";
           }
         }
         await writer.write(
           encoder.encode(`data: ${JSON.stringify({ chunk: "", done: true, model: "Sangiang" })}\n\n`)
-        );
-      } catch (e) {
-        await writer.write(
-          encoder.encode(`data: ${JSON.stringify({ error: e.message || String(e) })}\n\n`)
         );
       } finally {
         await writer.close();
@@ -201,4 +221,3 @@ export async function onRequestPost(context) {
     return Response.json({ detail: err.message || String(err) }, { status: 500 });
   }
 }
-

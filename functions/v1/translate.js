@@ -1,6 +1,7 @@
 import {
   SYSTEM_INDONESIAN_TO_SANGIHE,
   SYSTEM_SANGIHE_TO_INDONESIAN,
+  applySangiheMorphophonemicRules,
   buildTranslationPrompt,
   callGemini,
   lookupIndonesianTokens,
@@ -136,7 +137,7 @@ export async function onRequestPost(context) {
 
     if (direction === "id_to_sangihe") {
       const rest = restoreDiacritics(translated, lexicalEntries, parallelMatches);
-      translated = rest.text;
+      translated = applySangiheMorphophonemicRules(rest.text);
       diacriticsRestored = rest.restored;
     }
 
