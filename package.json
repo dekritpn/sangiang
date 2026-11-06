@@ -9,7 +9,7 @@
     "deploy": "python3 scripts/build_cloudflare_pages.py && npx wrangler pages deploy public --project-name=sangiang"
   },
   "devDependencies": {
-    "wrangler": "^3.86.0"
+    "wrangler": "^4.0.0"
   }
 }
 
