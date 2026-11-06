@@ -115,13 +115,17 @@ function updateCharCount() {
 btnClearInput.addEventListener("click", () => {
   inputTextArea.value = "";
   updateCharCount();
+  outputTextArea.innerHTML = `<div class="output-placeholder">Hasil terjemahan muncul di sini. Sangiang masih melakukan banyak kekeliruan. Mohon umpan balik Anda untuk memperbaiki terjemahan Sangiang.</div>`;
+  if (feedbackPanel) feedbackPanel.style.display = "none";
+  diacriticBadge.style.display = "none";
+  latencyInfo.textContent = "";
   inputTextArea.focus();
 });
 
 // Copy output
 btnCopyOutput.addEventListener("click", async () => {
   const text = outputTextArea.textContent.trim();
-  if (text && !text.includes("Hasil terjemahan")) {
+  if (text && !outputTextArea.querySelector(".output-placeholder")) {
     await navigator.clipboard.writeText(text);
     const origHTML = btnCopyOutput.innerHTML;
     btnCopyOutput.innerHTML = `✓ Tersalin!`;
