@@ -181,6 +181,9 @@ async function doTranslate() {
     }
 
     const data = await resp.json();
+    if (data.direction && data.direction !== currentDirection) {
+      setDirection(data.direction);
+    }
     outputTextArea.textContent = data.translated_text;
     lastTranslatedInput = data.input_text || text;
     lastMachineTranslation = data.translated_text || "";

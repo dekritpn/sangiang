@@ -1,12 +1,14 @@
 export async function onRequestGet(context) {
   const { env } = context;
-  let corpusCount = 30307;
+  const corpusCount = 30308;
   let lexOk = Boolean(env.DB);
   if (env.DB) {
     try {
-      const row = await env.DB.prepare("SELECT COUNT(*) AS cnt FROM parallel_sentences;").first();
-      if (row && typeof row.cnt === "number") corpusCount = row.cnt;
-    } catch {}
+      const row = await env.DB.prepare("SELECT 1 AS ok;").first();
+      lexOk = Boolean(row && row.ok === 1);
+    } catch {
+      lexOk = false;
+    }
   }
   const geminiOk = Boolean(env.GEMINI_API_KEY || env.GOOGLE_API_KEY);
   return Response.json({

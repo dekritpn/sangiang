@@ -13,7 +13,7 @@
 import { onRequestGet as healthGet } from "../functions/health.js";
 import { onRequestGet as v1ModelsGet } from "../functions/v1/models.js";
 import { onRequestPost as v1TranslatePost } from "../functions/v1/translate.js";
-import { onRequestPost as v1FeedbackPost } from "../functions/v1/feedback.js";
+import { onRequestPost as v1FeedbackPost, onRequestGet as v1FeedbackGet } from "../functions/v1/feedback.js";
 import { onRequestPost as v1DictLookupPost } from "../functions/v1/dictionary/lookup.js";
 import { onRequestPost as v1MorphAnalyzePost } from "../functions/v1/morphology/analyze.js";
 import { onRequestGet as apiHealthGet } from "../functions/api/health.js";
@@ -26,6 +26,8 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
+
+const SCANNER_PATH_RE = /(?:^|\/)(?:\.env|\.git|\.aws|\.vscode|\.cursor|phpinfo|wp-admin|wp-login|xmlrpc\.php|actuator|graphql|telescope|_profiler|service-account\.json|firebase-key\.json|google-key\.json|gcp-sa\.json)|\.php$/i;
 
 function withCors(response) {
   const headers = new Headers(response.headers);
@@ -49,6 +51,23 @@ export default {
     const host = url.hostname.toLowerCase();
     const path = url.pathname.replace(/\/+$/, "") || "/";
     const method = request.method.toUpperCase();
+
+    // 0. Enforce HTTPS on production domains
+    if (
+      url.protocol === "http:" &&
+      host !== "localhost" &&
+      host !== "127.0.0.1" &&
+      !path.startsWith("/.well-known/")
+    ) {
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
+
+    // Fast-reject automated vulnerability scanner paths before touching D1 or ASSETS
+    if (SCANNER_PATH_RE.test(path)) {
+      return new Response("Not Found", { status: 404 });
+    }
+
     const context = { request, env, ctx };
 
     // 1. API Routes (Translation Engine + Chatbot)
@@ -64,6 +83,9 @@ export default {
       }
       if (path === "/v1/feedback" && method === "POST") {
         return withCors(await v1FeedbackPost(context));
+      }
+      if (path === "/v1/feedback" && method === "GET") {
+        return withCors(await v1FeedbackGet(context));
       }
       if (path === "/v1/dictionary/lookup" && method === "POST") {
         return withCors(await v1DictLookupPost(context));
@@ -100,7 +122,7 @@ export default {
       host.startsWith("sangiang.");
 
     if (
-      (isRootPortalDomain && (path === "/" || path === "/index.html")) ||
+      (isRootPortalDomain && !path.startsWith("/static/")) ||
       path === "/landing" ||
       path === "/landing/index.html"
     ) {
@@ -114,6 +136,12 @@ export default {
     }
 
     if (env.ASSETS) {
+      if (path === "/favicon.ico") {
+        const iconPath = isChatSubdomain ? "/chat/static/sangiang.jpeg" : "/static/sangiang.jpeg";
+        const iconUrl = new URL(iconPath, url.origin);
+        return env.ASSETS.fetch(new Request(iconUrl.toString(), request));
+      }
+
       if (isChatSubdomain) {
         if (url.pathname === "/" || url.pathname === "/index.html") {
           const chatUrl = new URL("/chat/", url.origin);

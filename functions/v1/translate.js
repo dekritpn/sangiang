@@ -4,6 +4,7 @@ import {
   applySangiheMorphophonemicRules,
   buildTranslationPrompt,
   callGemini,
+  detectTranslationDirection,
   lookupIndonesianTokens,
   lookupSangiheTokens,
   restoreDiacritics,
@@ -25,17 +26,19 @@ export async function onRequestPost(context) {
   try {
     const body = await request.json();
     const cleanInput = String(body.text || "").trim();
-    const direction = body.direction || "sangihe_to_id";
+    const requestedDirection = body.direction || "sangihe_to_id";
     const temperature = typeof body.temperature === "number" ? body.temperature : 0.2;
     const topKParallel = body.top_k_parallel || 3;
     const maxLexical = body.max_lexical || 20;
 
-    if (!["sangihe_to_id", "id_to_sangihe"].includes(direction)) {
+    if (!["sangihe_to_id", "id_to_sangihe"].includes(requestedDirection)) {
       return Response.json(
         { detail: "Direction must be either 'sangihe_to_id' or 'id_to_sangihe'" },
         { status: 400 }
       );
     }
+
+    const direction = detectTranslationDirection(cleanInput, requestedDirection);
 
     if (!cleanInput) {
       return Response.json({

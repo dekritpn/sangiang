@@ -58,10 +58,8 @@ async function augmentPromptWithLexicon(db, userText) {
       lexHints.push(`- **${e.lema_display}**: ${defn}`);
     }
 
-    let matches = await retrieveParallelMatches(db, userText, "sangihe_to_id", 5);
-    if (!matches.length) {
-      matches = await retrieveParallelMatches(db, userText, "id_to_sangihe", 5);
-    }
+    const primaryDir = userLang === "sangihe" ? "sangihe_to_id" : "id_to_sangihe";
+    const matches = await retrieveParallelMatches(db, userText, primaryDir, 5);
     const parHints = matches.map(
       m => `- Sangihe: "${(m.sangihe || "").slice(0, 180)}" -> Indonesia: "${(m.indonesian || "").slice(0, 180)}"`
     );

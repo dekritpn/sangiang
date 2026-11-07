@@ -377,18 +377,52 @@ export async function retrieveParallelMatches(db, query, direction = "sangihe_to
   if (tokens.length === 0) return [];
 
   const col = direction === "sangihe_to_id" ? "sangihe_normalized" : "indonesian_tb";
-  const conditions = tokens.map(() => `${col} LIKE ?`).join(" OR ");
-  const binds = tokens.map(t => `%${t}%`);
-  const sql = `
-    SELECT id, source_domain, reference_id, sangihe_text, indonesian_tb
-    FROM parallel_sentences
-    WHERE ${conditions}
-    ORDER BY CASE WHEN source_domain = 'user_feedback' THEN 0 ELSE 1 END, id ASC
-    LIMIT 25;
-  `;
+  const safeTokens = tokens
+    .map(t => t.replace(/[^a-zA-Z0-9]/g, ""))
+    .filter(t => t.length > 2);
+
   try {
-    const { results } = await db.prepare(sql).bind(...binds).all();
-    const scored = (results || []).map(r => {
+    let rawRows = [];
+
+    // 1. Check user_feedback sentences first (indexed via idx_parallel_domain, only ~12 rows)
+    try {
+      const fbConds = tokens.map(() => `${col} LIKE ?`).join(" OR ");
+      const fbBinds = tokens.map(t => `%${t}%`);
+      const fbSql = `
+        SELECT id, source_domain, reference_id, sangihe_text, indonesian_tb
+        FROM parallel_sentences
+        WHERE source_domain = 'user_feedback' AND (${fbConds})
+        ORDER BY id DESC
+        LIMIT 5;
+      `;
+      const { results: fbRes } = await db.prepare(fbSql).bind(...fbBinds).all();
+      if (fbRes && fbRes.length) rawRows.push(...fbRes);
+    } catch {}
+
+    // 2. Fast FTS5 index lookup (~40 rows read instead of 30,308 full table scan!)
+    if (safeTokens.length > 0) {
+      const ftsExpr = `${col} : (${safeTokens.map(t => `"${t}"`).join(" OR ")})`;
+      const ftsSql = `
+        SELECT p.id, p.source_domain, p.reference_id, p.sangihe_text, p.indonesian_tb
+        FROM parallel_fts f
+        JOIN parallel_sentences p ON p.id = f.rowid
+        WHERE parallel_fts MATCH ?
+        LIMIT 25;
+      `;
+      const { results: ftsRes } = await db.prepare(ftsSql).bind(ftsExpr).all();
+      if (ftsRes && ftsRes.length) rawRows.push(...ftsRes);
+    }
+
+    const seenIds = new Set();
+    const dedupRows = [];
+    for (const r of rawRows) {
+      if (!seenIds.has(r.id)) {
+        seenIds.add(r.id);
+        dedupRows.push(r);
+      }
+    }
+
+    const scored = dedupRows.map(r => {
       const targetStr = (direction === "sangihe_to_id" ? r.sangihe_text : r.indonesian_tb).toLowerCase();
       let hits = 0;
       for (const t of tokens) {
@@ -620,6 +654,9 @@ const INDONESIAN_CORE_MARKERS = new Set([
   "artinya", "menurutmu", "ceritakan", "jelaskan", "diskusi",
   "mari", "mengobrol", "santai", "sehari", "generasi", "muda",
   "masyarakat", "tradisi", "persaudaraan", "pantun", "persahabatan",
+  "mau", "ingin", "belajar", "bahasa", "dari", "yang", "dalam",
+  "kepada", "oleh", "sebagai", "paling", "abad", "cinta", "sayang",
+  "suka", "berjalan", "menerima", "materi", "jemaat", "kasih",
 ]);
 
 export function detectUserLanguage(userText) {
@@ -633,6 +670,25 @@ export function detectUserLanguage(userText) {
     if (INDONESIAN_CORE_MARKERS.has(w)) idScore += 2;
   }
   return sghScore > 0 && sghScore >= idScore ? "sangihe" : "indonesian";
+}
+
+export function detectTranslationDirection(inputText, requestedDirection = "sangihe_to_id") {
+  const words = (inputText.match(/[a-zA-Zạẹịọụěẹ̌l᷊'-]+/g) || []).map(w => w.toLowerCase());
+  if (!words.length) return requestedDirection;
+  let sghScore = 0;
+  let idScore = 0;
+  for (const w of words) {
+    if (/[ạẹịọụě\u1DCA]/.test(w)) sghScore += 2;
+    if (SANGIHE_CORE_MARKERS.has(w)) sghScore += 2;
+    if (INDONESIAN_CORE_MARKERS.has(w)) idScore += 2;
+  }
+  if (requestedDirection === "sangihe_to_id" && idScore >= 2 && idScore > sghScore * 2) {
+    return "id_to_sangihe";
+  }
+  if (requestedDirection === "id_to_sangihe" && sghScore >= 2 && sghScore > idScore * 2) {
+    return "sangihe_to_id";
+  }
+  return requestedDirection;
 }
 
 export function buildTranslationPrompt(inputText, direction, lexicalEntries, parallelMatches) {

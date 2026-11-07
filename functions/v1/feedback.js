@@ -37,12 +37,21 @@ export async function onRequestPost(context) {
         const idTxt = direction === "sangihe_to_id" ? targetTxt : inputText;
         const saNorm = normalizeSangihe(saTxt).toLowerCase();
         const refId = `USER_FB_${feedbackId}`;
-        await env.DB.prepare(
+        const ins = await env.DB.prepare(
           `INSERT INTO parallel_sentences (source_domain, reference_id, sangihe_text, sangihe_normalized, indonesian_tb, indonesian_bimk)
            VALUES ('user_feedback', ?, ?, ?, ?, ?);`
         )
           .bind(refId, saTxt, saNorm, idTxt, idTxt)
           .run();
+        if (ins && ins.meta && ins.meta.last_row_id) {
+          try {
+            await env.DB.prepare(
+              `INSERT INTO parallel_fts(rowid, sangihe_normalized, indonesian_tb) VALUES (?, ?, ?);`
+            )
+              .bind(ins.meta.last_row_id, saNorm, idTxt)
+              .run();
+          } catch {}
+        }
       }
     }
 
