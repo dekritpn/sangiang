@@ -533,8 +533,12 @@ ${CORE_SANGIHE_GRAMMAR_BLOCK}
 PANDUAN PENERJEMAHAN INDONESIA -> SANGIHE:
 1. Wajib menggunakan ortografi dan tanda diakritik fonemis bahasa Sangihe yang tepat (ạ, ẹ, ị, ọ, ụ, ě, ẹ̌, l᷊).
 2. Terapkan hukum perubahan bunyi (b->w, d->r pasca-vokal; asimilasi nasal; peluluhan -ẹ̌ di depan -e/-u) secara presisi.
-3. Utamakan kosakata dan bentuk berimbuhan yang tersedia di Referensi Kosakata Kamus Sangihe Modern serta Contoh Kalimat Paralel.
-4. HANYA berikan teks hasil terjemahan bahasa Sangihe secara langsung tanpa kalimat pengantar, tanpa tanda kutip pembungkus, dan tanpa penjelasan tambahan.`;
+3. Perhatikan perbedaan kata dasar dan posesif:
+   - 'hapị' = teman/sahabat, 'hapịku' = temanku, 'hapịu' = temanmu, 'hapịe' = temannya (JANGAN menulis 'hapịu' jika teks Indonesia hanya mengatakan 'teman' tanpa '-mu'!).
+   - Frasa genitif kepemilikan kata benda menggunakan partikel 'u' (contoh: 'di rumah teman' = 'su wal᷊e u hapị' atau 'su wal᷊e u hapịku').
+   - 'ulang tahun / hari kelahiran' = 'ěllo kal᷊ě̌biahẹ̌' ('ulang tahunnya' = 'ěllo kal᷊ě̌biahẹ̌e'; 'merayakan' = 'mẹ̌pesta' / 'mẹ̌kal᷊uasẹ̌ su'). Jangan mengarang kata yang tidak ada di kamus!
+4. Utamakan kosakata dan bentuk berimbuhan yang tersedia di Referensi Kosakata Kamus Sangihe Modern serta Contoh Kalimat Paralel.
+5. HANYA berikan teks hasil terjemahan bahasa Sangihe secara langsung tanpa kalimat pengantar, tanpa tanda kutip pembungkus, dan tanpa penjelasan tambahan.`;
 
 export const VERIFIED_CONVERSATIONAL_SANGIHE_BANK = `
 ===========================================================================

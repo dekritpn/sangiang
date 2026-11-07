@@ -27,13 +27,24 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
-const SCANNER_PATH_RE = /(?:^|\/)(?:\.env|\.git|\.aws|\.vscode|\.cursor|phpinfo|wp-admin|wp-login|xmlrpc\.php|actuator|graphql|telescope|_profiler|service-account\.json|firebase-key\.json|google-key\.json|gcp-sa\.json)|\.php$/i;
+const SCANNER_PATH_RE = /(?:^|\/)(?:\.env|\.git|\.svn|\.hg|\.aws|\.vscode|\.cursor|phpinfo|wp-admin|wp-login|wp-content|wp-includes|xmlrpc\.php|actuator|graphql|telescope|_profiler|_environment|service-account\.json|firebase-key\.json|firebase-adminsdk\.json|google-key\.json|google-credentials\.json|gcp-credentials\.json|gcp-sa\.json|sa\.json|keyfile\.json|key\.json)|\.php$/i;
 
 function withCors(response) {
   const headers = new Headers(response.headers);
   for (const [k, v] of Object.entries(CORS_HEADERS)) {
     headers.set(k, v);
   }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
+function withStaticCache(response) {
+  if (!response || response.status !== 200) return response;
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", "public, max-age=86400");
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -52,7 +63,17 @@ export default {
     const path = url.pathname.replace(/\/+$/, "") || "/";
     const method = request.method.toUpperCase();
 
-    // 0. Enforce HTTPS on production domains
+    // 0a. Permanently de-index legacy MediaWiki spam URLs (/wiki/*) with 410 Gone
+    if (path === "/wiki" || path.startsWith("/wiki/")) {
+      return new Response("Gone", { status: 410 });
+    }
+
+    // 0b. Fast-reject automated vulnerability scanner paths BEFORE HTTP->HTTPS redirect
+    if (SCANNER_PATH_RE.test(path)) {
+      return new Response("Not Found", { status: 404 });
+    }
+
+    // 0c. Enforce HTTPS on production domains
     if (
       url.protocol === "http:" &&
       host !== "localhost" &&
@@ -61,11 +82,6 @@ export default {
     ) {
       url.protocol = "https:";
       return Response.redirect(url.toString(), 301);
-    }
-
-    // Fast-reject automated vulnerability scanner paths before touching D1 or ASSETS
-    if (SCANNER_PATH_RE.test(path)) {
-      return new Response("Not Found", { status: 404 });
     }
 
     const context = { request, env, ctx };
@@ -122,24 +138,31 @@ export default {
       host.startsWith("sangiang.");
 
     if (
-      (isRootPortalDomain && !path.startsWith("/static/")) ||
+      (isRootPortalDomain && (path === "/" || path === "/index.html")) ||
       path === "/landing" ||
       path === "/landing/index.html"
     ) {
+      if (method !== "GET" && method !== "HEAD") {
+        return new Response("Method Not Allowed", { status: 405 });
+      }
       return new Response(SANGIHE_LANDING_HTML, {
         status: 200,
         headers: {
           "Content-Type": "text/html; charset=utf-8",
-          "Cache-Control": "public, max-age=60, must-revalidate",
+          "Cache-Control": "public, max-age=300, must-revalidate",
         },
       });
+    }
+
+    if (isRootPortalDomain && !path.startsWith("/static/") && path !== "/favicon.ico") {
+      return new Response("Not Found", { status: 404 });
     }
 
     if (env.ASSETS) {
       if (path === "/favicon.ico") {
         const iconPath = isChatSubdomain ? "/chat/static/sangiang.jpeg" : "/static/sangiang.jpeg";
         const iconUrl = new URL(iconPath, url.origin);
-        return env.ASSETS.fetch(new Request(iconUrl.toString(), request));
+        return withStaticCache(await env.ASSETS.fetch(new Request(iconUrl.toString(), request)));
       }
 
       if (isChatSubdomain) {
@@ -149,8 +172,12 @@ export default {
         }
         if (url.pathname.startsWith("/static/")) {
           const chatStaticUrl = new URL("/chat" + url.pathname, url.origin);
-          return env.ASSETS.fetch(new Request(chatStaticUrl.toString(), request));
+          return withStaticCache(await env.ASSETS.fetch(new Request(chatStaticUrl.toString(), request)));
         }
+      }
+
+      if (url.pathname.startsWith("/static/")) {
+        return withStaticCache(await env.ASSETS.fetch(request));
       }
 
       // Handle directory paths like /chat or /translate without trailing slash
