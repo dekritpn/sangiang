@@ -19,6 +19,7 @@ import { onRequestPost as v1MorphAnalyzePost } from "../functions/v1/morphology/
 import { onRequestGet as apiHealthGet } from "../functions/api/health.js";
 import { onRequestGet as apiModelsGet } from "../functions/api/models.js";
 import { onRequestPost as apiChatPost } from "../functions/api/chat.js";
+import { SANGIHE_LANDING_HTML } from "../functions/_lib/landing_html.js";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -98,14 +99,21 @@ export default {
       host.startsWith("chatbot.") ||
       host.startsWith("sangiang.");
 
-    if (env.ASSETS) {
-      if (isRootPortalDomain) {
-        if (url.pathname === "/" || url.pathname === "/index.html") {
-          const landingUrl = new URL("/landing/", url.origin);
-          return env.ASSETS.fetch(new Request(landingUrl.toString(), request));
-        }
-      }
+    if (
+      (isRootPortalDomain && (path === "/" || path === "/index.html")) ||
+      path === "/landing" ||
+      path === "/landing/index.html"
+    ) {
+      return new Response(SANGIHE_LANDING_HTML, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "public, max-age=60, must-revalidate",
+        },
+      });
+    }
 
+    if (env.ASSETS) {
       if (isChatSubdomain) {
         if (url.pathname === "/" || url.pathname === "/index.html") {
           const chatUrl = new URL("/chat/", url.origin);
@@ -117,11 +125,7 @@ export default {
         }
       }
 
-      // Handle directory paths like /landing, /chat, or /translate without trailing slash
-      if (url.pathname === "/landing") {
-        const landingUrl = new URL("/landing/", url.origin);
-        return env.ASSETS.fetch(new Request(landingUrl.toString(), request));
-      }
+      // Handle directory paths like /chat or /translate without trailing slash
       if (url.pathname === "/chat") {
         const chatUrl = new URL("/chat/", url.origin);
         return env.ASSETS.fetch(new Request(chatUrl.toString(), request));
