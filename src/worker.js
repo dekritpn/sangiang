@@ -88,13 +88,24 @@ export default {
       );
     }
 
-    // 2. Subdomain-aware static asset routing for chat.sangihe.org / sangiang.sangihe.org
+    // 2. Domain & Subdomain-aware static asset routing
+    const isRootPortalDomain =
+      host === "sangihe.org" ||
+      host === "www.sangihe.org";
+
     const isChatSubdomain =
       host.startsWith("chat.") ||
       host.startsWith("chatbot.") ||
       host.startsWith("sangiang.");
 
     if (env.ASSETS) {
+      if (isRootPortalDomain) {
+        if (url.pathname === "/" || url.pathname === "/index.html") {
+          const landingUrl = new URL("/landing/", url.origin);
+          return env.ASSETS.fetch(new Request(landingUrl.toString(), request));
+        }
+      }
+
       if (isChatSubdomain) {
         if (url.pathname === "/" || url.pathname === "/index.html") {
           const chatUrl = new URL("/chat/", url.origin);
@@ -106,7 +117,11 @@ export default {
         }
       }
 
-      // Handle directory paths like /chat or /translate without trailing slash
+      // Handle directory paths like /landing, /chat, or /translate without trailing slash
+      if (url.pathname === "/landing") {
+        const landingUrl = new URL("/landing/", url.origin);
+        return env.ASSETS.fetch(new Request(landingUrl.toString(), request));
+      }
       if (url.pathname === "/chat") {
         const chatUrl = new URL("/chat/", url.origin);
         return env.ASSETS.fetch(new Request(chatUrl.toString(), request));

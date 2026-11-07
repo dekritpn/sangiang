@@ -5,6 +5,8 @@ workers_dev = true
 preview_urls = true
 
 routes = [
+  { pattern = "sangihe.org/*", zone_name = "sangihe.org" },
+  { pattern = "www.sangihe.org/*", zone_name = "sangihe.org" },
   { pattern = "translate.sangihe.org", custom_domain = true },
   { pattern = "chat.sangihe.org", custom_domain = true }
 ]
