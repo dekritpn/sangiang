@@ -54,6 +54,8 @@ if (navChatbotLink) {
   const host = window.location.hostname;
   if (host === "localhost" || host === "127.0.0.1") {
     navChatbotLink.href = "http://localhost:2026";
+  } else if (host.startsWith("dev-") || host === "dev.sangihe.org") {
+    navChatbotLink.href = "https://dev-chat.sangihe.org";
   } else if (host.endsWith(".sangihe.org") || host === "sangihe.org") {
     navChatbotLink.href = "https://chat.sangihe.org";
   } else {

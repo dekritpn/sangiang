@@ -53,6 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const host = window.location.hostname;
     if (host === "localhost" || host === "127.0.0.1") {
       navTranslateLink.href = "http://localhost:8000";
+    } else if (host.startsWith("dev-") || host === "dev.sangihe.org") {
+      navTranslateLink.href = "https://dev-translate.sangihe.org";
     } else if (host.endsWith(".sangihe.org") || host === "sangihe.org") {
       navTranslateLink.href = "https://translate.sangihe.org";
     } else {

@@ -25,10 +25,12 @@ export async function onRequest(context) {
   // 2. Domain & Subdomain-aware static asset routing
   const isRootPortalDomain =
     host === "sangihe.org" ||
-    host === "www.sangihe.org";
+    host === "www.sangihe.org" ||
+    host === "dev.sangihe.org";
 
   const isChatSubdomain =
     host.startsWith("chat.") ||
+    host.startsWith("dev-chat.") ||
     host.startsWith("chatbot.") ||
     host.startsWith("sangiang.");
 

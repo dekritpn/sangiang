@@ -415,7 +415,7 @@
 
     <div class="services-grid">
       <!-- Card 1: Sangiang Translate -->
-      <a href="https://translate.sangihe.org" class="service-card">
+      <a href="https://translate.sangihe.org" id="link-translate" class="service-card">
         <div>
           <div class="card-top-row">
             <div class="service-icon-box">
@@ -428,7 +428,7 @@
                 <path d="M14 18h6"></path>
               </svg>
             </div>
-            <span class="service-tag">Aktif • translate.sangihe.org</span>
+            <span class="service-tag" id="tag-translate">Aktif • translate.sangihe.org</span>
           </div>
           <h2 class="service-title">Sangiang Translate</h2>
           <p class="service-desc">
@@ -445,7 +445,7 @@
       </a>
 
       <!-- Card 2: Sangiang Chat -->
-      <a href="https://chat.sangihe.org" class="service-card">
+      <a href="https://chat.sangihe.org" id="link-chat" class="service-card">
         <div>
           <div class="card-top-row">
             <div class="service-icon-box">
@@ -456,7 +456,7 @@
                 <path d="M16 10h.01"></path>
               </svg>
             </div>
-            <span class="service-tag">Aktif • chat.sangihe.org</span>
+            <span class="service-tag" id="tag-chat">Aktif • chat.sangihe.org</span>
           </div>
           <h2 class="service-title">Sangiang Chat</h2>
           <p class="service-desc">
@@ -480,5 +480,17 @@
     </p>
   </footer>
 
+  <script>
+    if (window.location.hostname === "dev.sangihe.org") {
+      const lt = document.getElementById("link-translate");
+      const tt = document.getElementById("tag-translate");
+      const lc = document.getElementById("link-chat");
+      const tc = document.getElementById("tag-chat");
+      if (lt) lt.href = "https://dev-translate.sangihe.org";
+      if (tt) tt.textContent = "Dev • dev-translate.sangihe.org";
+      if (lc) lc.href = "https://dev-chat.sangihe.org";
+      if (tc) tc.textContent = "Dev • dev-chat.sangihe.org";
+    }
+  </script>
 </body>
 </html>
