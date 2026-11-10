@@ -24,6 +24,7 @@ const btnClearInput = document.getElementById("btn-clear-input");
 const btnCopyOutput = document.getElementById("btn-copy-output");
 const btnSpeakOutput = document.getElementById("btn-speak-output");
 const btnSpeakLabel = document.getElementById("btn-speak-label");
+const selectVoicePreset = document.getElementById("select-voice-preset");
 const inputCharCount = document.getElementById("input-char-count");
 const latencyInfo = document.getElementById("latency-info");
 const diacriticBadge = document.getElementById("diacritic-badge");
@@ -173,6 +174,27 @@ if (btnSpeakOutput) {
     // Jika currentDirection === 'sangihe_to_id', hasil terjemahan adalah Bahasa Indonesia
     // Jika currentDirection === 'id_to_sangihe', hasil terjemahan adalah Bahasa Sangihe
     const isTargetIndonesian = (currentDirection === "sangihe_to_id");
+    const chosenPreset = selectVoicePreset ? selectVoicePreset.value : "male_standard";
+
+    // Konfigurasi kecepatan & pitch untuk preset tertentu
+    let voiceSpeed = 1.0;
+    let voicePitch = 1.0;
+    if (chosenPreset === "male_elder") {
+      voiceSpeed = 0.85;
+      voicePitch = 0.8;
+    } else if (chosenPreset === "female_youthful") {
+      voiceSpeed = 1.15;
+      voicePitch = 1.25;
+    } else if (chosenPreset === "female_natural") {
+      voiceSpeed = 1.0;
+      voicePitch = 1.15;
+    } else if (chosenPreset === "expressive_calm") {
+      voiceSpeed = 0.85;
+      voicePitch = 0.95;
+    } else if (chosenPreset === "expressive_excited") {
+      voiceSpeed = 1.18;
+      voicePitch = 1.1;
+    }
 
     if (isTargetIndonesian) {
       // 1. Pemutaran Native Web Speech API untuk Bahasa Indonesia
@@ -180,12 +202,23 @@ if (btnSpeakOutput) {
         setSpeakingState(true, "Memutar...");
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "id-ID";
-        utterance.rate = 0.95;
+        utterance.rate = voiceSpeed;
+        utterance.pitch = voicePitch;
 
         // Cari suara berbahasa Indonesia terbaik jika tersedia
         const voices = window.speechSynthesis.getVoices();
-        const idVoice = voices.find(v => v.lang.startsWith("id") || v.lang === "id_ID");
-        if (idVoice) utterance.voice = idVoice;
+        const idVoices = voices.filter(v => v.lang.startsWith("id") || v.lang === "id_ID");
+        
+        if (idVoices.length > 0) {
+          // Pilih voice berdasarkan gender preset jika tersedia di browser
+          const preferFemale = chosenPreset.startsWith("female");
+          const matchedVoice = idVoices.find(v => {
+            const name = v.name.toLowerCase();
+            return preferFemale ? (name.includes("female") || name.includes("wanita") || name.includes("gadis"))
+                                : (name.includes("male") || name.includes("pria") || name.includes("laki"));
+          });
+          utterance.voice = matchedVoice || idVoices[0];
+        }
 
         utterance.onend = () => setSpeakingState(false);
         utterance.onerror = (e) => {
@@ -204,7 +237,12 @@ if (btnSpeakOutput) {
         const response = await fetch("/v1/tts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, lang: "sxn" })
+          body: JSON.stringify({
+            text,
+            lang: "sxn",
+            preset: chosenPreset,
+            speed: voiceSpeed
+          })
         });
 
         if (!response.ok) {

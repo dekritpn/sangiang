@@ -28,6 +28,8 @@ export async function onRequestPost(context) {
     const body = await request.json().catch(() => ({}));
     const rawText = String(body.text || "").trim();
     const lang = String(body.lang || "sxn").toLowerCase(); // "sxn" or "id"
+    const preset = String(body.preset || "male_standard");
+    const speed = typeof body.speed === "number" ? body.speed : 1.0;
 
     if (!rawText) {
       return Response.json({ detail: "Parameter 'text' tidak boleh kosong." }, { status: 400 });
@@ -39,6 +41,8 @@ export async function onRequestPost(context) {
         provider: "client-speech-synthesis",
         lang: "id-ID",
         text: rawText,
+        preset,
+        speed,
         message: "Gunakan Web Speech API di peramban untuk bahasa Indonesia (id-ID)."
       });
     }
@@ -52,7 +56,7 @@ export async function onRequestPost(context) {
         const backendResp = await fetch(`${env.TTS_BACKEND_URL.replace(/\/+$/, "")}/synthesize`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: cleanText, lang: "sxn" })
+          body: JSON.stringify({ text: cleanText, lang: "sxn", preset, speed })
         });
 
         if (backendResp.ok) {

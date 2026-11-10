@@ -547,6 +547,34 @@ textarea::placeholder {
   animation: pulse-speaking 1.4s infinite ease-in-out;
 }
 
+.voice-picker-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.select-voice {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-voice:hover, .select-voice:focus {
+  color: var(--text-main);
+  border-color: var(--accent-gold);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.select-voice option {
+  background: #1a1a2e;
+  color: #f1f1f1;
+}
+
 @keyframes pulse-speaking {
   0% {
     opacity: 0.85;
