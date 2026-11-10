@@ -13,6 +13,7 @@
 import { onRequestGet as healthGet } from "../functions/health.js";
 import { onRequestGet as v1ModelsGet } from "../functions/v1/models.js";
 import { onRequestPost as v1TranslatePost } from "../functions/v1/translate.js";
+import { onRequestPost as v1TtsPost } from "../functions/v1/tts.js";
 import { onRequestPost as v1FeedbackPost, onRequestGet as v1FeedbackGet } from "../functions/v1/feedback.js";
 import { onRequestPost as v1DictLookupPost } from "../functions/v1/dictionary/lookup.js";
 import { onRequestPost as v1MorphAnalyzePost } from "../functions/v1/morphology/analyze.js";
@@ -96,6 +97,9 @@ export default {
       }
       if (path === "/v1/translate" && method === "POST") {
         return withCors(await v1TranslatePost(context));
+      }
+      if (path === "/v1/tts" && method === "POST") {
+        return withCors(await v1TtsPost(context));
       }
       if (path === "/v1/feedback" && method === "POST") {
         return withCors(await v1FeedbackPost(context));

@@ -540,6 +540,29 @@ textarea::placeholder {
   background: rgba(255, 255, 255, 0.05);
 }
 
+.btn-subtle.speaking {
+  color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  animation: pulse-speaking 1.4s infinite ease-in-out;
+}
+
+@keyframes pulse-speaking {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+
 .btn-spinner {
   display: none;
   width: 16px;

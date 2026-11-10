@@ -22,6 +22,8 @@ const btnSpinner = document.getElementById("btn-spinner");
 const btnSwapLang = document.getElementById("btn-swap-lang");
 const btnClearInput = document.getElementById("btn-clear-input");
 const btnCopyOutput = document.getElementById("btn-copy-output");
+const btnSpeakOutput = document.getElementById("btn-speak-output");
+const btnSpeakLabel = document.getElementById("btn-speak-label");
 const inputCharCount = document.getElementById("input-char-count");
 const latencyInfo = document.getElementById("latency-info");
 const diacriticBadge = document.getElementById("diacritic-badge");
@@ -134,6 +136,135 @@ btnCopyOutput.addEventListener("click", async () => {
     setTimeout(() => { btnCopyOutput.innerHTML = origHTML; }, 2000);
   }
 });
+
+// Text-to-Speech (TTS) Output Player
+let activeAudio = null;
+
+function setSpeakingState(speaking, labelText = "Dengarkan") {
+  if (!btnSpeakOutput) return;
+  if (speaking) {
+    btnSpeakOutput.classList.add("speaking");
+    btnSpeakOutput.disabled = true;
+    if (btnSpeakLabel) btnSpeakLabel.textContent = labelText;
+  } else {
+    btnSpeakOutput.classList.remove("speaking");
+    btnSpeakOutput.disabled = false;
+    if (btnSpeakLabel) btnSpeakLabel.textContent = "Dengarkan";
+  }
+}
+
+if (btnSpeakOutput) {
+  btnSpeakOutput.addEventListener("click", async () => {
+    const text = outputTextArea.textContent.trim();
+    if (!text || outputTextArea.querySelector(".output-placeholder")) {
+      return;
+    }
+
+    // Hentikan audio yang sedang diputar jika ada
+    if (activeAudio) {
+      activeAudio.pause();
+      activeAudio = null;
+    }
+    if (window.speechSynthesis && window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+
+    // Tentukan bahasa target berdasarkan arah terjemahan aktif
+    // Jika currentDirection === 'sangihe_to_id', hasil terjemahan adalah Bahasa Indonesia
+    // Jika currentDirection === 'id_to_sangihe', hasil terjemahan adalah Bahasa Sangihe
+    const isTargetIndonesian = (currentDirection === "sangihe_to_id");
+
+    if (isTargetIndonesian) {
+      // 1. Pemutaran Native Web Speech API untuk Bahasa Indonesia
+      if ("speechSynthesis" in window) {
+        setSpeakingState(true, "Memutar...");
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "id-ID";
+        utterance.rate = 0.95;
+
+        // Cari suara berbahasa Indonesia terbaik jika tersedia
+        const voices = window.speechSynthesis.getVoices();
+        const idVoice = voices.find(v => v.lang.startsWith("id") || v.lang === "id_ID");
+        if (idVoice) utterance.voice = idVoice;
+
+        utterance.onend = () => setSpeakingState(false);
+        utterance.onerror = (e) => {
+          console.warn("SpeechSynthesis error:", e);
+          setSpeakingState(false);
+        };
+
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert("Peramban Anda belum mendukung Speech Synthesis lokal.");
+      }
+    } else {
+      // 2. Pemutaran Bahasa Sangihe (sxn) via backend /v1/tts
+      setSpeakingState(true, "Menghubungkan...");
+      try {
+        const response = await fetch("/v1/tts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, lang: "sxn" })
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.detail || `HTTP ${response.status}`);
+        }
+
+        const contentType = response.headers.get("Content-Type") || "";
+        if (contentType.includes("application/json")) {
+          const jsonResp = await response.json();
+          // Jika server menginstruksikan fallback atau info konfigurasi
+          alert(jsonResp.detail || jsonResp.message || "Layanan audio Sangihe belum dapat memproses teks ini.");
+          setSpeakingState(false);
+          return;
+        }
+
+        // Response berupa audio binary (WAV / FLAC / MP3)
+        setSpeakingState(true, "Memutar...");
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        activeAudio = new Audio(audioUrl);
+
+        activeAudio.onended = () => {
+          setSpeakingState(false);
+          URL.revokeObjectURL(audioUrl);
+          activeAudio = null;
+        };
+
+        activeAudio.onerror = (e) => {
+          console.error("Audio playback error:", e);
+          alert("Gagal memutar audio pengucapan.");
+          setSpeakingState(false);
+          URL.revokeObjectURL(audioUrl);
+          activeAudio = null;
+        };
+
+        await activeAudio.play();
+      } catch (err) {
+        console.warn("Gagal memutar audio Sangihe:", err);
+        // Fallback lembut: tawarkan peramban speech synthesis jika user ingin mendengarkan
+        if ("speechSynthesis" in window) {
+          const confirmFallback = confirm(
+            "Model audio Sangihe server sedang tidak dapat diakses.\nPutar dengan simulasi suara lokal?"
+          );
+          if (confirmFallback) {
+            setSpeakingState(true, "Memutar...");
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "id-ID";
+            utterance.rate = 0.9;
+            utterance.onend = () => setSpeakingState(false);
+            utterance.onerror = () => setSpeakingState(false);
+            window.speechSynthesis.speak(utterance);
+            return;
+          }
+        }
+        setSpeakingState(false);
+      }
+    }
+  });
+}
 
 // Sample Pills
 document.querySelectorAll(".pill-btn").forEach(btn => {
