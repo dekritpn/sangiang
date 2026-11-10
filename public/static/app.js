@@ -156,8 +156,14 @@ function setSpeakingState(speaking, labelText = "Dengarkan") {
 
 if (btnSpeakOutput) {
   btnSpeakOutput.addEventListener("click", async () => {
-    const text = outputTextArea.textContent.trim();
-    if (!text || outputTextArea.querySelector(".output-placeholder")) {
+    // Ambil teks terjemahan atau teks input jika hasil masih placeholder
+    let text = outputTextArea.textContent.trim();
+    if (outputTextArea.querySelector(".output-placeholder") || !text) {
+      text = inputTextArea.value.trim();
+    }
+    
+    if (!text) {
+      alert("Silakan masukkan teks atau terjemahkan terlebih dahulu.");
       return;
     }
 
